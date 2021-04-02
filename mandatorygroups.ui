@@ -17,7 +17,14 @@
    <item row="0" column="0" rowspan="2">
     <layout class="QGridLayout" name="Table_Layout">
      <item row="0" column="0">
-      <widget class="QTableView" name="MandatoryGroups_Table"/>
+      <widget class="QTableView" name="MandatoryGroups_Table">
+       <attribute name="horizontalHeaderDefaultSectionSize">
+        <number>250</number>
+       </attribute>
+       <attribute name="horizontalHeaderStretchLastSection">
+        <bool>true</bool>
+       </attribute>
+      </widget>
      </item>
     </layout>
    </item>
