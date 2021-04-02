@@ -1,12 +1,15 @@
 #include "users.h"
 #include "ui_users.h"
 #include <QtWidgets>
+
+
 Users::Users(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Users)
 {
     ui->setupUi(this);
     UpdateModels();
+
 
 }
 
@@ -56,6 +59,17 @@ void Users::on_DeleteUser_Button_clicked()
 
 void Users::UpdateModels()
 {
-    users_model.setQuery("SELECT  * FROM users;");
+    int i=0;
+    QVariantList headers_list;
+    headers_list << "Имя пользователя" << "Дата регистрации" << "E-mail адрес" << "Активен(Не заблокирован)" << "Мандатная группа";
+    users_model.setQuery("SELECT  * FROM \"vUsers\";");
+    users_model.removeColumn(0);
+    foreach(headers_list.value(i), headers_list)
+    {
+      users_model.setHeaderData(i, Qt::Horizontal, headers_list.value(i));
+      i++;
+    }
+
+
     ui->users_Table->setModel(&users_model);
 }

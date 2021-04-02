@@ -59,10 +59,16 @@ void MandatoryGroups::on_AddMandatoryGroup_Button_clicked()
 
 void MandatoryGroups::UpdateModels()
 {
-    MandatoryGroups_model.setQuery("SELECT rights.description, rights.\"usersControl\", rights.\"addDevice\", rights.\"editDevice\", rights.\"deleteDevice\",  "
-                                   "rights.\"alertsView\", rights.\"alertsDelete\", rights.\"generalSettingsView\", rights.\"generalSettingsChange\","
-                                   "rights.\"videosView\", rights.\"videosDecrypt\", rights.\"videosDelete\" "
-                                   "FROM rights;");
+    int i=0;
+    QVariantList headers_list;
+    headers_list << "Мандатная группа" << "Управление пользователями" << "Добавление устройств" << "Редактрование устройств" << "Мандатная группа";
+    MandatoryGroups_model.setQuery("SELECT  * FROM rights;");
+    MandatoryGroups_model.removeColumn(0);
+    foreach(headers_list.value(i), headers_list)
+    {
+      MandatoryGroups_model.setHeaderData(i, Qt::Horizontal, headers_list.value(i));
+      i++;
+    }
     ui->MandatoryGroups_Table->setModel(&MandatoryGroups_model);
 
 }
