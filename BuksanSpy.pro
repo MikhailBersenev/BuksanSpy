@@ -21,6 +21,7 @@ SOURCES += \
     cameravideocapture.cpp \
     checkstring.cpp \
     createuser.cpp \
+    datacryptor.cpp \
     devices.cpp \
     editmandatorygroup.cpp \
     eventlog.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     cameravideocapture.h \
     checkstring.h \
     createuser.h \
+    datacryptor.h \
     devices.h \
     editmandatorygroup.h \
     eventlog.h \
