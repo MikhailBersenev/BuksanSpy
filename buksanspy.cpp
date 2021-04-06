@@ -5,6 +5,7 @@
 #include <QMenuBar>
 #include "adddevice.h"
 #include "devices.h"
+#include "eventlog.h"
 BuksanSpy::BuksanSpy(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::BuksanSpy)
@@ -227,4 +228,18 @@ void BuksanSpy::on_ShowDevList_Action_triggered()
  Devices devlist;
  devlist.setModal(true);
  devlist.exec();
+}
+
+
+
+
+
+
+
+void BuksanSpy::on_eventlog_Action_triggered()
+{
+    //Показать форму журнала событий
+    eventlog log;
+    log.setModal(true);
+    log.exec();
 }

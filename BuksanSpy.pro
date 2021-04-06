@@ -23,6 +23,7 @@ SOURCES += \
     createuser.cpp \
     devices.cpp \
     editmandatorygroup.cpp \
+    eventlog.cpp \
     main.cpp \
     buksanspy.cpp \
     mandatorygroups.cpp \
@@ -41,6 +42,7 @@ HEADERS += \
     createuser.h \
     devices.h \
     editmandatorygroup.h \
+    eventlog.h \
     mandatorygroups.h \
     registration.h \
     sendalert.h \
@@ -54,6 +56,7 @@ FORMS += \
     createuser.ui \
     devices.ui \
     editmandatorygroup.ui \
+    eventlog.ui \
     mandatorygroups.ui \
     registration.ui \
     setupconnection.ui \

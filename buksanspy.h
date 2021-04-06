@@ -47,6 +47,11 @@ private slots:
 
     void on_ShowDevList_Action_triggered();
 
+
+
+
+    void on_eventlog_Action_triggered();
+
 private:
     Ui::BuksanSpy *ui;
     CameraVideoCapture *m_cam;
