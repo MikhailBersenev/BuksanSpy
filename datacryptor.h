@@ -9,6 +9,8 @@ class DataCryptor : public QObject
 public:
     explicit DataCryptor(QObject *parent = nullptr);
     QString Encrypt(QString str);
+private:
+int ASCIIValidate(int s);
 
 
 signals:

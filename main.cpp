@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     BuksanSpy w;
   // w.show();
     DataCryptor dc;
-    dc.Encrypt("astralinuxthebestdistroнахой");
+    QString ahj= dc.Encrypt("windows11");
     Authorization auth;
     auth.show();
     return a.exec();
