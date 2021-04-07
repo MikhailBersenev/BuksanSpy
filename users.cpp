@@ -40,11 +40,12 @@ void Users::on_DeleteUser_Button_clicked()
     {
 
         MainQuery = new QSqlQuery;
-        MainQuery->prepare("DELETE FROM users WHERE \"userId\" = :current;");
+        MainQuery->prepare("DELETE FROM users WHERE username = :current;");
         MainQuery->bindValue(":current", users_model.data(users_model.index(ui->users_Table->currentIndex().row(),0)).toString());
-        if(!MainQuery->exec())
+        if(!MainQuery->exec() || users_model.query().value(0).toString()==username)
         {
             qDebug() << "Unable to delete user" << MainQuery->lastError() << MainQuery->lastQuery();
+            QMessageBox::critical(this, "Ошибка", "Не удалось удалить пользователя");
             return;
         }
         else

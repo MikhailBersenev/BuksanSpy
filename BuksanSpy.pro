@@ -1,6 +1,7 @@
 QT       += core gui
 QT       += sql
 QT       += multimedia
+QT       += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -28,6 +29,7 @@ SOURCES += \
     main.cpp \
     buksanspy.cpp \
     mandatorygroups.cpp \
+    networkinfo.cpp \
     registration.cpp \
     sendalert.cpp \
     setupconnection.cpp \
@@ -46,6 +48,7 @@ HEADERS += \
     editmandatorygroup.h \
     eventlog.h \
     mandatorygroups.h \
+    networkinfo.h \
     registration.h \
     sendalert.h \
     setupconnection.h \
@@ -63,7 +66,7 @@ FORMS += \
     registration.ui \
     setupconnection.ui \
     users.ui
-
+RC_FILE = icon.rc
 TRANSLATIONS += \
     BuksanSpy_ru_RU.ts
 
@@ -71,3 +74,5 @@ TRANSLATIONS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES +=

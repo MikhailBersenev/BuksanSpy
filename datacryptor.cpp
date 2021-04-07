@@ -15,7 +15,6 @@ QString DataCryptor::Encrypt(QString str)
     //Меняем символы местами
     for (int i=0;i<str.length();i++) {
         int disp = i+2;
-        qDebug() << disp;
         if(disp<str.length())
         {
             first +=str[disp];
@@ -26,8 +25,6 @@ QString DataCryptor::Encrypt(QString str)
     }
     //берем часть символов справа и слева и соединяем их
     second = first.right(first.length()/3)+first.left(first.length()/3);
-    qDebug() << first;
-    qDebug() << second;
     //Шифр 1:
     for (int i=0; i<second.length();i++)
     {
@@ -35,7 +32,6 @@ QString DataCryptor::Encrypt(QString str)
         third +=(QChar)ascii_result;
 
     }
-     qDebug() << third;
      //Шифр 2:
     for(int i=0; i<third.length(); i++)
     {

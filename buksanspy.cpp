@@ -4,6 +4,7 @@
 #include <QtWidgets>
 #include <QMenuBar>
 #include "adddevice.h"
+#include "networkinfo.h"
 #include "devices.h"
 #include "eventlog.h"
 BuksanSpy::BuksanSpy(QWidget *parent)
@@ -11,7 +12,8 @@ BuksanSpy::BuksanSpy(QWidget *parent)
     , ui(new Ui::BuksanSpy)
 {
     ui->setupUi(this);
-    
+
+
     
     
     
@@ -20,6 +22,16 @@ BuksanSpy::BuksanSpy(QWidget *parent)
 BuksanSpy::~BuksanSpy()
 {
     delete ui;
+}
+
+void BuksanSpy::SetTitle()
+{
+    NetworkInfo ip;
+    AccessManager_var = new AccessManager(this);
+    //Назначение заголовка окна
+    setWindowTitle(ip.GetIPAddress()+" "+"Пользователь: "+username+"("+AccessManager_var->GetMandatoryGroup(username)+") - BuksanSpy");
+    delete AccessManager_var;
+
 }
 
 
@@ -37,7 +49,7 @@ void BuksanSpy::on_pushButton_2_clicked()
     m_cam = new CameraVideoCapture(this);
     m_cam->isRecording = false;
     m_cam->ConnectionString = "0";
-    m_cam->mVideoCap =cv::VideoCapture(0);
+    m_cam->mVideoCap =cv::VideoCapture(0, cv::CAP_V4L2);
     m_cam->mVideoCap.set(cv::CAP_PROP_FRAME_WIDTH,640);
     m_cam->mVideoCap.set(cv::CAP_PROP_FRAME_HEIGHT,480);
     m_cam->name = "hello.avi";
@@ -107,10 +119,10 @@ void BuksanSpy::on_pushButton_4_clicked()
         CameraVideoCapture_var->isRecording = false;
         switch (devices.value(1).toInt()) {
         case 1:
-            CameraVideoCapture_var->mVideoCap = cv::VideoCapture(devices.value(0).toInt());
+            CameraVideoCapture_var->mVideoCap = cv::VideoCapture(devices.value(0).toInt(), cv::CAP_V4L2);
             break;
         case 2:
-            CameraVideoCapture_var->mVideoCap = cv::VideoCapture(devices.value(0).toString().toStdString());
+            CameraVideoCapture_var->mVideoCap = cv::VideoCapture(devices.value(0).toString().toStdString(), cv::CAP_V4L2);
             break;
 
         }
@@ -187,7 +199,7 @@ void BuksanSpy::on_InitCams_action_triggered()
         CamRotate = new QTransform;
         CameraVideoCapture_var = new CameraVideoCapture(this);
         CameraVideoCapture_var->isRecording = false;
-        CameraVideoCapture_var->mVideoCap = cv::VideoCapture(devices.value(0).toInt());
+        CameraVideoCapture_var->mVideoCap = cv::VideoCapture(devices.value(0).toInt(),cv::CAP_V4L2);
         CameraVideoCapture_var->mVideoCap.set(cv::CAP_PROP_FRAME_WIDTH, devices.value(2).toInt());
         CameraVideoCapture_var->mVideoCap.set(cv::CAP_PROP_FRAME_HEIGHT, devices.value(3).toInt());
         CamRotate->rotate(devices.value(2).toDouble());

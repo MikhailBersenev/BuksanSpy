@@ -1,4 +1,5 @@
 #include "sendalert.h"
+#include "networkinfo.h"
 #include <QDebug>
 SendAlert::SendAlert(QObject *parent) : QObject(parent)
 {
@@ -7,10 +8,12 @@ SendAlert::SendAlert(QObject *parent) : QObject(parent)
 void SendAlert::prepare()
 { /*Подготовка SQL запроса и получение констант */
     MainQuery = new QSqlQuery;
-    MainQuery->prepare("INSERT INTO alerts (\"user\", time, date, unixtime, signature)"
-                       " VALUES (:user, :time, :date, :unixtime, :signature);");
+    NetworkInfo ip;
+    MainQuery->prepare("INSERT INTO alerts (\"user\", time, date, unixtime, signature, host, device)"
+                       " VALUES (:user, :time, :date, :unixtime, :signature, :host, 25);");
     MainQuery->bindValue(":time", QTime::currentTime());
     MainQuery->bindValue(":date", QDate::currentDate());
+    MainQuery->bindValue(":host", ip.GetIPAddress());
     MainQuery->bindValue(":unixtime", QDateTime::currentSecsSinceEpoch());
 }
 void SendAlert::setUser(QString user)

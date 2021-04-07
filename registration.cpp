@@ -1,5 +1,6 @@
 #include "registration.h"
 #include "ui_registration.h"
+#include "datacryptor.h"
 #include <QtWidgets>
 #include <QDate>
 #include <QDebug>
@@ -9,6 +10,7 @@ Registration::Registration(QWidget *parent) :
     ui(new Ui::Registration)
 {
     ui->setupUi(this);
+
 }
 
 Registration::~Registration()
@@ -35,7 +37,7 @@ void Registration::on_ShowPassword_CheckBox_stateChanged(int arg1)
 void Registration::on_TryToRegister_Button_clicked()
 {
     CheckStr_var = new CheckString(this);
-
+    DataCryptor CryptPassword;
     if(ui->Login_Edit->text().isEmpty() or ui->Password_Edit->text().isEmpty() or ui->RepeatPassword_Edit->text().isEmpty())
     {
         QMessageBox::warning(this, "Внимание!", "Поля не могут быть пустыми");
@@ -52,7 +54,7 @@ if(!(CheckStr_var->CheckPassword(ui->Password_Edit->text(), ui->RepeatPassword_E
             CreateUser_Query = new QSqlQuery;
             CreateUser_Query->prepare("INSERT INTO users (username, password, email, \"addDate\", rights) VALUES (:username, :password, :email, :date, 2);");
             CreateUser_Query->bindValue(":username", ui->Login_Edit->text());
-            CreateUser_Query->bindValue(":password", ui->Password_Edit->text());
+            CreateUser_Query->bindValue(":password", CryptPassword.Encrypt(ui->Password_Edit->text()));
             CreateUser_Query->bindValue(":email", ui->Email_Edit->text());
             CreateUser_Query->bindValue(":date", QDate::currentDate());
             if(!CreateUser_Query->exec())

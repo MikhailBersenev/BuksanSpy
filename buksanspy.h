@@ -20,6 +20,7 @@ public:
     ~BuksanSpy();
     QString username;
     QTransform trans;
+    void SetTitle();
     int camc;
 
 private slots:

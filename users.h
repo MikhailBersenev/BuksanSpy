@@ -32,6 +32,7 @@ private:
     Ui::Users *ui;
     QSqlQuery *MainQuery;
     AccessManager *AccessManager_var;
+
 };
 
 #endif // USERS_H

@@ -1,13 +1,15 @@
 #include "authorization.h"
 #include "ui_authorization.h"
 #include <QtWidgets>
+#include "datacryptor.h"
 Authorization::Authorization(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Authorization)
 {
     ui->setupUi(this);
     connect(this, SIGNAL(expired()), this,  SLOT(attempts_expired()));
-
+    Counter=0;
+setWindowIcon(QIcon("./icon.png"));
 
 
 }
@@ -26,6 +28,7 @@ void Authorization::on_GoToSetupConnection_Button_clicked()
 
 void Authorization::on_TryLogin_Button_clicked()
 {
+    DataCryptor passwordCrypt;
     //Проверка на соедиение с базой данных
     if(!SetupConnection_var.db.open()) { //если нет то выводим сообщение и открываем форму настройки
         QMessageBox::warning(this, "Ошибка", "Отсутствует соединение с базой данных");
@@ -46,7 +49,7 @@ void Authorization::on_TryLogin_Button_clicked()
             MainQuery->first();
             int current = QDateTime::currentSecsSinceEpoch();
             int bantime = current-MainQuery->value(7).toInt();
-            if(!MainQuery->value(6).toBool() and bantime>1800) {
+            if(!MainQuery->value(6).toBool() and bantime>1800 and !MainQuery->value(0).isNull()) {
                 MainQuery->clear();
                 MainQuery->prepare("UPDATE users SET active = true, bantimestamp=0 WHERE username = :username;");
                 MainQuery->bindValue(":username", ui->Login_Edit->text());
@@ -62,7 +65,7 @@ void Authorization::on_TryLogin_Button_clicked()
                 delete SendAlert_var;
                 MainQuery->first();
             }
-            if(ui->Login_Edit->text()==MainQuery->value(1).toString() and ui->Password_Edit->text()==MainQuery->value(2).toString() and MainQuery->value(6).toBool())
+            if(ui->Login_Edit->text()==MainQuery->value(1).toString() and passwordCrypt.Encrypt(ui->Password_Edit->text())==MainQuery->value(2).toString() and MainQuery->value(6).toBool())
             {
 
                 close(); //Закрытие формы авторизации
@@ -71,9 +74,9 @@ void Authorization::on_TryLogin_Button_clicked()
                 SendAlert_var->setUser(ui->Login_Edit->text()); //Присвоение имени пользователя
                 SendAlert_var->setSignature(1);                 //Присвоение сигнатуры события
                 SendAlert_var->send();                          //Отправка события
-                delete MainQuery; //удаление динамического  объекта запроса
                 delete SendAlert_var; //Удаление динамического объекта посылателя сообщений
                 DashBoard.username = ui->Login_Edit->text();
+                DashBoard.SetTitle();
                 DashBoard.show(); //Отображение главной формы
             }
             else
@@ -86,11 +89,12 @@ void Authorization::on_TryLogin_Button_clicked()
                 SendAlert_var->setUser(ui->Login_Edit->text());
                 SendAlert_var->send();
                 Counter++;
-                if(Counter>5)
+                if(Counter>5 && MainQuery->size() !=0)
                 {
                     emit expired();
                 }
                 delete  SendAlert_var;
+                delete MainQuery; //удаление динамического  объекта запроса
             }
 
 
