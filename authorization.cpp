@@ -72,7 +72,7 @@ void Authorization::on_TryLogin_Button_clicked()
                 SendAlert_var = new SendAlert; //Создание динамического объекта посылателя событий
                 SendAlert_var->prepare(); //Подготовка события
                 SendAlert_var->setUser(ui->Login_Edit->text()); //Присвоение имени пользователя
-                SendAlert_var->setSignature(1);                 //Присвоение сигнатуры события
+                SendAlert_var->setSignature(2);                 //Присвоение сигнатуры события
                 SendAlert_var->send();                          //Отправка события
                 delete SendAlert_var; //Удаление динамического объекта посылателя сообщений
                 DashBoard.username = ui->Login_Edit->text();

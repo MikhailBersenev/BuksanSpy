@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
     NetworkInfo ip;
     qDebug() << ip.GetIPAddress();
     Authorization auth;
+    QTimer abc;
     auth.show();
     return a.exec();
 }

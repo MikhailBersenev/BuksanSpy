@@ -20,7 +20,8 @@ bool SetupConnection::CreateConnection(QString HostName, QString DBName, QString
     {
         SendAlert_var = new SendAlert; //Создание динамического объекта посылателя событий
         SendAlert_var->prepare(); //Подготовка события
-        SendAlert_var->setSignature(2);                 //Присвоение сигнатуры события
+        SendAlert_var->setUser("SYSTEM");
+        SendAlert_var->setSignature(1);                 //Присвоение сигнатуры события
         SendAlert_var->send();                          //Отправка события
         delete SendAlert_var; //Удаление динамического объекта посылателя сообщений
         return true;

@@ -9,12 +9,13 @@ void SendAlert::prepare()
 { /*Подготовка SQL запроса и получение констант */
     MainQuery = new QSqlQuery;
     NetworkInfo ip;
-    MainQuery->prepare("INSERT INTO alerts (\"user\", time, date, unixtime, signature, host, device)"
-                       " VALUES (:user, :time, :date, :unixtime, :signature, :host, 25);");
+    MainQuery->prepare("INSERT INTO alerts (\"user\", time, date, unixtime, signature, host, \"fullLog\")"
+                       " VALUES (:user, :time, :date, :unixtime, :signature, :host, :fulllog);");
     MainQuery->bindValue(":time", QTime::currentTime());
     MainQuery->bindValue(":date", QDate::currentDate());
     MainQuery->bindValue(":host", ip.GetIPAddress());
     MainQuery->bindValue(":unixtime", QDateTime::currentSecsSinceEpoch());
+
 }
 void SendAlert::setUser(QString user)
 {
@@ -27,14 +28,21 @@ void SendAlert::setUser(QString user)
     }
     FindItem_Query->first();
     MainQuery->bindValue(":user", FindItem_Query->value(0).toInt());
+    fldata = user;
     delete FindItem_Query;
 }
 void SendAlert::setSignature(qint16 signature)
 {
     MainQuery->bindValue(":signature", signature);
 }
+
+void SendAlert::setDevice(QString device)
+{
+    fldata+=device;
+}
 bool SendAlert::send()
 {
+    MainQuery->bindValue(":fulllog", CreateFullLog(fldata));
     if(!MainQuery->exec()) {
         qDebug() << "Unable to send alert " << MainQuery->lastError() << MainQuery->lastQuery();
         delete MainQuery;
@@ -43,6 +51,17 @@ bool SendAlert::send()
     else
     {
         delete MainQuery;
+        fldata.clear();
         return true;
     }
 }
+
+QString SendAlert::CreateFullLog(QString data)
+{
+   NetworkInfo ip;
+   QString result;
+   result=ip.GetIPAddress()+" "+QDateTime::currentDateTimeUtc().toString()+" "+data;
+   return result;
+}
+
+

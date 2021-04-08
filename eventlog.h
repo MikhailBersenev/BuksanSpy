@@ -1,6 +1,6 @@
 #ifndef EVENTLOG_H
 #define EVENTLOG_H
-
+#include <QtSql>
 #include <QDialog>
 
 namespace Ui {
@@ -17,6 +17,8 @@ public:
 
 private:
     Ui::eventlog *ui;
+    QSqlQueryModel *alerts_model;
+    void UpdateModels();
 };
 
 #endif // EVENTLOG_H
