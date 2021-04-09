@@ -17,7 +17,7 @@ signals:
 private:
 QTimer *timer;
 SendAlert *SendAlert_var;
-QNetworkConfigurationManager *man;
+int previousstate;
 
 private slots:
 void CheckInternet();
