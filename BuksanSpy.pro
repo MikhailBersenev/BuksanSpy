@@ -20,6 +20,7 @@ SOURCES += \
     adddevice.cpp \
     authorization.cpp \
     cameravideocapture.cpp \
+    checkconnection.cpp \
     checkstring.cpp \
     createuser.cpp \
     datacryptor.cpp \
@@ -41,6 +42,7 @@ HEADERS += \
     authorization.h \
     buksanspy.h \
     cameravideocapture.h \
+    checkconnection.h \
     checkstring.h \
     createuser.h \
     datacryptor.h \

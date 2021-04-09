@@ -19,7 +19,7 @@ eventlog::~eventlog()
 void eventlog::UpdateModels()
 {
     QVariantList headers_list;
-    headers_list << "IP Адрес" << "Пользователь" << "Время" << "Дата" << "Событие" << "Подробно";
+    headers_list << "IP Адрес" << "Пользователь" << "Время" << "Дата" << "Событие" << "Тип события" << "Подробно";
     int i;
     alerts_model = new QSqlQueryModel(this);
     alerts_model->setQuery("SELECT * FROM \"vAlerts\" ORDER BY timestamp ASC;");

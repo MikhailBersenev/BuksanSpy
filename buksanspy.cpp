@@ -7,11 +7,13 @@
 #include "networkinfo.h"
 #include "devices.h"
 #include "eventlog.h"
+#include "checkconnection.h"
 BuksanSpy::BuksanSpy(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::BuksanSpy)
 {
     ui->setupUi(this);
+
 
 
     

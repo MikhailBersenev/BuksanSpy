@@ -6,6 +6,7 @@
 #include "setupconnection.h"
 #include "buksanspy.h"
 #include "registration.h"
+#include "checkconnection.h"
 
 namespace Ui {
 class Authorization;
@@ -36,6 +37,7 @@ private:
     BuksanSpy DashBoard;
     SendAlert *SendAlert_var;
     Registration Registration_var;
+    CheckConnection *check;
     int Counter;
 signals:
     void expired();

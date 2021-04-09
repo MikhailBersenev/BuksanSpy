@@ -10,8 +10,6 @@ Authorization::Authorization(QWidget *parent) :
     connect(this, SIGNAL(expired()), this,  SLOT(attempts_expired()));
     Counter=0;
 setWindowIcon(QIcon("./icon.png"));
-
-
 }
 
 Authorization::~Authorization()
@@ -77,6 +75,9 @@ void Authorization::on_TryLogin_Button_clicked()
                 delete SendAlert_var; //Удаление динамического объекта посылателя сообщений
                 DashBoard.username = ui->Login_Edit->text();
                 DashBoard.SetTitle();
+                CheckConnection*  check = new CheckConnection(this);
+                  check->username = ui->Login_Edit->text();
+                  check->start(QThread::LowPriority);
                 DashBoard.show(); //Отображение главной формы
             }
             else

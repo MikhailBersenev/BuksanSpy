@@ -5,6 +5,7 @@
 #include "accessmanager.h"
 #include "users.h"
 #include "mandatorygroups.h"
+#include "checkconnection.h"
 #include <QtWidgets>
 #include <cameravideocapture.h>
 QT_BEGIN_NAMESPACE
@@ -22,6 +23,7 @@ public:
     QTransform trans;
     void SetTitle();
     int camc;
+
 
 private slots:
 
@@ -65,6 +67,7 @@ private:
     QTransform *CamRotate;
     QLabel *CameraView_Label;
     CameraVideoCapture *CameraVideoCapture_var;
+
     
 
 };

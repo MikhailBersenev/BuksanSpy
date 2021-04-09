@@ -1,7 +1,7 @@
 #include "networkinfo.h"
 #include <QHostAddress>
 #include <QNetworkInterface>
-NetworkInfo::NetworkInfo(QObject *parent) : QObject(parent)
+NetworkInfo::NetworkInfo(QObject *parent) : QNetworkConfigurationManager(parent)
 {
 
 }
@@ -16,3 +16,7 @@ QString NetworkInfo::GetIPAddress() //Получение местного IP
     }
     return result;
 }
+
+
+
+
