@@ -17,12 +17,12 @@ eventlog::~eventlog()
 }
 
 void eventlog::UpdateModels()
-{
+{ //Задаем заголовки столбцов и модель
     QVariantList headers_list;
     headers_list << "IP Адрес" << "Пользователь" << "Время" << "Дата" << "Событие" << "Тип события" << "Подробно";
     int i;
     alerts_model = new QSqlQueryModel(this);
-    alerts_model->setQuery("SELECT * FROM \"vAlerts\" ORDER BY timestamp ASC;");
+    alerts_model->setQuery("SELECT * FROM \"vAlerts\" ORDER BY timestamp DESC;");
     alerts_model->removeColumn(0);
     alerts_model->removeColumn(4);
     ui->alerts_table->setColumnWidth(0,250);

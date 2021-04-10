@@ -52,7 +52,7 @@ if(!(CheckStr_var->CheckPassword(ui->Password_Edit->text(), ui->RepeatPassword_E
         else
         {
             CreateUser_Query = new QSqlQuery;
-            CreateUser_Query->prepare("INSERT INTO users (username, password, email, \"addDate\", rights) VALUES (:username, :password, :email, :date, 2);");
+            CreateUser_Query->prepare("INSERT INTO users (username, password, email, \"addDate\", active, rights) VALUES (:username, :password, :email, :date, true, 2);");
             CreateUser_Query->bindValue(":username", ui->Login_Edit->text());
             CreateUser_Query->bindValue(":password", CryptPassword.Encrypt(ui->Password_Edit->text()));
             CreateUser_Query->bindValue(":email", ui->Email_Edit->text());
