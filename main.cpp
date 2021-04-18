@@ -9,7 +9,6 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    a.setWindowIcon(QIcon("icon.png"));
   //  BuksanSpy w;
  //  w.show();
     DataCryptor dc;

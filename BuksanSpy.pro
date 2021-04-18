@@ -23,6 +23,7 @@ SOURCES += \
     checkconnection.cpp \
     checkstring.cpp \
     createuser.cpp \
+    databaseconnection.cpp \
     datacryptor.cpp \
     devices.cpp \
     editmandatorygroup.cpp \
@@ -45,6 +46,7 @@ HEADERS += \
     checkconnection.h \
     checkstring.h \
     createuser.h \
+    databaseconnection.h \
     datacryptor.h \
     devices.h \
     editmandatorygroup.h \
@@ -68,7 +70,6 @@ FORMS += \
     registration.ui \
     setupconnection.ui \
     users.ui
-RC_FILE = icon.rc
 TRANSLATIONS += \
     BuksanSpy_ru_RU.ts
 

@@ -20,13 +20,14 @@ public:
     QSqlQueryModel users_model;
     CreateUser *CreateUser_var;
     QString username;
+    void UpdateModels();
 
 
 private slots:
     void on_AddUser_Button_clicked();
 
     void on_DeleteUser_Button_clicked();
-    void UpdateModels();
+
 
 private:
     Ui::Users *ui;

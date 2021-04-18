@@ -60,7 +60,12 @@
         </item>
         <item>
          <property name="text">
-          <string/>
+          <string>По сигнатуре</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>По типу события</string>
          </property>
         </item>
         <item>
@@ -70,12 +75,17 @@
         </item>
         <item>
          <property name="text">
+          <string>По времени</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
           <string>По дате</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Новый элемент</string>
+          <string>По доп. информации</string>
          </property>
         </item>
        </widget>

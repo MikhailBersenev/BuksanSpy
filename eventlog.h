@@ -15,10 +15,19 @@ public:
     explicit eventlog(QWidget *parent = nullptr);
     ~eventlog();
 
+
+
+private slots:
+    void on_TryFind_Button_clicked();
+    void UpdateModels();
+
+
+    void on_StrToSearch_Edit_textChanged(const QString &arg1);
+
 private:
     Ui::eventlog *ui;
     QSqlQueryModel *alerts_model;
-    void UpdateModels();
+
 };
 
 #endif // EVENTLOG_H

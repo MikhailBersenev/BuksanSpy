@@ -54,6 +54,8 @@ private slots:
 
 
     void on_eventlog_Action_triggered();
+    void UpdateModels();
+    void Subscribe();
 
 private:
     Ui::BuksanSpy *ui;
@@ -67,6 +69,7 @@ private:
     QTransform *CamRotate;
     QLabel *CameraView_Label;
     CameraVideoCapture *CameraVideoCapture_var;
+
 
     
 

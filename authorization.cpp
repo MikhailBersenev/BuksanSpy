@@ -9,7 +9,7 @@ Authorization::Authorization(QWidget *parent) :
     ui->setupUi(this);
     connect(this, SIGNAL(expired()), this,  SLOT(attempts_expired()));
     Counter=0;
-    setWindowIcon(QIcon("./icon.png"));
+
 }
 
 Authorization::~Authorization()
@@ -28,7 +28,7 @@ void Authorization::on_TryLogin_Button_clicked()
 {
     DataCryptor passwordCrypt;
     //Проверка на соедиение с базой данных
-    if(!SetupConnection_var.db.open()) { //если нет то выводим сообщение и открываем форму настройки
+    if(!SetupConnection_var.PostgresConnection->db.open()) { //если нет то выводим сообщение и открываем форму настройки
         QMessageBox::warning(this, "Ошибка", "Отсутствует соединение с базой данных");
         SetupConnection_var.exec();
     }
@@ -76,9 +76,9 @@ void Authorization::on_TryLogin_Button_clicked()
                     delete SendAlert_var; //Удаление динамического объекта посылателя сообщений
                     DashBoard.username = ui->Login_Edit->text();
                     DashBoard.SetTitle();
-                    CheckConnection*  check = new CheckConnection(this);
+                    check = new CheckConnection(this);
                     check->username = ui->Login_Edit->text();
-                    check->start(QThread::LowPriority);
+                   // check->start();
                     DashBoard.show(); //Отображение главной формы
                 }
                 else
@@ -118,7 +118,7 @@ void Authorization::on_TryLogin_Button_clicked()
 
 void Authorization::on_GotToRegistration_Button_clicked()
 {
-    if(!SetupConnection_var.db.open())
+    if(!SetupConnection_var.PostgresConnection->db.open())
     {
         QMessageBox::warning(this, "Ошибка", "отсутствует соединение с базой данных");
         SetupConnection_var.exec();

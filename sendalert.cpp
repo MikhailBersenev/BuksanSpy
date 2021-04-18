@@ -18,7 +18,7 @@ void SendAlert::prepare()
 
 }
 void SendAlert::setUser(QString user)
-{
+{ //Бинд пользователя
     FindItem_Query = new QSqlQuery;
     FindItem_Query->prepare("SELECT \"userId\", \"username\" FROM \"users\" WHERE \"username\"= :user;");
     FindItem_Query->bindValue(":user", user);
@@ -32,16 +32,16 @@ void SendAlert::setUser(QString user)
     delete FindItem_Query;
 }
 void SendAlert::setSignature(qint16 signature)
-{
+{ //Бинд сигнатуры
     MainQuery->bindValue(":signature", signature);
 }
 
 void SendAlert::setDevice(QString device)
-{
+{ //Добавление информации о камере
     fldata+=device;
 }
 bool SendAlert::send()
-{
+{ //Отправка
     MainQuery->bindValue(":fulllog", CreateFullLog(fldata));
     if(!MainQuery->exec()) {
         qDebug() << "Unable to send alert " << MainQuery->lastError() << MainQuery->lastQuery();
@@ -57,7 +57,7 @@ bool SendAlert::send()
 }
 
 QString SendAlert::CreateFullLog(QString data)
-{
+{ //Создание строки подробной информации
    NetworkInfo ip;
    QString result;
    result=ip.GetIPAddress()+" "+QDateTime::currentDateTimeUtc().toString()+" "+data;

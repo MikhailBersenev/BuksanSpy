@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QtSql>
 #include "setupconnection.h"
+#include "databaseconnection.h"
 #include "buksanspy.h"
 #include "registration.h"
 #include "checkconnection.h"
@@ -19,7 +20,7 @@ class Authorization : public QDialog
 public:
     explicit Authorization(QWidget *parent = nullptr);
     ~Authorization();
-
+CheckConnection *check;
 private slots:
     void on_GoToSetupConnection_Button_clicked();
 
@@ -37,7 +38,8 @@ private:
     BuksanSpy DashBoard;
     SendAlert *SendAlert_var;
     Registration Registration_var;
-    CheckConnection *check;
+    DataBaseConnection PostgresConnection;
+
     int Counter;
 signals:
     void expired();

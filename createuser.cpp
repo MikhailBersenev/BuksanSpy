@@ -23,10 +23,12 @@ void CreateUser::on_ShowPassword_CheckBox_stateChanged(int arg1)
     if(!ui->ShowPassword_CheckBox->isChecked())
     {
         ui->Password_Edit->setEchoMode(QLineEdit::Password);
+        ui->RepeatPassword_Edit->setEchoMode(QLineEdit::Password);
     }
     else
     {
         ui->Password_Edit->setEchoMode(QLineEdit::Normal);
+        ui->RepeatPassword_Edit->setEchoMode(QLineEdit::Normal);
     }
 }
 

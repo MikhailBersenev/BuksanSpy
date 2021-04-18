@@ -5,20 +5,15 @@
 #include <QTimer>
 #include <QDebug>
 #include "sendalert.h"
-CheckConnection::CheckConnection(QObject *parent) : QThread(parent)
+CheckConnection::CheckConnection(QObject *parent) : QTimer(parent)
 {
-    timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(CheckInternet()));
-    timer->setInterval(30000);
-    timer->start();
+
+    connect(this, SIGNAL(timeout()), this, SLOT(CheckInternet()));
+    setInterval(30000);
+
 }
 
-CheckConnection::~CheckConnection()
-{
-    delete timer;
 
-
-}
 
 void CheckConnection::CheckInternet()
 {

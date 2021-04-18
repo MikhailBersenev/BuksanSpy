@@ -5,17 +5,16 @@
 #include <QNetworkConfigurationManager>
 #include <QTimer>
 #include "sendalert.h"
-class CheckConnection : public QThread
+class CheckConnection : public QTimer
 {
     Q_OBJECT
 public:
     explicit CheckConnection(QObject *parent = nullptr);
     QString username;
-    ~CheckConnection();
+
 
 signals:
 private:
-QTimer *timer;
 SendAlert *SendAlert_var;
 int previousstate;
 

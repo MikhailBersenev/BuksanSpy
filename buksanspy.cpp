@@ -8,6 +8,7 @@
 #include "devices.h"
 #include "eventlog.h"
 #include "checkconnection.h"
+#include "setupconnection.h"
 BuksanSpy::BuksanSpy(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::BuksanSpy)
@@ -23,6 +24,7 @@ BuksanSpy::BuksanSpy(QWidget *parent)
 
 BuksanSpy::~BuksanSpy()
 {
+
     delete ui;
 }
 
@@ -181,7 +183,7 @@ void BuksanSpy::on_MandatoryGroups_Action_triggered()
 
 void BuksanSpy::on_pushButton_3_clicked()
 {
-    //QMessageBox::information(this, "Добро пожаловать!, mikhail!", "Вы являетесь членом группы buksan-admin");
+
 }
 
 
@@ -256,4 +258,17 @@ void BuksanSpy::on_eventlog_Action_triggered()
     eventlog log;
     log.setModal(true);
     log.exec();
+}
+
+void BuksanSpy::UpdateModels()
+{
+    qDebug() << "new event";
+}
+
+void BuksanSpy::Subscribe()
+{
+    DataBaseConnection PostgresConnection;
+    PostgresConnection.db.driver()->subscribeToNotification("delete_alerts_notf");
+    PostgresConnection.db.driver()->subscribeToNotification("insert_alerts_notf");
+    connect(PostgresConnection.db.driver(), SIGNAL(notification(QString)), this, SLOT(UpdateModels()));
 }

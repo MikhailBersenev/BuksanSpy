@@ -17,12 +17,13 @@ public:
     explicit MandatoryGroups(QWidget *parent = nullptr);
     ~MandatoryGroups();
     QString username;
+    void UpdateModels();
 
 private slots:
     void on_DeleteMandatoryGroup_Button_clicked();
 
     void on_AddMandatoryGroup_Button_clicked();
-    void UpdateModels();
+
 
 private:
     Ui::MandatoryGroups *ui;
