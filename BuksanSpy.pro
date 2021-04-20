@@ -6,8 +6,8 @@ QT       += network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
-INCLUDEPATH +="/usr/local/opencv/include/opencv4"
-LIBS += -L"/usr/local/opencv/lib/"
+INCLUDEPATH +="/usr/local/include/opencv4"
+LIBS += -L"/usr/local/lib/"
 LIBS += \
 -lopencv_calib3d -lopencv_imgproc -lopencv_core -lopencv_ml -lopencv_videoio -lopencv_features2d -lopencv_objdetect -lopencv_flann -lopencv_video -lopencv_highgui
 

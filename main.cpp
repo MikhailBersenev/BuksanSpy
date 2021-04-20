@@ -9,8 +9,8 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-  //  BuksanSpy w;
- //  w.show();
+    BuksanSpy w;
+   w.show();
     DataCryptor dc;
     QNetworkConfigurationManager nrd;
     qDebug() << nrd.isOnline();
@@ -20,6 +20,6 @@ int main(int argc, char *argv[])
     qDebug() << ip.GetIPAddress();
     Authorization auth;
     QTimer abc;
-    auth.show();
+    //auth.show();
     return a.exec();
 }
