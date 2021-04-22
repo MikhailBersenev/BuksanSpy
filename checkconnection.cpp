@@ -29,7 +29,7 @@ void CheckConnection::CheckInternet()
         SendAlert *SendAlert_var = new SendAlert(this);
         SendAlert_var->prepare();
         SendAlert_var->setUser(username);
-        SendAlert_var->setSignature(17);
+        SendAlert_var->setSignature(13);
         SendAlert_var->send();
         previousstate = reply->bytesAvailable();
         delete SendAlert_var;
@@ -41,7 +41,7 @@ void CheckConnection::CheckInternet()
         SendAlert_var = new SendAlert(this);
         SendAlert_var->prepare();
         SendAlert_var->setUser(username);
-        SendAlert_var->setSignature(18);
+        SendAlert_var->setSignature(14);
         SendAlert_var->send();
         previousstate = reply->bytesAvailable();
         delete SendAlert_var;

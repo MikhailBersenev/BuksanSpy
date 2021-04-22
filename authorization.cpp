@@ -47,8 +47,8 @@ void Authorization::on_TryLogin_Button_clicked()
                 }
                 MainQuery->first();
                 int current = QDateTime::currentSecsSinceEpoch();
-                int bantime = current-MainQuery->value(7).toInt();
-                if(!MainQuery->value(6).toBool() and bantime>1800 and !MainQuery->value(0).isNull()) {
+                int bantime = current-MainQuery->value(6).toInt();
+                if(!MainQuery->value(5).toBool() and bantime>1800 and !MainQuery->value(0).isNull()) {
                     MainQuery->clear();
                     MainQuery->prepare("UPDATE users SET active = true, bantimestamp=0 WHERE username = :username;");
                     MainQuery->bindValue(":username", ui->Login_Edit->text());
@@ -64,7 +64,7 @@ void Authorization::on_TryLogin_Button_clicked()
                     delete SendAlert_var;
                     MainQuery->first();
                 }
-                if(ui->Login_Edit->text()==MainQuery->value(1).toString() and passwordCrypt.Encrypt(ui->Password_Edit->text())==MainQuery->value(2).toString() and MainQuery->value(6).toBool())
+                if(ui->Login_Edit->text()==MainQuery->value(1).toString() and passwordCrypt.Encrypt(ui->Password_Edit->text())==MainQuery->value(2).toString() and MainQuery->value(5).toBool())
                 {
 
                     close(); //Закрытие формы авторизации
