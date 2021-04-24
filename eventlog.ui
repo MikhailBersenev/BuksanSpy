@@ -14,7 +14,7 @@
    <string>Журнал событий</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0" rowspan="2">
+   <item row="0" column="0" rowspan="3">
     <widget class="QTableView" name="alerts_table">
      <property name="minimumSize">
       <size>
@@ -25,16 +25,25 @@
      <property name="autoFillBackground">
       <bool>true</bool>
      </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+     <attribute name="horizontalHeaderCascadingSectionResizes">
+      <bool>true</bool>
+     </attribute>
      <attribute name="horizontalHeaderDefaultSectionSize">
       <number>120</number>
+     </attribute>
+     <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+      <bool>true</bool>
      </attribute>
      <attribute name="horizontalHeaderStretchLastSection">
       <bool>true</bool>
      </attribute>
     </widget>
    </item>
-   <item row="0" column="1" alignment="Qt::AlignRight">
-    <widget class="QGroupBox" name="groupBox">
+   <item row="0" column="1">
+    <widget class="QGroupBox" name="search_groupBox">
      <property name="maximumSize">
       <size>
        <width>159</width>
@@ -52,45 +61,6 @@
        <widget class="QLineEdit" name="StrToSearch_Edit"/>
       </item>
       <item>
-       <widget class="QComboBox" name="Field_ComboBox">
-        <item>
-         <property name="text">
-          <string>По  IP  адресу</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>По сигнатуре</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>По типу события</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>По пользователю</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>По времени</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>По дате</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>По доп. информации</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item>
        <widget class="QPushButton" name="TryFind_Button">
         <property name="text">
          <string>Найти</string>
@@ -101,6 +71,29 @@
     </widget>
    </item>
    <item row="1" column="1">
+    <widget class="QGroupBox" name="sort_groupBox">
+     <property name="title">
+      <string>Сортировка</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QComboBox" name="sort_comboBox">
+        <item>
+         <property name="text">
+          <string>Сначала новые</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Сначала старые</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="1">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>

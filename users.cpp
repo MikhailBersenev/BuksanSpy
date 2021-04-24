@@ -3,12 +3,15 @@
 #include <QtWidgets>
 
 
-Users::Users(QWidget *parent) :
+Users::Users(QWidget *parent, QString user) :
     QDialog(parent),
     ui(new Ui::Users)
 {
     ui->setupUi(this);
+    username = user;
     UpdateModels();
+
+
 
 
 }
@@ -16,7 +19,15 @@ Users::Users(QWidget *parent) :
 Users::~Users()
 {
     delete ui;
+
 }
+
+void Users::setUsername(const QString& value)
+{
+    username = value;
+
+}
+
 
 void Users::on_AddUser_Button_clicked()
 {
@@ -41,7 +52,7 @@ void Users::on_DeleteUser_Button_clicked()
 
         MainQuery = new QSqlQuery;
         MainQuery->prepare("DELETE FROM users WHERE username = :current;");
-        MainQuery->bindValue(":current", users_model.data(users_model.index(ui->users_Table->currentIndex().row(),0)).toString());
+        MainQuery->bindValue(":current", users_model.data(users_model.index(ui->users_listView->currentIndex().row(),0)).toString());
         if(!MainQuery->exec() || users_model.query().value(0).toString()==username)
         {
             qDebug() << "Unable to delete user" << MainQuery->lastError() << MainQuery->lastQuery();
@@ -60,17 +71,23 @@ void Users::on_DeleteUser_Button_clicked()
 
 void Users::UpdateModels()
 {
-    int i=0;
-    QVariantList headers_list;
-    headers_list << "Имя пользователя" << "Дата регистрации" << "E-mail адрес" << "Активен(Не заблокирован)" << "Мандатная группа";
-    users_model.setQuery("SELECT  * FROM \"vUsers\";");
-    users_model.removeColumn(0);
-    foreach(headers_list.value(i), headers_list)
-    {
-      users_model.setHeaderData(i, Qt::Horizontal, headers_list.value(i));
-      i++;
-    }
+   AccessManager_var = new AccessManager(this);
+    users_model.query().bindValue(":macm", 0);
+//    AccessManager_var->GetAccessLevel(username)
+    users_model.setQuery("SELECT  * FROM \"vUsers\" WHERE \"accessLevel\" >="+QString::number(AccessManager_var->GetAccessLevel(username))+";");
+    ui->users_listView->setModel(&users_model);
+    ui->users_listView->setModelColumn(1);
+   qDebug() << AccessManager_var->GetAccessLevel(username) << username;
+    delete  AccessManager_var;
+}
 
 
-    ui->users_Table->setModel(&users_model);
+
+
+void Users::on_users_listView_clicked(const QModelIndex &index)
+{
+    Q_UNUSED(index)
+    ui->mandatorygroup_label_2->setText(users_model.data(users_model.index(ui->users_listView->currentIndex().row(),3)).toString());
+    ui->registrationdate_label_2->setText(users_model.data(users_model.index(ui->users_listView->currentIndex().row(),2)).toString());
+    ui->macm_label_2->setText(users_model.data(users_model.index(ui->users_listView->currentIndex().row(),5)).toString());
 }

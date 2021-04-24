@@ -62,10 +62,10 @@ private:
     CameraVideoCapture *m_cam;
     void StartCap();
     QLabel *test;
-    Users *Users_var;
     AccessManager *AccessManager_var;
     bool CheckRights(int right);
     MandatoryGroups *rights;
+    Users *users_var;
     QTransform *CamRotate;
     QLabel *CameraView_Label;
     CameraVideoCapture *CameraVideoCapture_var;

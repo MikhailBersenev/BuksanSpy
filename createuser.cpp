@@ -9,6 +9,7 @@ CreateUser::CreateUser(QWidget *parent) :
     ui->setupUi(this);
     rightsModel.setQuery("SELECT description, \"rightId\" FROM rights;"); //Заполняем комбобокс
     ui->Rights_ComboBox->setModel(&rightsModel);
+
 }
 
 CreateUser::~CreateUser()

@@ -15,7 +15,7 @@ class Users : public QDialog
     Q_OBJECT
 
 public:
-    explicit Users(QWidget *parent = nullptr);
+    explicit Users(QWidget *parent = nullptr, QString user = nullptr);
     ~Users();
     QSqlQueryModel users_model;
     CreateUser *CreateUser_var;
@@ -23,11 +23,16 @@ public:
     void UpdateModels();
 
 
+    void setUsername(const QString &value);
+
 private slots:
     void on_AddUser_Button_clicked();
 
     void on_DeleteUser_Button_clicked();
 
+
+
+    void on_users_listView_clicked(const QModelIndex &index);
 
 private:
     Ui::Users *ui;

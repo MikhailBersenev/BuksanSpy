@@ -9,6 +9,7 @@ MandatoryGroups::MandatoryGroups(QWidget *parent) :
     ui->setupUi(this);
     UpdateModels();
 
+
 }
 
 MandatoryGroups::~MandatoryGroups()

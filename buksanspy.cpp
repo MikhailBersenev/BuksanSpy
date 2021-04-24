@@ -7,6 +7,7 @@
 #include "networkinfo.h"
 #include "devices.h"
 #include "eventlog.h"
+#include "users.h"
 #include "checkconnection.h"
 #include "setupconnection.h"
 BuksanSpy::BuksanSpy(QWidget *parent)
@@ -151,6 +152,8 @@ void BuksanSpy::on_pushButton_4_clicked()
 
     }
 
+
+
 }
 
 
@@ -160,10 +163,13 @@ void BuksanSpy::on_users_Action_triggered()
 {
     if(CheckRights(0))
     {
-        Users_var = new Users(this);
-        
-        Users_var->exec();
-        delete Users_var;
+        users_var = new Users(this, username);
+        users_var->setModal(true);
+        users_var->exec();
+        delete users_var;
+
+
+
     }
     
 }
@@ -227,23 +233,23 @@ void BuksanSpy::on_InitCams_action_triggered()
 
 void BuksanSpy::on_AddDev_Action_triggered()
 {
-if(!CheckRights(1)) //проверка прав доступа
-{
-    return;
-}
-else
-{
-    AddDevice dev;
-    dev.setModal(true);
-    dev.exec(); //показываем форму
-}
+    if(!CheckRights(1)) //проверка прав доступа
+    {
+        return;
+    }
+    else
+    {
+        AddDevice dev;
+        dev.setModal(true);
+        dev.exec(); //показываем форму
+    }
 }
 
 void BuksanSpy::on_ShowDevList_Action_triggered()
 {
- Devices devlist;
- devlist.setModal(true);
- devlist.exec();
+    Devices devlist;
+    devlist.setModal(true);
+    devlist.exec();
 }
 
 
