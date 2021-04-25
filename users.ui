@@ -167,6 +167,24 @@
     </item>
    </layout>
   </widget>
+  <widget class="QGroupBox" name="RoleAtributes_groupBox">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>100</y>
+     <width>391</width>
+     <height>361</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Ролевые атрибуты</string>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QVBoxLayout" name="RoleAtr_Layout"/>
+    </item>
+   </layout>
+  </widget>
  </widget>
  <resources/>
  <connections/>

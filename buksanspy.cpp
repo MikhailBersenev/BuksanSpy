@@ -178,8 +178,7 @@ void BuksanSpy::on_MandatoryGroups_Action_triggered()
 {
     if(CheckRights(0))
     {
-        rights = new MandatoryGroups(this);
-        rights->username = username;
+        rights = new MandatoryGroups(this, username);
         rights->exec();
         delete rights;
     }

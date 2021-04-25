@@ -14,9 +14,8 @@ class MandatoryGroups : public QDialog
     Q_OBJECT
 
 public:
-    explicit MandatoryGroups(QWidget *parent = nullptr);
+    explicit MandatoryGroups(QWidget *parent = nullptr, QString user = nullptr);
     ~MandatoryGroups();
-    QString username;
     void UpdateModels();
 
 private slots:
@@ -31,6 +30,7 @@ private:
     QSqlQuery *MainQuery;
     AccessManager *AccessManager_var;
     EditMandatoryGroup *Window;
+    QString username;
 };
 
 #endif // MANDATORYGROUPS_H

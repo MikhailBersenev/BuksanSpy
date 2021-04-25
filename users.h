@@ -4,6 +4,7 @@
 #include "accessmanager.h"
 #include <QDialog>
 #include <QtSql>
+#include <QtWidgets>
 
 namespace Ui {
 class Users;
@@ -23,7 +24,6 @@ public:
     void UpdateModels();
 
 
-    void setUsername(const QString &value);
 
 private slots:
     void on_AddUser_Button_clicked();
@@ -38,6 +38,9 @@ private:
     Ui::Users *ui;
     QSqlQuery *MainQuery;
     AccessManager *AccessManager_var;
+    void RoleAtributesParser(QString username);
+    QLabel *RoleAtributeLabel;
+    int RALCounter=0;
 
 };
 

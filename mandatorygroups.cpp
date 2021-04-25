@@ -2,11 +2,12 @@
 #include "editmandatorygroup.h"
 #include "ui_mandatorygroups.h"
 #include <QtWidgets>
-MandatoryGroups::MandatoryGroups(QWidget *parent) :
+MandatoryGroups::MandatoryGroups(QWidget *parent, QString user) :
     QDialog(parent),
     ui(new Ui::MandatoryGroups)
 {
     ui->setupUi(this);
+    username = user;
     UpdateModels();
 
 
