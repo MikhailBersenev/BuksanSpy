@@ -41,6 +41,7 @@ private:
     void RoleAtributesParser(QString username);
     QLabel *RoleAtributeLabel;
     int RALCounter=0;
+    QWidget *RoleAtrParent;
 
 };
 

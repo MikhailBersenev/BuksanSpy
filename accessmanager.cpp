@@ -60,7 +60,7 @@ qint64 AccessManager::GetAccessLevel(QString username)
 { //Получить уровень допуска
     MainQuery = new QSqlQuery;
     qint64 result;
-    MainQuery->prepare("SELECT users.\"userId\", users.username, rights.\"accessLevel\" FROM users INNER JOIN rights ON rights.\"rightId\" = users.rights WHERE username = '"+username+"';");
+    MainQuery->prepare("SELECT \"userId\", username, \"accessLevel\" FROM \"vUsers\" WHERE username = '"+username+"';");
     if(!MainQuery->exec())
     {
         qDebug() << "Unable to check access level" << MainQuery->lastError() << MainQuery->lastQuery();

@@ -3,10 +3,8 @@
 #include "sendalert.h"
 #include <QDialog>
 #include <QtSql>
-#include "setupconnection.h"
 #include "databaseconnection.h"
 #include "buksanspy.h"
-#include "registration.h"
 #include "checkconnection.h"
 
 namespace Ui {
@@ -22,27 +20,14 @@ public:
     ~Authorization();
 CheckConnection *check;
 private slots:
-    void on_GoToSetupConnection_Button_clicked();
-
     void on_TryLogin_Button_clicked();
-
-    void on_GotToRegistration_Button_clicked();
-
-    void on_quit_Button_clicked();
-    void attempts_expired();
 
 private:
     Ui::Authorization *ui;
-    SetupConnection SetupConnection_var;
     QSqlQuery *MainQuery;
     BuksanSpy DashBoard;
     SendAlert *SendAlert_var;
-    Registration Registration_var;
-    DataBaseConnection PostgresConnection;
-
-    int Counter;
 signals:
-    void expired();
 
 
 

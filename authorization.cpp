@@ -2,13 +2,12 @@
 #include "ui_authorization.h"
 #include <QtWidgets>
 #include "datacryptor.h"
+#include "databaseconnection.h"
 Authorization::Authorization(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Authorization)
 {
     ui->setupUi(this);
-    connect(this, SIGNAL(expired()), this,  SLOT(attempts_expired()));
-    Counter=0;
 
 }
 
@@ -17,148 +16,60 @@ Authorization::~Authorization()
     delete ui;
 }
 
-void Authorization::on_GoToSetupConnection_Button_clicked()
-{
-    //переход к форме настройки соединения
-    SetupConnection_var.setModal(true);
-    SetupConnection_var.exec();
-}
+
 
 void Authorization::on_TryLogin_Button_clicked()
 {
     DataCryptor passwordCrypt;
-    //Проверка на соедиение с базой данных
-    if(!SetupConnection_var.PostgresConnection->db.open()) { //если нет то выводим сообщение и открываем форму настройки
-        QMessageBox::warning(this, "Ошибка", "Отсутствует соединение с базой данных");
-        SetupConnection_var.exec();
-    }
-    else
+    DataBaseConnection dbConnection;
+    if(!(ui->Login_Edit->text().isEmpty() or ui->Password_Edit->text().isEmpty()))
     {
-        //Проверка на пустые поля
-        try {
-            if(!(ui->Login_Edit->text()=="" or ui->Password_Edit->text()==""))
+        if(!dbConnection.CreateConnection(ui->Host_Edit->text(), ui->DataBase_Edit->text(), ui->Login_Edit->text(), ui->Password_Edit->text(), ui->Port_Edit->text().toInt()))
+        {
+            QMessageBox::critical(this, "Ошибка авторизации", dbConnection.db.lastError().databaseText());
+        }
+        else
+        {
+            MainQuery = new QSqlQuery; //Динамическое создание объекта запроса
+            MainQuery->prepare("SELECT * FROM \"vUsers\" WHERE username = :username;"); //Подготовка запроса
+            MainQuery->bindValue(":username", ui->Login_Edit->text()); //Берем логин из поля
+            if(!MainQuery->exec()) //Выполнение запроса
             {
-                MainQuery = new QSqlQuery; //Динамическое создание объекта запроса
-                MainQuery->prepare("SELECT * FROM users WHERE username = :username;"); //Подготовка запроса
-                MainQuery->bindValue(":username", ui->Login_Edit->text()); //Берем логин из поля
-                if(!MainQuery->exec()) //Выполнение запроса
-                {
-                    qDebug() << "Unable to execute query" << MainQuery->lastQuery() << MainQuery->lastError();
-                }
-                MainQuery->first();
-                int current = QDateTime::currentSecsSinceEpoch();
-                int bantime = current-MainQuery->value(6).toInt();
-                if(!MainQuery->value(5).toBool() and bantime>1800 and !MainQuery->value(0).isNull()) {
-                    MainQuery->clear();
-                    MainQuery->prepare("UPDATE users SET active = true, bantimestamp=0 WHERE username = :username;");
-                    MainQuery->bindValue(":username", ui->Login_Edit->text());
-                    if(!MainQuery->exec())
-                    {
-                        qDebug() << "Unable to unlock user" << MainQuery->lastError() << MainQuery->lastQuery();
-                    }
-                    SendAlert_var = new SendAlert(this); //отправка события
-                    SendAlert_var->prepare();
-                    SendAlert_var->setUser(ui->Login_Edit->text());
-                    SendAlert_var->setSignature(16);
-                    SendAlert_var->send();
-                    delete SendAlert_var;
-                    MainQuery->first();
-                }
-                if(ui->Login_Edit->text()==MainQuery->value(1).toString() and passwordCrypt.Encrypt(ui->Password_Edit->text())==MainQuery->value(2).toString() and MainQuery->value(5).toBool())
-                {
-
-                    close(); //Закрытие формы авторизации
-                    SendAlert_var = new SendAlert; //Создание динамического объекта посылателя событий
-                    SendAlert_var->prepare(); //Подготовка события
-                    SendAlert_var->setUser(ui->Login_Edit->text()); //Присвоение имени пользователя
-                    SendAlert_var->setSignature(2);                 //Присвоение сигнатуры события
-                    SendAlert_var->send();                          //Отправка события
-                    delete SendAlert_var; //Удаление динамического объекта посылателя сообщений
-                    DashBoard.username = ui->Login_Edit->text();
-                    DashBoard.SetTitle();
-                    check = new CheckConnection(this);
-                    check->username = ui->Login_Edit->text();
-                   // check->start();
-                    DashBoard.show(); //Отображение главной формы
-                }
-                else
-                {
-
-                    QMessageBox::critical(this, "Ошибка", "Неверный пароль или у вас недостаточно прав для доступа");
-                    SendAlert_var = new SendAlert(this);
-                    SendAlert_var->prepare();
-                    SendAlert_var->setSignature(14);
-                    SendAlert_var->setUser(ui->Login_Edit->text());
-                    SendAlert_var->send();
-                    Counter++;
-                    if(Counter>5 && MainQuery->size() !=0)
-                    {
-                        emit expired();
-                    }
-                    delete  SendAlert_var;
-                    delete MainQuery; //удаление динамического  объекта запроса
-                }
-
-
-
+                qDebug() << "Unable to execute query" << MainQuery->lastQuery() << MainQuery->lastError();
+            }
+            MainQuery->first();
+            if(MainQuery->value(5).toInt()==-1)
+            {
+                QMessageBox::critical(this, "Ошибка авторизации", "Аккаунт "+MainQuery->value(1).toString()+" заблокирован");
             }
             else
             {
-                QMessageBox::warning(this, "Внимание!", "Обнаружены пустые поля");
+                close(); //Закрытие формы авторизации
+                for (int i=1;i<=2;++i) {
+                    SendAlert_var = new SendAlert; //Создание динамического объекта посылателя событий
+                    SendAlert_var->prepare(); //Подготовка события
+                    SendAlert_var->setUser(ui->Login_Edit->text()); //Присвоение имени пользователя
+                    SendAlert_var->setSignature(i);                 //Присвоение сигнатуры события
+                    SendAlert_var->send();                          //Отправка события
+                    delete SendAlert_var; //Удаление динамического объекта посылателя сообщений
+
+                }
+                DashBoard.username = ui->Login_Edit->text();
+                DashBoard.SetTitle();
+                check = new CheckConnection(this);
+                check->username = ui->Login_Edit->text();
+                // check->start();
+                DashBoard.show(); //Отображение главной формы
             }
         }
-        catch(...)
-        {
-            QMessageBox::critical(this, "Ошибка", "Что-то пошло не так...");
-        }
-    }
-
-
-}
-
-void Authorization::on_GotToRegistration_Button_clicked()
-{
-    if(!SetupConnection_var.PostgresConnection->db.open())
-    {
-        QMessageBox::warning(this, "Ошибка", "отсутствует соединение с базой данных");
-        SetupConnection_var.exec();
     }
     else
     {
-        Registration_var.setModal(true); //Задаем модальность формы
-        Registration_var.exec(); //показываем форму
+        QMessageBox::warning(this, "Внимание!", "Обнаружены пустые поля");
     }
-}
-
-
-
-void Authorization::on_quit_Button_clicked()
-{
-    QMessageBox::information(this, "Информация", "Программа будет закрыта");
-    QApplication::quit();
-}
-
-void Authorization::attempts_expired()
-{
-    SendAlert_var = new SendAlert(this);
-    SendAlert_var->prepare();
-    SendAlert_var->setSignature(15);
-    SendAlert_var->send();
-
-    QMessageBox::warning(this, "Превышено число попыток ввода пароля", "Ваша учетная запись заблокирована на 1850 секунд");
-    MainQuery = new QSqlQuery;
-    MainQuery->prepare("UPDATE users SET active= :active, bantimestamp = :timestamp WHERE username = :username;");
-    MainQuery->bindValue(":active", false);
-    MainQuery->bindValue(":username", ui->Login_Edit->text());
-    MainQuery->bindValue(":timestamp", QDateTime::currentSecsSinceEpoch());
-    if(!MainQuery->exec())
-    {
-        qDebug() << "Unable to ban user" << MainQuery->lastError() << MainQuery->lastQuery();
-    }
-    SendAlert_var->prepare();
-    SendAlert_var->setUser(ui->Login_Edit->text());
-    SendAlert_var->setSignature(9);
-    SendAlert_var->send();
-    delete SendAlert_var;
 
 }
+
+
+
+

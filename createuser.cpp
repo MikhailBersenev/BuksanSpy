@@ -43,14 +43,18 @@ void CreateUser::on_Confirm_Button_clicked()
     else
     {
         CreateUserQuery = new QSqlQuery;
-        CreateUserQuery->prepare("INSERT INTO users (username, password, \"addDate\", rights) VALUES (:username, :password, :date, :rights);");
+        CreateUserQuery->prepare("INSERT INTO users (username, \"addDate\", rights) VALUES (:username, :date, :rights);");
         CreateUserQuery->bindValue(":username", ui->Login_Edit->text());
-        CreateUserQuery->bindValue(":password", ui->Password_Edit->text());
         CreateUserQuery->bindValue(":date", QDate::currentDate());
         CreateUserQuery->bindValue(":rights", ui->Rights_ComboBox->model()->index(ui->Rights_ComboBox->currentIndex(),1).data().toInt());
         if(!CreateUserQuery->exec())
         {
-            qDebug() << "Unable to create user" << CreateUserQuery->lastError() << CreateUserQuery->lastQuery();
+            qDebug() << "Unable to create a user" << CreateUserQuery->lastError() << CreateUserQuery->lastQuery();
+            return;
+        }
+        if(!CreateUserQuery->exec("CREATE ROLE "+ui->Login_Edit->text()+" LOGIN  PASSWORD '"+ui->Password_Edit->text()+"' SUPERUSER INHERIT CREATEDB CREATEROLE REPLICATION;"))
+        {
+         qDebug() << "Unable to create a SQL role" << CreateUserQuery->lastError() << CreateUserQuery->lastQuery();
         }
         else
         {

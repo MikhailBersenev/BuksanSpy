@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     QFile File("./Ubuntu.qss");
     File.open(QFile::ReadOnly);
     QString skin = QLatin1String(File.readAll());
-    a.setStyleSheet(skin);
+    //a.setStyleSheet(skin);
     QString ahj= dc.Encrypt("VideoCapture");
     NetworkInfo ip;
     qDebug() << ip.GetIPAddress();

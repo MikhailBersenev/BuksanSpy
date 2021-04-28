@@ -188,7 +188,10 @@ void BuksanSpy::on_MandatoryGroups_Action_triggered()
 
 void BuksanSpy::on_pushButton_3_clicked()
 {
-
+QSqlQuery role;
+QString name;
+name = "astratest";
+role.exec("CREATE ROLE \""+name+"\" LOGIN PASSWORD '123456' CREATEDB  VALID UNTIL 'infinity';");
 }
 
 

@@ -31,10 +31,9 @@ SOURCES += \
     main.cpp \
     buksanspy.cpp \
     mandatorygroups.cpp \
+    mandatorymarkseditor.cpp \
     networkinfo.cpp \
-    registration.cpp \
     sendalert.cpp \
-    setupconnection.cpp \
     users.cpp
 
 HEADERS += \
@@ -52,10 +51,9 @@ HEADERS += \
     editmandatorygroup.h \
     eventlog.h \
     mandatorygroups.h \
+    mandatorymarkseditor.h \
     networkinfo.h \
-    registration.h \
     sendalert.h \
-    setupconnection.h \
     users.h
 
 FORMS += \
@@ -67,8 +65,7 @@ FORMS += \
     editmandatorygroup.ui \
     eventlog.ui \
     mandatorygroups.ui \
-    registration.ui \
-    setupconnection.ui \
+    mandatorymarkseditor.ui \
     users.ui
 TRANSLATIONS += \
     BuksanSpy_ru_RU.ts

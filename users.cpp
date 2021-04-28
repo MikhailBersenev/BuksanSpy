@@ -42,7 +42,6 @@ void Users::on_DeleteUser_Button_clicked()
     }
     else
     {
-
         MainQuery = new QSqlQuery;
         MainQuery->prepare("DELETE FROM users WHERE username = :current;");
         MainQuery->bindValue(":current", users_model.data(users_model.index(ui->users_listView->currentIndex().row(),0)).toString());
@@ -51,6 +50,10 @@ void Users::on_DeleteUser_Button_clicked()
             qDebug() << "Unable to delete user" << MainQuery->lastError() << MainQuery->lastQuery();
             QMessageBox::critical(this, "Ошибка", "Не удалось удалить пользователя");
             return;
+        }
+        if(!MainQuery->exec("DROP ROLE "+users_model.data(users_model.index(ui->users_listView->currentIndex().row(),0)).toString()+";"))
+        {
+            qDebug() << "Unable to delete user" << MainQuery->lastError() << MainQuery->lastQuery();
         }
         else
         {
@@ -65,8 +68,6 @@ void Users::on_DeleteUser_Button_clicked()
 void Users::UpdateModels()
 {
     AccessManager_var = new AccessManager(this);
-    users_model.query().bindValue(":macm", 0);
-    //    AccessManager_var->GetAccessLevel(username)
     users_model.setQuery("SELECT  * FROM \"vUsers\" WHERE \"accessLevel\" >="+QString::number(AccessManager_var->GetAccessLevel(username))+";");
     ui->users_listView->setModel(&users_model);
     ui->users_listView->setModelColumn(1);
@@ -91,10 +92,9 @@ void Users::RoleAtributesParser(QString username)
     MainQuery = new QSqlQuery;
     if(RALCounter!=0)
     {
-        while (RALCounter<0) {
-        RoleAtributeLabel;
-        }
+        delete RoleAtrParent;
     }
+    RoleAtrParent = new QWidget(this);
     const QString SQLQuery = "SELECT users.username, rights.\"usersControl\", rights.\"addDevice\", rights.\"editDevice\", rights.\"deleteDevice\","
                              "rights.\"alertsView\", rights.\"alertsDelete\", rights.\"generalSettingsView\", rights.\"generalSettingsChange\","
                              "rights.\"videosView\", rights.\"videosDecrypt\", rights.\"videosDelete\" FROM users INNER JOIN rights ON rights.\"rightId\" = users.rights"
@@ -111,11 +111,12 @@ void Users::RoleAtributesParser(QString username)
     for (int i=0;i<list.size();i++) {
         if(MainQuery->value(i+1).toBool())
         {
-            RoleAtributeLabel = new QLabel;
+            RoleAtributeLabel = new QLabel(RoleAtrParent);
             RoleAtributeLabel->setText("<h4>"+list.value(i)+"</h4>");
             ui->RoleAtr_Layout->addWidget(RoleAtributeLabel);
             RoleAtributeLabel->show();
         }
+        RALCounter++;
     }
-    RALCounter++;
+
 }
