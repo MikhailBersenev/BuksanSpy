@@ -12,12 +12,18 @@ class MandatoryMarksEditor : public QDialog
     Q_OBJECT
 
 public:
-    explicit MandatoryMarksEditor(QWidget *parent = nullptr);
+    explicit MandatoryMarksEditor(QWidget *parent = nullptr, QString user = nullptr);
     ~MandatoryMarksEditor();
+
+private slots:
+    void on_addMandatoryMark_pushButton_clicked();
+
+    void on_DeleteMandatoryMark_pushButton_clicked();
 
 private:
     Ui::MandatoryMarksEditor *ui;
     void UpdateModels();
+    QString username;
     QSqlQueryModel MandatoryMarks_model;
 
 

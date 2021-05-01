@@ -15,15 +15,15 @@ int main(int argc, char *argv[])
     DataCryptor dc;
     QNetworkConfigurationManager nrd;
     qDebug() << nrd.isOnline();
-    QFile File("./Ubuntu.qss");
+    QFile File("./Takezo.qss");
     File.open(QFile::ReadOnly);
     QString skin = QLatin1String(File.readAll());
-    //a.setStyleSheet(skin);
+    a.setStyleSheet(skin);
     QString ahj= dc.Encrypt("VideoCapture");
     NetworkInfo ip;
     qDebug() << ip.GetIPAddress();
     Authorization auth;
     QTimer abc;
-    auth.show();
+   auth.show();
     return a.exec();
 }

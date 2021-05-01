@@ -31,6 +31,7 @@ SOURCES += \
     main.cpp \
     buksanspy.cpp \
     mandatorygroups.cpp \
+    mandatorymarkcreator.cpp \
     mandatorymarkseditor.cpp \
     networkinfo.cpp \
     sendalert.cpp \
@@ -51,6 +52,7 @@ HEADERS += \
     editmandatorygroup.h \
     eventlog.h \
     mandatorygroups.h \
+    mandatorymarkcreator.h \
     mandatorymarkseditor.h \
     networkinfo.h \
     sendalert.h \
@@ -65,6 +67,7 @@ FORMS += \
     editmandatorygroup.ui \
     eventlog.ui \
     mandatorygroups.ui \
+    mandatorymarkcreator.ui \
     mandatorymarkseditor.ui \
     users.ui
 TRANSLATIONS += \

@@ -34,6 +34,9 @@ private slots:
 
     void on_users_listView_clicked(const QModelIndex &index);
 
+
+    void on_MandatoryMarksEditor_toolButton_clicked();
+
 private:
     Ui::Users *ui;
     QSqlQuery *MainQuery;

@@ -7,8 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>539</width>
-    <height>234</height>
+    <height>208</height>
    </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>539</width>
+    <height>240</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Вход в систему</string>
@@ -93,20 +99,6 @@
       </layout>
      </item>
     </layout>
-   </item>
-   <item row="1" column="0">
-    <widget class="QPushButton" name="GoToSetupConnection_Button">
-     <property name="text">
-      <string>Настройки соединения</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QPushButton" name="quit_Button">
-     <property name="text">
-      <string>Выйти из программы</string>
-     </property>
-    </widget>
    </item>
   </layout>
  </widget>

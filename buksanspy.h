@@ -57,6 +57,8 @@ private slots:
     void UpdateModels();
     void Subscribe();
 
+    void on_action_Qt_triggered();
+
 private:
     Ui::BuksanSpy *ui;
     CameraVideoCapture *m_cam;

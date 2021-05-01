@@ -1,5 +1,4 @@
 #include "eventlog.h"
-#include "setupconnection.h"
 #include "databaseconnection.h"
 #include "ui_eventlog.h"
 eventlog::eventlog(QWidget *parent) :

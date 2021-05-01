@@ -1,6 +1,7 @@
 #include "users.h"
 #include "ui_users.h"
 #include <QtWidgets>
+#include "mandatorymarkseditor.h"
 
 
 Users::Users(QWidget *parent, QString user) :
@@ -45,13 +46,13 @@ void Users::on_DeleteUser_Button_clicked()
         MainQuery = new QSqlQuery;
         MainQuery->prepare("DELETE FROM users WHERE username = :current;");
         MainQuery->bindValue(":current", users_model.data(users_model.index(ui->users_listView->currentIndex().row(),0)).toString());
-        if(!MainQuery->exec() || users_model.query().value(0).toString()==username)
+        if(!MainQuery->exec() || users_model.query().value(1).toString()==username)
         {
             qDebug() << "Unable to delete user" << MainQuery->lastError() << MainQuery->lastQuery();
             QMessageBox::critical(this, "Ошибка", "Не удалось удалить пользователя");
             return;
         }
-        if(!MainQuery->exec("DROP ROLE "+users_model.data(users_model.index(ui->users_listView->currentIndex().row(),0)).toString()+";"))
+        if(!MainQuery->exec("DROP ROLE "+users_model.data(users_model.index(ui->users_listView->currentIndex().row(),1)).toString()+";"))
         {
             qDebug() << "Unable to delete user" << MainQuery->lastError() << MainQuery->lastQuery();
         }
@@ -90,9 +91,14 @@ void Users::on_users_listView_clicked(const QModelIndex &index)
 void Users::RoleAtributesParser(QString username)
 {
     MainQuery = new QSqlQuery;
+    QStringList list;
+        list << "Управление пользователями и группами" << "Добавление устройств" << "Редактирование устройств" << "Удаление устройств" << "Просмотр журнала событий" << "Очистка журнала событий" << "Просмотр настроек ПС" << "Изменение настроек ПС" << "Просмотр журнала видеозаписей" << "Выгрузка видеозаписей в файл" << "Удаление видеозаписей";
     if(RALCounter!=0)
     {
-        delete RoleAtrParent;
+        for (int i=0;i<list.size();i++) {
+            RoleAtributeLabel->clear();
+             delete RoleAtrParent->children().value(i);
+        }
     }
     RoleAtrParent = new QWidget(this);
     const QString SQLQuery = "SELECT users.username, rights.\"usersControl\", rights.\"addDevice\", rights.\"editDevice\", rights.\"deleteDevice\","
@@ -106,8 +112,6 @@ void Users::RoleAtributesParser(QString username)
         return;
     }
     MainQuery->first();
-    QStringList list;
-    list << "Управление пользователями и группами" << "Добавление устройств" << "Редактирование устройств" << "Удаление устройств" << "Просмотр журнала событий" << "Очистка журнала событий" << "Просмотр настроек ПС" << "Изменение настроек ПС" << "Просмотр журнала видеозаписей" << "Выгрузка видеозаписей в файл" << "Удаление видеозаписей";
     for (int i=0;i<list.size();i++) {
         if(MainQuery->value(i+1).toBool())
         {
@@ -119,4 +123,15 @@ void Users::RoleAtributesParser(QString username)
         RALCounter++;
     }
 
+}
+
+
+
+
+void Users::on_MandatoryMarksEditor_toolButton_clicked()
+{
+    MandatoryMarksEditor *MacEditor = new MandatoryMarksEditor(this, username);
+    MacEditor->setModal(true);
+    MacEditor->exec();
+    delete MacEditor;
 }

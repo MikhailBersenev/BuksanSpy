@@ -26,7 +26,7 @@ bool DataBaseConnection::CreateConnection(QString HostName, QString DBName, QStr
         db.driver()->subscribeToNotification("insert_users_notf");
         SendAlert_var = new SendAlert; //Создание динамического объекта посылателя событий
         SendAlert_var->prepare(); //Подготовка события
-        SendAlert_var->setUser("SYSTEM");
+        SendAlert_var->setUser(UserName);
         SendAlert_var->setSignature(1);                 //Присвоение сигнатуры события
         SendAlert_var->send();                          //Отправка события
         delete SendAlert_var; //Удаление динамического объекта посылателя сообщений

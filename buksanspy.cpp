@@ -9,7 +9,7 @@
 #include "eventlog.h"
 #include "users.h"
 #include "checkconnection.h"
-#include "setupconnection.h"
+#include <opencv2/opencv.hpp>
 BuksanSpy::BuksanSpy(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::BuksanSpy)
@@ -54,7 +54,8 @@ void BuksanSpy::on_pushButton_2_clicked()
     m_cam = new CameraVideoCapture(this);
     m_cam->isRecording = false;
     m_cam->ConnectionString = "0";
-    m_cam->mVideoCap =cv::VideoCapture(0, cv::CAP_V4L2);
+    m_cam->mVideoCap =cv::VideoCapture("tcpclientsrc host=127.0.0.1 port=5000 ! gdpdepay ! appsink",
+                                       cv::CAP_GSTREAMER);
     m_cam->mVideoCap.set(cv::CAP_PROP_FRAME_WIDTH,640);
     m_cam->mVideoCap.set(cv::CAP_PROP_FRAME_HEIGHT,480);
     m_cam->name = "hello.avi";
@@ -274,9 +275,15 @@ void BuksanSpy::UpdateModels()
 }
 
 void BuksanSpy::Subscribe()
-{
+{/*
     DataBaseConnection PostgresConnection;
     PostgresConnection.db.driver()->subscribeToNotification("delete_alerts_notf");
     PostgresConnection.db.driver()->subscribeToNotification("insert_alerts_notf");
-    connect(PostgresConnection.db.driver(), SIGNAL(notification(QString)), this, SLOT(UpdateModels()));
+    connect(PostgresConnection.db.driver(), SIGNAL(notification(QString)), this, SLOT(UpdateModels()));*/
+}
+
+void BuksanSpy::on_action_Qt_triggered()
+{
+    //Показать оконо About Qt
+    QMessageBox::aboutQt(this, "О Qt");
 }

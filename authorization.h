@@ -19,6 +19,7 @@ public:
     explicit Authorization(QWidget *parent = nullptr);
     ~Authorization();
 CheckConnection *check;
+DataBaseConnection dbConnection;
 private slots:
     void on_TryLogin_Button_clicked();
 
