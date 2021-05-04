@@ -106,13 +106,6 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="mandatorygroup_label_2">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="4">
        <widget class="QLabel" name="registrationdate_label_2">
         <property name="text">
@@ -153,31 +146,12 @@
         </property>
        </spacer>
       </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QGroupBox" name="RoleAtributes_groupBox">
-     <property name="title">
-      <string>Ролевые атрибуты</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <layout class="QVBoxLayout" name="RoleAtr_Layout">
-        <item>
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
+      <item row="1" column="0">
+       <widget class="QLabel" name="mandatorygroup_label_2">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -187,19 +161,59 @@
      <property name="title">
       <string>Дополнительно</string>
      </property>
-     <widget class="QToolButton" name="MandatoryMarksEditor_toolButton">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>40</y>
-        <width>291</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Мандатные метки</string>
-      </property>
-     </widget>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QToolButton" name="MandatoryMarksEditor_toolButton">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="inputMethodHints">
+         <set>Qt::ImhNone</set>
+        </property>
+        <property name="text">
+         <string>Мандатные метки</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../Загрузки/key.png</normaloff>../Загрузки/key.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>128</width>
+          <height>128</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="MandatoryGroupsEditor_toolButton">
+        <property name="text">
+         <string>Мандатные группы</string>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QGroupBox" name="RoleAtributes_groupBox">
+     <property name="title">
+      <string>Ролевые атрибуты</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QListWidget" name="RoleAtributes_listWidget"/>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>

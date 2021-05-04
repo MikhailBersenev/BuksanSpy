@@ -15,6 +15,7 @@ public:
     void setUser(QString user);
     void setSignature(qint16 signature);
     void setDevice(QString device);
+    void AddFullLogInfo(QString info_str);
     bool send();
 
 private:

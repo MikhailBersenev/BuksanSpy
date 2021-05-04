@@ -40,6 +40,11 @@ void SendAlert::setDevice(QString device)
 { //Добавление информации о камере
     fldata+=device;
 }
+
+void SendAlert::AddFullLogInfo(QString info_str)
+{
+    fldata += " "+info_str+" ";
+}
 bool SendAlert::send()
 { //Отправка
     MainQuery->bindValue(":fulllog", CreateFullLog(fldata));

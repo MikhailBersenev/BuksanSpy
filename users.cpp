@@ -2,7 +2,7 @@
 #include "ui_users.h"
 #include <QtWidgets>
 #include "mandatorymarkseditor.h"
-
+#include "mandatorygroups.h"
 
 Users::Users(QWidget *parent, QString user) :
     QDialog(parent),
@@ -84,7 +84,7 @@ void Users::on_users_listView_clicked(const QModelIndex &index)
     Q_UNUSED(index)
     ui->mandatorygroup_label_2->setText(users_model.data(users_model.index(ui->users_listView->currentIndex().row(),3)).toString());
     ui->registrationdate_label_2->setText(users_model.data(users_model.index(ui->users_listView->currentIndex().row(),2)).toString());
-    ui->macm_label_2->setText(users_model.data(users_model.index(ui->users_listView->currentIndex().row(),5)).toString());
+    ui->macm_label_2->setText(users_model.data(users_model.index(ui->users_listView->currentIndex().row(),4)).toString());
     RoleAtributesParser(users_model.data(users_model.index(ui->users_listView->currentIndex().row(),1)).toString());
 }
 
@@ -92,15 +92,12 @@ void Users::RoleAtributesParser(QString username)
 {
     MainQuery = new QSqlQuery;
     QStringList list;
-        list << "Управление пользователями и группами" << "Добавление устройств" << "Редактирование устройств" << "Удаление устройств" << "Просмотр журнала событий" << "Очистка журнала событий" << "Просмотр настроек ПС" << "Изменение настроек ПС" << "Просмотр журнала видеозаписей" << "Выгрузка видеозаписей в файл" << "Удаление видеозаписей";
+    list << "Управление пользователями и группами" << "Добавление устройств" << "Редактирование устройств" << "Удаление устройств" << "Просмотр журнала событий" << "Очистка журнала событий" << "Просмотр настроек ПС" << "Изменение настроек ПС" << "Просмотр журнала видеозаписей" << "Выгрузка видеозаписей в файл" << "Удаление видеозаписей";
     if(RALCounter!=0)
     {
-        for (int i=0;i<list.size();i++) {
-            RoleAtributeLabel->clear();
-             delete RoleAtrParent->children().value(i);
-        }
+        ui->RoleAtributes_listWidget->clear();
+        RALCounter=0;
     }
-    RoleAtrParent = new QWidget(this);
     const QString SQLQuery = "SELECT users.username, rights.\"usersControl\", rights.\"addDevice\", rights.\"editDevice\", rights.\"deleteDevice\","
                              "rights.\"alertsView\", rights.\"alertsDelete\", rights.\"generalSettingsView\", rights.\"generalSettingsChange\","
                              "rights.\"videosView\", rights.\"videosDecrypt\", rights.\"videosDelete\" FROM users INNER JOIN rights ON rights.\"rightId\" = users.rights"
@@ -115,14 +112,31 @@ void Users::RoleAtributesParser(QString username)
     for (int i=0;i<list.size();i++) {
         if(MainQuery->value(i+1).toBool())
         {
-            RoleAtributeLabel = new QLabel(RoleAtrParent);
-            RoleAtributeLabel->setText("<h4>"+list.value(i)+"</h4>");
-            ui->RoleAtr_Layout->addWidget(RoleAtributeLabel);
-            RoleAtributeLabel->show();
+            ui->RoleAtributes_listWidget->addItem(list.value(i));
         }
         RALCounter++;
     }
 
+}
+
+bool Users::CheckForRoot()
+{
+    //Проверка на рут
+    QSqlQuery check_query;
+    if(!check_query.exec("SELECT \"accessLevel\" FROM \"vUsers\" WHERE username = '"+username+"';"))
+    {
+        qDebug() << "Unable to check root status. SQL Error: " << check_query.lastError() << check_query.lastQuery();
+    }
+    check_query.first();
+    if(check_query.value(0).toInt()==0)
+    {
+        return true;
+    }
+    else
+    {
+        QMessageBox::critical(this, "Ошибка доступа", "У вас недостаточно прав для доступа к этому разделу");
+        return false;
+    }
 }
 
 
@@ -130,8 +144,30 @@ void Users::RoleAtributesParser(QString username)
 
 void Users::on_MandatoryMarksEditor_toolButton_clicked()
 {
+
+    if(!CheckForRoot())
+    {
+        MandatoryMarksEditor *MacEditor = new MandatoryMarksEditor(this, username);
+        MacEditor->setModal(true);
+        MacEditor->exec();
+        delete MacEditor;
+
+    }
     MandatoryMarksEditor *MacEditor = new MandatoryMarksEditor(this, username);
     MacEditor->setModal(true);
     MacEditor->exec();
     delete MacEditor;
+}
+
+
+
+
+
+void Users::on_MandatoryGroupsEditor_toolButton_clicked()
+{
+    //Открыть редактор мандатных групп
+    MandatoryGroups *rights = new MandatoryGroups(this, username);
+    rights->setModal(true);
+    rights->exec();
+    delete rights;
 }

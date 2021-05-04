@@ -37,6 +37,9 @@ private slots:
 
     void on_MandatoryMarksEditor_toolButton_clicked();
 
+
+    void on_MandatoryGroupsEditor_toolButton_clicked();
+
 private:
     Ui::Users *ui;
     QSqlQuery *MainQuery;
@@ -45,6 +48,7 @@ private:
     QLabel *RoleAtributeLabel;
     int RALCounter=0;
     QWidget *RoleAtrParent;
+    bool CheckForRoot();
 
 };
 

@@ -12,9 +12,8 @@ class EditMandatoryGroup : public QDialog
     Q_OBJECT
 
 public:
-    explicit EditMandatoryGroup(QWidget *parent = nullptr);
+    explicit EditMandatoryGroup(QWidget *parent = nullptr, int mode = 0, int MandatoryGroupId = 0, QString MandatoryGroupDescription = nullptr);
     ~EditMandatoryGroup();
-    int mode;
 
 private slots:
     void on_buttonBox_rejected();
@@ -47,6 +46,8 @@ private:
     Ui::EditMandatoryGroup *ui;
     QSqlQuery *MainQuery;
     void SetDefaultValues();
+    QSqlQueryModel MandatoryGroups_model;
+    void rightsParser(int MandatoryGroupId);
 
 };
 

@@ -2,7 +2,6 @@
 #include "editmandatorygroup.h"
 #include "ui_mandatorygroups.h"
 #include <QtWidgets>
-#include <QMediaPlayer>
 MandatoryGroups::MandatoryGroups(QWidget *parent, QString user) :
     QDialog(parent),
     ui(new Ui::MandatoryGroups)
@@ -23,7 +22,7 @@ void MandatoryGroups::on_DeleteMandatoryGroup_Button_clicked()
 {
     AccessManager_var = new AccessManager(this);
     QMessageBox::StandardButton reply;
-    QString CurrentDesc = MandatoryGroups_model.data(MandatoryGroups_model.index(ui->MandatoryGroups_Table->currentIndex().row(),0)).toString();
+    QString CurrentDesc = MandatoryGroups_model.data(MandatoryGroups_model.index(ui->MandatoryGroupslistView->currentIndex().row(),1)).toString();
     reply = QMessageBox::question(this, "Удаление мандатной группы", "Вы уверены, что хотите удалить группу? \n ВНИМАНИЕ! Удаление мандатной группы приведет к удалению всех ее членов"
                                                                      " и всей связанной с ними информации", QMessageBox::Yes|QMessageBox::No);
     if(reply==QMessageBox::No or CurrentDesc == AccessManager_var->GetMandatoryGroup(username))
@@ -51,9 +50,8 @@ void MandatoryGroups::on_DeleteMandatoryGroup_Button_clicked()
 
 void MandatoryGroups::on_AddMandatoryGroup_Button_clicked()
 {
-    //показываем форму редактирования группы
-    Window = new EditMandatoryGroup(this);
-    Window->mode = 0;
+    //показываем форму редактирования группы в режиме добавления
+    Window = new EditMandatoryGroup(this, 0);
     Window->setWindowTitle("Добавление мандатной группы");
     Window->setModal(true);
     Window->exec();
@@ -62,16 +60,44 @@ void MandatoryGroups::on_AddMandatoryGroup_Button_clicked()
 
 void MandatoryGroups::UpdateModels()
 {
-    int i=0;
-    QVariantList headers_list;
-    headers_list << "Мандатная группа" << "Управление пользователями" << "Добавление устройств" << "Редактрование устройств" << "Удаление устройств" << "Просмотр журнала событий" << "Очистка журнала событий" << "Просмотр общих настроек системы" << "Изменение общих настроек системы" << "Просмотр журнала видеозаписей" << "Выгрузка видеозаписей" << "Удаление видеозаписей";
-    MandatoryGroups_model.setQuery("SELECT  * FROM rights;");
-    MandatoryGroups_model.removeColumn(0);
-    foreach(headers_list.value(i), headers_list)
-    {
-      MandatoryGroups_model.setHeaderData(i, Qt::Horizontal, headers_list.value(i));
-      i++;
-    }
-    ui->MandatoryGroups_Table->setModel(&MandatoryGroups_model);
+    MandatoryGroups_model.setQuery("SELECT rights.\"rightId\", rights.description, rights.\"usersControl\", rights.\"addDevice\", rights.\"editDevice\", rights.\"deleteDevice\","
+                                   "rights.\"alertsView\", rights.\"alertsDelete\", rights.\"generalSettingsView\", rights.\"generalSettingsChange\", rights.\"videosView\","
+                                   "rights.\"videosDecrypt\", rights.\"videosDelete\", \"mandatoryMarks\".description  \"mandatoryMark\" FROM rights INNER JOIN \"mandatoryMarks\" ON \"mandatoryMarks\".\"mandatoryMarkId\"=rights.\"mandatoryMark\""
+                                   "WHERE \"mandatoryMarks\".\"accessLevel\" >-1 ;");
+    ui->MandatoryGroupslistView->setModel(&MandatoryGroups_model);
+    ui->MandatoryGroupslistView->setModelColumn(1);
+}
 
+void MandatoryGroups::on_MandatoryGroupslistView_clicked(const QModelIndex &index)
+{
+    ui->MandatoryMark_label->setText(MandatoryGroups_model.data(MandatoryGroups_model.index(index.row(),13)).toString());
+    QStringList list;
+    list << "Управление пользователями и группами" << "Добавление устройств" << "Редактирование устройств" << "Удаление устройств" << "Просмотр журнала событий" << "Очистка журнала событий" << "Просмотр настроек ПС" << "Изменение настроек ПС" << "Просмотр журнала видеозаписей" << "Выгрузка видеозаписей в файл" << "Удаление видеозаписей";
+    if(RALCounter!=0)
+    {
+        ui->RoleAtributes_listWidget->clear();
+        RALCounter =0;
+    }
+    for (int i=0;i<list.size();i++) {
+        if(MandatoryGroups_model.query().value(i+2).toBool())
+        {
+            ui->RoleAtributes_listWidget->addItem(list.value(i));
+        }
+        RALCounter++;
+    }
+
+
+
+}
+
+void MandatoryGroups::on_EditMandatoryGroup_pushButton_clicked()
+{
+    //показываем форму редактирования группы в режиме редактирования
+    const int MandatoryGroupId  = MandatoryGroups_model.data(MandatoryGroups_model.index(ui->MandatoryGroupslistView->currentIndex().row(),0)).toInt();
+    const QString MandatoryGroupDescription = MandatoryGroups_model.data(MandatoryGroups_model.index(ui->MandatoryGroupslistView->currentIndex().row(),1)).toString();
+    Window = new EditMandatoryGroup(this, 1, MandatoryGroupId, MandatoryGroupDescription);
+    Window->setWindowTitle("Редактирование мандатной группы "+MandatoryGroupDescription);
+    Window->setModal(true);
+    Window->exec();
+    delete Window;
 }

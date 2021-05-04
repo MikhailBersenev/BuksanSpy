@@ -15,6 +15,8 @@ BuksanSpy::BuksanSpy(QWidget *parent)
     , ui(new Ui::BuksanSpy)
 {
     ui->setupUi(this);
+    ui->pushButton_2->addAction(ui->Quit_Action);
+    ui->pushButton_2->addAction(ui->action_Qt);
 
 
 

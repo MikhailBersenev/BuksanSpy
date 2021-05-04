@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>647</width>
-    <height>370</height>
+    <width>624</width>
+    <height>374</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,20 +15,53 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0" rowspan="2">
-    <layout class="QGridLayout" name="Table_Layout">
-     <item row="0" column="0">
-      <widget class="QTableView" name="MandatoryGroups_Table">
-       <attribute name="horizontalHeaderDefaultSectionSize">
-        <number>250</number>
-       </attribute>
-       <attribute name="horizontalHeaderStretchLastSection">
-        <bool>true</bool>
-       </attribute>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QGroupBox" name="MandatoryGroups_groupBox">
+     <property name="title">
+      <string>Группы</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QListView" name="MandatoryGroupslistView"/>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item row="0" column="1">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Информация о группе</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLabel" name="MandatoryMark_label_2">
+        <property name="text">
+         <string>Мандатная метка:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="MandatoryMark_label">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="1" rowspan="2">
+    <widget class="QGroupBox" name="RoleAtributes_groupBox">
+     <property name="title">
+      <string>Ролевые атрибуты</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QListWidget" name="RoleAtributes_listWidget"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="0">
     <layout class="QVBoxLayout" name="Buttons_Layout">
      <item>
       <widget class="QPushButton" name="AddMandatoryGroup_Button">
@@ -40,6 +73,13 @@
        </property>
        <property name="text">
         <string>Добавить</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="EditMandatoryGroup_pushButton">
+       <property name="text">
+        <string>Редактировать</string>
        </property>
       </widget>
      </item>
@@ -57,19 +97,6 @@
       </widget>
      </item>
     </layout>
-   </item>
-   <item row="1" column="1">
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>285</height>
-      </size>
-     </property>
-    </spacer>
    </item>
   </layout>
  </widget>

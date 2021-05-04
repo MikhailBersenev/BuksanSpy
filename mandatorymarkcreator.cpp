@@ -34,7 +34,7 @@ void MandatoryMarkCreator::on_buttonBox_accepted()
     }
     else
     {
-        QMessageBox::critical(this, "Ошибка", "Не удалось создать мандатную метку, Проверьте введенные данные.");
+        QMessageBox::critical(this, "Ошибка", "Не удалось создать мандатную метку. Проверьте введенные данные.");
     }
 
 }

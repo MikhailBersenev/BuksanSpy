@@ -24,6 +24,10 @@ private slots:
     void on_AddMandatoryGroup_Button_clicked();
 
 
+    void on_MandatoryGroupslistView_clicked(const QModelIndex &index);
+
+    void on_EditMandatoryGroup_pushButton_clicked();
+
 private:
     Ui::MandatoryGroups *ui;
     QSqlQueryModel MandatoryGroups_model;
@@ -31,6 +35,7 @@ private:
     AccessManager *AccessManager_var;
     EditMandatoryGroup *Window;
     QString username;
+    int RALCounter;
 };
 
 #endif // MANDATORYGROUPS_H

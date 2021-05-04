@@ -2,22 +2,28 @@
 #include "ui_editmandatorygroup.h"
 #include <QDebug>
 #include <QtWidgets>
-EditMandatoryGroup::EditMandatoryGroup(QWidget *parent) :
+EditMandatoryGroup::EditMandatoryGroup(QWidget *parent, int mode, int MandatoryGroupId, QString MandatoryGroupDescription) :
     QDialog(parent),
     ui(new Ui::EditMandatoryGroup)
 {
     ui->setupUi(this);
+    //Конструктор
+    MandatoryGroups_model.setQuery("SELECT \"mandatoryMarkId\", description FROM \"mandatoryMarks\" WHERE \"accessLevel\" > 0");
+    ui->MandatoryMark_comboBox->setModel(&MandatoryGroups_model);
+    ui->MandatoryMark_comboBox->setModelColumn(1);
     MainQuery = new QSqlQuery;
+    SetDefaultValues();
     switch (mode) {
     case 0:
         MainQuery->prepare("INSERT INTO rights (description, \"usersControl\", \"addDevice\", \"editDevice\", \"deleteDevice\", "
-                           "\"alertsView\", \"alertsDelete\", \"generalSettingsView\", \"generalSettingsChange\", \"videosView\", \"videosDecrypt\", \"videosDelete\")"
-                           "VALUES (:description, :userscontrol, :adddev, :editdev, :deldev, :alertsview, :alertsdel, :gsview, :gschange, :videosview, :videosdecrypt, :videosdel);");
-        SetDefaultValues();
+                           "\"alertsView\", \"alertsDelete\", \"generalSettingsView\", \"generalSettingsChange\", \"videosView\", \"videosDecrypt\", \"videosDelete\", \"mandatoryMark\")"
+                           "VALUES (:description, :userscontrol, :adddev, :editdev, :deldev, :alertsview, :alertsdel, :gsview, :gschange, :videosview, :videosdecrypt, :videosdel, :mark);");
         break;
     case 1:
         MainQuery->prepare("UPDATE rights SET description = :description, \"usersControl\" = :userscontrol, \"addDevice\" = :adddev, \"editDevice\" = :editdev, \"deleteDevice\" = :deldev, \"alertsView\" = :alertsview,"
-                           "\"alertsDelete\" = :alertsdel, \"generalSettingsView\" = :gsview, \"generalSettingsChange\" = :gschange, \"videosView\" = :videosview, \"videosDecrypt\" = :videosdecrypt, \"videosDelete\" = :videosdel;");
+                           "\"alertsDelete\" = :alertsdel, \"generalSettingsView\" = :gsview, \"generalSettingsChange\" = :gschange, \"videosView\" = :videosview, \"videosDecrypt\" = :videosdecrypt, \"videosDelete\" = :videosdel, \"mandatoryMark\" = :mark WHERE \"rightId\" = "+QString::number(MandatoryGroupId)+";");
+        rightsParser(MandatoryGroupId);
+        ui->GroupName_Edit->setText(MandatoryGroupDescription);
         break;
 
 
@@ -196,6 +202,8 @@ void EditMandatoryGroup::on_videosDelete_checkBox_stateChanged(int arg1)
 
 void EditMandatoryGroup::on_buttonBox_accepted()
 {
+    int CurrentIndex = MandatoryGroups_model.data(MandatoryGroups_model.index(ui->MandatoryMark_comboBox->currentIndex(),0)).toInt();
+    MainQuery->bindValue(":mark", CurrentIndex);
     if(!ui->GroupName_Edit->text().isEmpty())
     {
         MainQuery->bindValue(":description", ui->GroupName_Edit->text());
@@ -239,3 +247,71 @@ void EditMandatoryGroup::SetDefaultValues()
     ui->videosDelete_checkBox->setEnabled(false);
     ui->VideosDecrypt_checkBox->setEnabled(false);
 }
+
+void EditMandatoryGroup::rightsParser(int MandatoryGroupId)
+{ //Парсер ролевых атрибутов мандатной группы
+    QSqlQuery Rights_query;
+    if(!Rights_query.exec("SELECT * FROM rights WHERE \"rightId\" = "+QString::number(MandatoryGroupId)+";"))
+    {
+        qDebug() << "Unable to check role rights. SQL Error: " << Rights_query.lastError() << Rights_query.lastQuery();
+    }
+    while (Rights_query.next()) {
+        if(Rights_query.value(2).toBool())
+        {
+            ui->UserControl_checkBox->setChecked(true);
+            MainQuery->bindValue(":userscontrol", true);
+        }
+        if(Rights_query.value(3).toBool())
+        {
+            ui->AddDevice_checkBox->setChecked(true);
+            MainQuery->bindValue(":adddev", true);
+        }
+        if(Rights_query.value(4).toBool())
+        {
+            ui->DeleteDevice_checkBox->setChecked(true);
+            MainQuery->bindValue(":deldev", true);
+        }
+        if(Rights_query.value(5).toBool())
+        {
+            ui->alertsView_checkBox->setChecked(true);
+            MainQuery->bindValue(":alertsview", true);
+        }
+        if(Rights_query.value(6).toBool())
+        {
+            ui->alertsDelete_checkBox->setChecked(true);
+            MainQuery->bindValue(":alertsdel", true);
+        }
+        if(Rights_query.value(7).toBool())
+        {
+            ui->generalSettingsView_checkBox->setChecked(true);
+            MainQuery->bindValue(":gsview", true);
+        }
+        if(Rights_query.value(8).toBool())
+        {
+            ui->generalSettingsChange_checkBox->setChecked(true);
+            MainQuery->bindValue(":gschange", true);
+        }
+        if(Rights_query.value(9).toBool())
+        {
+            ui->VideosView_checkBox->setChecked(true);
+            MainQuery->bindValue(":videosview", true);
+        }
+        if(Rights_query.value(10).toBool())
+        {
+            ui->VideosDecrypt_checkBox->setChecked(true);
+            MainQuery->bindValue(":videosdecrypt", true);
+        }
+        if(Rights_query.value(11).toBool())
+        {
+            ui->videosDelete_checkBox->setChecked(true);
+            MainQuery->bindValue(":videosdel", true);
+        }
+
+
+
+
+
+    }
+}
+
+

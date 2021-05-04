@@ -22,6 +22,9 @@
         <pointsize>14</pointsize>
        </font>
       </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::ActionsContextMenu</enum>
+      </property>
       <property name="text">
        <string>Включить запись 
  со всех камер</string>
@@ -165,7 +168,6 @@
       <string>Пользователи и группы</string>
      </property>
      <addaction name="users_Action"/>
-     <addaction name="MandatoryGroups_Action"/>
     </widget>
     <widget class="QMenu" name="menu_5">
      <property name="title">
