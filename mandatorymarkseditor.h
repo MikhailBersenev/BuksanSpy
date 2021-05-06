@@ -20,6 +20,7 @@ private slots:
 
     void on_DeleteMandatoryMark_pushButton_clicked();
 
+
 private:
     Ui::MandatoryMarksEditor *ui;
     void UpdateModels();

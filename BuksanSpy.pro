@@ -19,6 +19,7 @@ SOURCES += \
     accessmanager.cpp \
     adddevice.cpp \
     authorization.cpp \
+    buksanspyapp.cpp \
     cameravideocapture.cpp \
     checkconnection.cpp \
     checkstring.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     adddevice.h \
     authorization.h \
     buksanspy.h \
+    buksanspyapp.h \
     cameravideocapture.h \
     checkconnection.h \
     checkstring.h \

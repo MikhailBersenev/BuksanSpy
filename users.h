@@ -40,6 +40,8 @@ private slots:
 
     void on_MandatoryGroupsEditor_toolButton_clicked();
 
+    void on_ChangePassword_action_triggered();
+
 private:
     Ui::Users *ui;
     QSqlQuery *MainQuery;

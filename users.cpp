@@ -82,6 +82,7 @@ void Users::UpdateModels()
 void Users::on_users_listView_clicked(const QModelIndex &index)
 {
     Q_UNUSED(index)
+    addActions({ui->ChangePassword_action});
     ui->mandatorygroup_label_2->setText(users_model.data(users_model.index(ui->users_listView->currentIndex().row(),3)).toString());
     ui->registrationdate_label_2->setText(users_model.data(users_model.index(ui->users_listView->currentIndex().row(),2)).toString());
     ui->macm_label_2->setText(users_model.data(users_model.index(ui->users_listView->currentIndex().row(),4)).toString());
@@ -145,7 +146,7 @@ bool Users::CheckForRoot()
 void Users::on_MandatoryMarksEditor_toolButton_clicked()
 {
 
-    if(!CheckForRoot())
+    if(CheckForRoot())
     {
         MandatoryMarksEditor *MacEditor = new MandatoryMarksEditor(this, username);
         MacEditor->setModal(true);
@@ -153,10 +154,7 @@ void Users::on_MandatoryMarksEditor_toolButton_clicked()
         delete MacEditor;
 
     }
-    MandatoryMarksEditor *MacEditor = new MandatoryMarksEditor(this, username);
-    MacEditor->setModal(true);
-    MacEditor->exec();
-    delete MacEditor;
+
 }
 
 
@@ -170,4 +168,12 @@ void Users::on_MandatoryGroupsEditor_toolButton_clicked()
     rights->setModal(true);
     rights->exec();
     delete rights;
+}
+
+
+
+
+void Users::on_ChangePassword_action_triggered()
+{
+    qDebug() << "dssdsdsds";
 }

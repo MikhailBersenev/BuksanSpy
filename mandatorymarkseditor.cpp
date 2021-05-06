@@ -65,3 +65,4 @@ void MandatoryMarksEditor::on_DeleteMandatoryMark_pushButton_clicked()
         }
     }
 }
+

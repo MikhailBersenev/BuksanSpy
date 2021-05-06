@@ -12,16 +12,17 @@ EditMandatoryGroup::EditMandatoryGroup(QWidget *parent, int mode, int MandatoryG
     ui->MandatoryMark_comboBox->setModel(&MandatoryGroups_model);
     ui->MandatoryMark_comboBox->setModelColumn(1);
     MainQuery = new QSqlQuery;
-    SetDefaultValues();
     switch (mode) {
     case 0:
         MainQuery->prepare("INSERT INTO rights (description, \"usersControl\", \"addDevice\", \"editDevice\", \"deleteDevice\", "
                            "\"alertsView\", \"alertsDelete\", \"generalSettingsView\", \"generalSettingsChange\", \"videosView\", \"videosDecrypt\", \"videosDelete\", \"mandatoryMark\")"
                            "VALUES (:description, :userscontrol, :adddev, :editdev, :deldev, :alertsview, :alertsdel, :gsview, :gschange, :videosview, :videosdecrypt, :videosdel, :mark);");
+        SetDefaultValues();
         break;
     case 1:
         MainQuery->prepare("UPDATE rights SET description = :description, \"usersControl\" = :userscontrol, \"addDevice\" = :adddev, \"editDevice\" = :editdev, \"deleteDevice\" = :deldev, \"alertsView\" = :alertsview,"
                            "\"alertsDelete\" = :alertsdel, \"generalSettingsView\" = :gsview, \"generalSettingsChange\" = :gschange, \"videosView\" = :videosview, \"videosDecrypt\" = :videosdecrypt, \"videosDelete\" = :videosdel, \"mandatoryMark\" = :mark WHERE \"rightId\" = "+QString::number(MandatoryGroupId)+";");
+        SetDefaultValues();
         rightsParser(MandatoryGroupId);
         ui->GroupName_Edit->setText(MandatoryGroupDescription);
         break;
@@ -268,40 +269,45 @@ void EditMandatoryGroup::rightsParser(int MandatoryGroupId)
         }
         if(Rights_query.value(4).toBool())
         {
+            ui->editDevice_checkBox->setChecked(true);
+            MainQuery->bindValue(":editdev", true);
+        }
+        if(Rights_query.value(5).toBool())
+        {
             ui->DeleteDevice_checkBox->setChecked(true);
             MainQuery->bindValue(":deldev", true);
         }
-        if(Rights_query.value(5).toBool())
+        if(Rights_query.value(6).toBool())
         {
             ui->alertsView_checkBox->setChecked(true);
             MainQuery->bindValue(":alertsview", true);
         }
-        if(Rights_query.value(6).toBool())
+        if(Rights_query.value(7).toBool())
         {
             ui->alertsDelete_checkBox->setChecked(true);
             MainQuery->bindValue(":alertsdel", true);
         }
-        if(Rights_query.value(7).toBool())
+        if(Rights_query.value(8).toBool())
         {
             ui->generalSettingsView_checkBox->setChecked(true);
             MainQuery->bindValue(":gsview", true);
         }
-        if(Rights_query.value(8).toBool())
+        if(Rights_query.value(9).toBool())
         {
             ui->generalSettingsChange_checkBox->setChecked(true);
             MainQuery->bindValue(":gschange", true);
         }
-        if(Rights_query.value(9).toBool())
+        if(Rights_query.value(10).toBool())
         {
             ui->VideosView_checkBox->setChecked(true);
             MainQuery->bindValue(":videosview", true);
         }
-        if(Rights_query.value(10).toBool())
+        if(Rights_query.value(11).toBool())
         {
             ui->VideosDecrypt_checkBox->setChecked(true);
             MainQuery->bindValue(":videosdecrypt", true);
         }
-        if(Rights_query.value(11).toBool())
+        if(Rights_query.value(12).toBool())
         {
             ui->videosDelete_checkBox->setChecked(true);
             MainQuery->bindValue(":videosdel", true);

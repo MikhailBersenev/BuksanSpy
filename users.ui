@@ -30,6 +30,9 @@
           <bold>true</bold>
          </font>
         </property>
+        <property name="contextMenuPolicy">
+         <enum>Qt::ActionsContextMenu</enum>
+        </property>
        </widget>
       </item>
       <item row="1" column="0">
@@ -217,6 +220,14 @@
     </widget>
    </item>
   </layout>
+  <action name="ChangePassword_action">
+   <property name="text">
+    <string>Сменить пароль</string>
+   </property>
+   <property name="toolTip">
+    <string>Сменить пароль</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
