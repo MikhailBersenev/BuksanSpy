@@ -7,6 +7,7 @@
 #include "mandatorygroups.h"
 #include "checkconnection.h"
 #include <QtWidgets>
+#include "buksanviewfinder.h"
 #include <cameravideocapture.h>
 QT_BEGIN_NAMESPACE
 namespace Ui { class BuksanSpy; }
@@ -71,6 +72,7 @@ private:
     QTransform *CamRotate;
     QLabel *CameraView_Label;
     CameraVideoCapture *CameraVideoCapture_var;
+    BuksanViewFinder *finder;
 
 
     

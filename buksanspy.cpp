@@ -10,6 +10,7 @@
 #include "users.h"
 #include "checkconnection.h"
 #include <opencv2/opencv.hpp>
+#include "buksanviewfinder.h"
 BuksanSpy::BuksanSpy(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::BuksanSpy)
@@ -52,7 +53,7 @@ void BuksanSpy::on_Quit_Action_triggered()
 
 void BuksanSpy::on_pushButton_2_clicked()
 {
-    QTransform CamRotate;
+ /*   QTransform CamRotate;
     m_cam = new CameraVideoCapture(this);
     m_cam->isRecording = false;
     m_cam->ConnectionString = "0";
@@ -82,10 +83,13 @@ void BuksanSpy::on_pushButton_2_clicked()
         
     } );
     test->setMinimumSize(m_cam->Width,m_cam->Height);
-    /* AccessManager_var = new AccessManager(this);
+     AccessManager_var = new AccessManager(this);
     if (!AccessManager_var->checkright("adminwwe", 0)) {
         QMessageBox::critical(this, "warning", "warning");
     }*/
+    finder = new BuksanViewFinder(this, "tcpclientsrc host=127.0.0.1 port=5000 ! gdpdepay ! appsink");
+    finder->show();
+
     
 }
 

@@ -21,6 +21,7 @@ public:
     ~Authorization();
 CheckConnection *check;
 DataBaseConnection dbConnection;
+void Auth(QString username);
 private slots:
     void on_TryLogin_Button_clicked();
 
@@ -32,6 +33,7 @@ private:
     BuksanSpy DashBoard;
     SendAlert *SendAlert_var;
     void SaveSession();
+
 
 signals:
 

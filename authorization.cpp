@@ -18,6 +18,40 @@ Authorization::~Authorization()
     delete ui;
 }
 
+void Authorization::Auth(QString username)
+{
+    MainQuery = new QSqlQuery; //Динамическое создание объекта запроса
+    MainQuery->prepare("SELECT * FROM \"vUsers\" WHERE username = :username;"); //Подготовка запроса
+    MainQuery->bindValue(":username", username); //Берем логин из поля
+    if(!MainQuery->exec()) //Выполнение запроса
+    {
+        qDebug() << "Unable to execute query" << MainQuery->lastQuery() << MainQuery->lastError();
+    }
+    MainQuery->first();
+    if(MainQuery->value(5).toInt()==-1)
+    {
+        QMessageBox::critical(this, "Ошибка авторизации", "Аккаунт "+MainQuery->value(1).toString()+" заблокирован.");
+    }
+    else
+    {
+        close(); //Закрытие формы авторизации
+        SendAlert_var = new SendAlert; //Создание динамического объекта посылателя событий
+        SendAlert_var->prepare(); //Подготовка события
+        SendAlert_var->setUser(ui->Login_Edit->text()); //Присвоение имени пользователя
+        SendAlert_var->setSignature(2);                 //Присвоение сигнатуры события
+        SendAlert_var->send();                          //Отправка события
+        delete SendAlert_var; //Удаление динамического объекта посылателя сообщений
+
+
+        DashBoard.username = ui->Login_Edit->text();
+        DashBoard.SetTitle();
+        check = new CheckConnection(this);
+        check->username = ui->Login_Edit->text();
+        // check->start();
+        DashBoard.show(); //Отображение главной формы
+    }
+}
+
 
 
 void Authorization::on_TryLogin_Button_clicked()
@@ -31,35 +65,10 @@ void Authorization::on_TryLogin_Button_clicked()
         }
         else
         {
-            MainQuery = new QSqlQuery; //Динамическое создание объекта запроса
-            MainQuery->prepare("SELECT * FROM \"vUsers\" WHERE username = :username;"); //Подготовка запроса
-            MainQuery->bindValue(":username", ui->Login_Edit->text()); //Берем логин из поля
-            if(!MainQuery->exec()) //Выполнение запроса
+            Auth(ui->Login_Edit->text());
+            if(ui->SaveLoginStrings_checkBox->isChecked())
             {
-                qDebug() << "Unable to execute query" << MainQuery->lastQuery() << MainQuery->lastError();
-            }
-            MainQuery->first();
-            if(MainQuery->value(5).toInt()==-1)
-            {
-                QMessageBox::critical(this, "Ошибка авторизации", "Аккаунт "+MainQuery->value(1).toString()+" заблокирован.");
-            }
-            else
-            {
-                close(); //Закрытие формы авторизации
-                SendAlert_var = new SendAlert; //Создание динамического объекта посылателя событий
-                SendAlert_var->prepare(); //Подготовка события
-                SendAlert_var->setUser(ui->Login_Edit->text()); //Присвоение имени пользователя
-                SendAlert_var->setSignature(2);                 //Присвоение сигнатуры события
-                SendAlert_var->send();                          //Отправка события
-                delete SendAlert_var; //Удаление динамического объекта посылателя сообщений
-
-
-                DashBoard.username = ui->Login_Edit->text();
-                DashBoard.SetTitle();
-                check = new CheckConnection(this);
-                check->username = ui->Login_Edit->text();
-                // check->start();
-                DashBoard.show(); //Отображение главной формы
+                SaveSession();
             }
         }
     }
