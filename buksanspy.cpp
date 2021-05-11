@@ -87,7 +87,8 @@ void BuksanSpy::on_pushButton_2_clicked()
     if (!AccessManager_var->checkright("adminwwe", 0)) {
         QMessageBox::critical(this, "warning", "warning");
     }*/
-    finder = new BuksanViewFinder(this, "tcpclientsrc host=127.0.0.1 port=5000 ! gdpdepay ! appsink");
+    finder = new BuksanViewFinder(this, "tcpclientsrc host=127.0.0.1 port=5000 ! gdpdepay ! appsink",640,480);
+    finder->setObjectName("cam");
     finder->show();
 
     

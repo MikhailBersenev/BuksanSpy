@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
     File.open(QFile::ReadOnly);
     QString skin = QLatin1String(File.readAll());
     a.setStyleSheet(skin);
-    if(LoadLastSession())
+    if(!LoadLastSession())
     {
         auth.show();
     }

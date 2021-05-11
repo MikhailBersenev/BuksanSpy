@@ -8,9 +8,10 @@ class BuksanViewFinder : public QLabel
 {
     Q_OBJECT
 public:
-    BuksanViewFinder(QWidget *parent=nullptr, QString ConnectionString=nullptr, int Width=640, int Height=480);
+    BuksanViewFinder(QWidget *parent, QString ConnectionString, int Width, int Height);
 private:
 CameraVideoCapture *CameraVideoCapture_var;
+
 
 
 

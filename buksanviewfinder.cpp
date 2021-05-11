@@ -1,10 +1,11 @@
 #include "buksanviewfinder.h"
 #include <QLabel>
-BuksanViewFinder::BuksanViewFinder(QWidget *parent,  QString ConnectionString, int Width, int Height)//:
-//QLabel(parent)
+#include <cameravideocapture.h>
+BuksanViewFinder::BuksanViewFinder(QWidget *parent,  QString ConnectionString, int Width, int Height):
+QLabel(parent)
 {
-    CameraVideoCapture_var = new CameraVideoCapture(this);
-    CameraVideoCapture_var->mVideoCap =cv::VideoCapture(ConnectionString.toStdString(),
+  CameraVideoCapture *CameraVideoCapture_var  = new CameraVideoCapture(this);
+    CameraVideoCapture_var->mVideoCap = cv::VideoCapture(ConnectionString.toStdString(),
                                                         cv::CAP_GSTREAMER);
     CameraVideoCapture_var->mVideoCap.set(cv::CAP_PROP_FRAME_WIDTH,Width);
     CameraVideoCapture_var->mVideoCap.set(cv::CAP_PROP_FRAME_HEIGHT,Height);
@@ -13,7 +14,7 @@ BuksanViewFinder::BuksanViewFinder(QWidget *parent,  QString ConnectionString, i
     {
 
 
-        setPixmap(CameraVideoCapture_var->pixmap().scaled(Width,Height));
+        //setPixmap(CameraVideoCapture_var->pixmap().scaled(Width,Height));
 
 
     } );
