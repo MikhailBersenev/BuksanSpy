@@ -15,6 +15,7 @@ bool DataBaseConnection::CreateConnection(QString HostName, QString DBName, QStr
     db.setPort(Port);
     db.setUserName(UserName);   //Пользователь
     db.setPassword(Password);   //Пароль
+    qDebug() << "UserName " << UserName << " " << DBName;
     //Проверка на возможность соединения и соединение
     if(!db.open()) {
         qDebug() << "Unable to create connection"  << db.lastError();

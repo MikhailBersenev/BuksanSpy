@@ -43,6 +43,7 @@ bool LoadLastSession()
         if(dbConnection.CreateConnection(LastSessionData.value(0),LastSessionData.value(1),LastSessionData.value(3), LastSessionData.value(4), LastSessionData.value(2).toInt()))
         {
             username = LastSessionData.value(3);
+            qDebug() << "username " << username << " " << LastSessionData.value(3);
             return true;
         }
 

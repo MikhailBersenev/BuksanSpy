@@ -43,7 +43,7 @@ void Authorization::Auth(QString username)
         delete SendAlert_var; //Удаление динамического объекта посылателя сообщений
 
 
-        DashBoard.username = ui->Login_Edit->text();
+        DashBoard.username = username;
         DashBoard.SetTitle();
         check = new CheckConnection(this);
         check->username = ui->Login_Edit->text();

@@ -59,7 +59,7 @@ void AddDevice::on_buttonBox_accepted()
     switch (ui->DevType_ComboBox->model()->index(ui->DevType_ComboBox->currentIndex(),0).data().toInt()) {
     case 0:
         AddDevice_Query.bindValue(":connectionstr", webcamera_ComboBox->currentText().right(1));
-        AddDevice_Query.bindValue(":devtype", 2);
+        AddDevice_Query.bindValue(":devtype", 1);
         CheckExist_Query.bindValue(":connectionstr", webcamera_ComboBox->currentText().right(1));
         break;
     case 1:
