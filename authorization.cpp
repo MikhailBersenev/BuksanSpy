@@ -85,7 +85,7 @@ void Authorization::on_TryLogin_Button_clicked()
 
 void Authorization::on_ShowPassword_checkBox_stateChanged(int arg1)
 { //Скрыть или показать пароль
-    QLineEdit::EchoMode state;
+    QLineEdit::EchoMode state = QLineEdit::Password;
     switch (arg1) {
     case 0:
         state = QLineEdit::Password;

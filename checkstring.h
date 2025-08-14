@@ -2,6 +2,7 @@
 #define CHECKSTRING_H
 #include <QtSql>
 #include <QObject>
+#include <QRegularExpression>
 
 class CheckString : public QObject
 {

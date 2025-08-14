@@ -2,7 +2,6 @@
 #define CHECKCONNECTION_H
 #include <QThread>
 #include <QObject>
-#include <QNetworkConfigurationManager>
 #include <QTimer>
 #include "sendalert.h"
 class CheckConnection : public QTimer

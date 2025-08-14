@@ -5,11 +5,10 @@ QT       += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
-INCLUDEPATH +="/usr/local/include/opencv4"
-LIBS += -L"/usr/local/lib/"
-LIBS += \
--lopencv_calib3d -lopencv_imgproc -lopencv_core -lopencv_ml -lopencv_videoio -lopencv_features2d -lopencv_objdetect -lopencv_flann -lopencv_video -lopencv_highgui
+CONFIG += c++17
+# OpenCV: минимальный набор модулей без opencv_viz/VTK
+INCLUDEPATH += /usr/include/opencv4
+LIBS += -lopencv_core -lopencv_imgproc -lopencv_videoio -lopencv_imgcodecs
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.

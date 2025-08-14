@@ -1,5 +1,4 @@
 #include "checkconnection.h"
-#include <QNetworkConfigurationManager>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QTimer>

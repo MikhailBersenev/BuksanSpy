@@ -1,7 +1,7 @@
 #include "networkinfo.h"
 #include <QHostAddress>
 #include <QNetworkInterface>
-NetworkInfo::NetworkInfo(QObject *parent) : QNetworkConfigurationManager(parent)
+NetworkInfo::NetworkInfo(QObject *parent) : QObject(parent)
 {
 
 }

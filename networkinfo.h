@@ -2,8 +2,7 @@
 #define NETWORKINFO_H
 #include <QObject>
 #include <QTimer>
-#include<QNetworkConfigurationManager>
-class NetworkInfo : public  QNetworkConfigurationManager
+class NetworkInfo : public QObject
 {
     Q_OBJECT
 public:

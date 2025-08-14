@@ -1,7 +1,8 @@
 #include "adddevice.h"
 #include "ui_adddevice.h"
 #include <QtWidgets>
-#include <QCameraInfo>
+#include <QMediaDevices>
+#include <QCameraDevice>
 AddDevice::AddDevice(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddDevice)
@@ -41,9 +42,9 @@ void AddDevice::SetMode(int mode)
         webcamera_ComboBox = new QComboBox;
         ui->SelectDevice_Layout->addWidget(webcamera_ComboBox);
         ui->SelectDevice_Label->setText("Устройство:");
-        const QList<QCameraInfo> cameras = QCameraInfo::availableCameras();
-        for (const QCameraInfo &cameraInfo : cameras)
-            webcamera_ComboBox->addItem(cameraInfo.deviceName());
+        const QList<QCameraDevice> cameras = QMediaDevices::videoInputs();
+        for (const QCameraDevice &cameraDevice : cameras)
+            webcamera_ComboBox->addItem(cameraDevice.description());
         break;
     }
 }

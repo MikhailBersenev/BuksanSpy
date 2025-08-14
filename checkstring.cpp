@@ -75,7 +75,7 @@ bool CheckString::CheckUserExist(QString username)
 
 bool CheckString::CheckMail(QString email)
 {
-   QRegExp rxp("(mail.ru|yandex.ru|gmail.com|outlook.com|yahoo.com|icloud.com|zoho.com|rambler.ru|inbox.com|aol.com)");
+   QRegularExpression rxp("(mail\\.ru|yandex\\.ru|gmail\\.com|outlook\\.com|yahoo\\.com|icloud\\.com|zoho\\.com|rambler\\.ru|inbox\\.com|aol\\.com)");
    QList <QString> domainlist;
     QMutableListIterator <QString> it(domainlist);
     QString name;
@@ -85,10 +85,10 @@ bool CheckString::CheckMail(QString email)
     domain_count = email.length();
     domain_count = domain_count-name.length();
     domain = email.right(domain_count);
-    int find = rxp.indexIn(domain);
+    bool matches = rxp.match(domain).hasMatch();
     if(name.length()>=4)
     {
-        if(find==-1)
+        if(!matches)
         {
             ErrorDesc = "Недопустимый провайдер email";
             return false;

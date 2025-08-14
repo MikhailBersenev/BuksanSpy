@@ -2,7 +2,8 @@
 #define ADDDEVICE_H
 #include <QtSql>
 #include <QDialog>
-#include <QCameraInfo>
+#include <QMediaDevices>
+#include <QCameraDevice>
 namespace Ui {
 class AddDevice;
 }

@@ -47,6 +47,7 @@ bool LoadLastSession()
         }
 
     }
+    return false;
 }
 int main(int argc, char *argv[])
 {
@@ -54,9 +55,12 @@ int main(int argc, char *argv[])
     Authorization auth;
     BuksanSpy w;
     QFile File("./Takezo.qss");
-    File.open(QFile::ReadOnly);
-    QString skin = QLatin1String(File.readAll());
-    a.setStyleSheet(skin);
+    if (File.open(QFile::ReadOnly)) {
+        const QString skin = QLatin1String(File.readAll());
+        a.setStyleSheet(skin);
+    } else {
+        qWarning() << "Stylesheet not found, running without theme";
+    }
     if(!LoadLastSession())
     {
         auth.show();
