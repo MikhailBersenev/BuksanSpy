@@ -13,7 +13,7 @@ QStringList GetLastSessionData()
     result << LoadSettings->value("/host", "").toString() << LoadSettings->value("/DBName", "").toString() << LoadSettings->value("/Port", "").toString()
            << LoadSettings->value("/UserName", "").toString() << LoadSettings->value("/UserPassword", "").toString() << LoadSettings->value("/timestamp", "").toString();
     LoadSettings->endGroup();
-    delete LoadSettings;
+    // Не удаляем LoadSettings: владение у приложения (BuksanSpyApp)
     return result;
 }
 bool CheckLastSettion()
