@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CAddDevice</class>
+ <widget class="QDialog" name="CAddDevice">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>350</width>
+    <height>180</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Добавление устройства</string>
+  </property>
+  <layout class="QFormLayout" name="formLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="DeviceType_Label">
+     <property name="text">
+      <string>Тип устройства:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="SelectDevice_Label">
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <layout class="QVBoxLayout" name="SelectDevice_Layout"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="Resolution_Label">
+     <property name="text">
+      <string>Разрешение:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QComboBox" name="DevType_ComboBox">
+     <item>
+      <property name="text">
+       <string>USB Web Camera</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>IP Camera</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QComboBox" name="Resolution_ComboBox"/>
+   </item>
+   <item row="4" column="1">
+    <widget class="QComboBox" name="Transform_ComboBox">
+     <item>
+      <property name="text">
+       <string>Не раворачивать 360</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Развернуть на 180</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="Transform_Label">
+     <property name="text">
+      <string>Трансформировать:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QLineEdit" name="Caption_Edit"/>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="Caption_Label">
+     <property name="text">
+      <string>Название:</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>AddDevice</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>174</x>
+     <y>189</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>208</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>AddDevice</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>174</x>
+     <y>195</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>208</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

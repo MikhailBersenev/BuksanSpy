@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CUsers</class>
+ <widget class="QDialog" name="CUsers">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>932</width>
+    <height>472</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Пользователи и группы</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_3">
+   <item row="0" column="0" rowspan="2">
+    <widget class="QGroupBox" name="users_groupBox">
+     <property name="title">
+      <string>Пользователи</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QListView" name="users_listView">
+        <property name="font">
+         <font>
+          <family>Arimo</family>
+          <pointsize>16</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="contextMenuPolicy">
+         <enum>Qt::ActionsContextMenu</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <layout class="QVBoxLayout" name="ButtonsLayout">
+        <item>
+         <widget class="QPushButton" name="AddUser_Button">
+          <property name="text">
+           <string>Добавить </string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="DeleteUser_Button">
+          <property name="text">
+           <string>Удалить</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="1" colspan="2">
+    <widget class="QGroupBox" name="userinfo_groupBox">
+     <property name="title">
+      <string>Информация о пользователе</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="mandatorygroup_label">
+        <property name="text">
+         <string>Мандатная группа:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>115</width>
+          <height>18</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="macm_label">
+        <property name="text">
+         <string>Уровень допуска:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>114</width>
+          <height>18</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="4">
+       <widget class="QLabel" name="RegistrationDate_label">
+        <property name="text">
+         <string>Дата регистрации:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4">
+       <widget class="QLabel" name="registrationdate_label_2">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="macm_label_2">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>65</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="3">
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>85</width>
+          <height>18</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="mandatorygroup_label_2">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QGroupBox" name="additional_groupBox">
+     <property name="title">
+      <string>Дополнительно</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QToolButton" name="MandatoryMarksEditor_toolButton">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="inputMethodHints">
+         <set>Qt::ImhNone</set>
+        </property>
+        <property name="text">
+         <string>Мандатные метки</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../Загрузки/key.png</normaloff>../Загрузки/key.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>128</width>
+          <height>128</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="MandatoryGroupsEditor_toolButton">
+        <property name="text">
+         <string>Мандатные группы</string>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QGroupBox" name="RoleAtributes_groupBox">
+     <property name="title">
+      <string>Ролевые атрибуты</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QListWidget" name="RoleAtributes_listWidget"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+  <action name="ChangePassword_action">
+   <property name="text">
+    <string>Сменить пароль</string>
+   </property>
+   <property name="toolTip">
+    <string>Сменить пароль</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

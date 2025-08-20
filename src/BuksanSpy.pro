@@ -1,11 +1,12 @@
-QT       += core gui
+QT       += core gui widgets
 QT       += sql
 QT       += multimedia
 QT       += network
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
 CONFIG += c++17
+
+# Требуем Qt6 и отключаем старые API
+DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 # OpenCV: минимальный набор модулей без opencv_viz/VTK
 INCLUDEPATH += /usr/include/opencv4
 LIBS += -lopencv_core -lopencv_imgproc -lopencv_videoio -lopencv_imgcodecs
@@ -15,64 +16,65 @@ LIBS += -lopencv_core -lopencv_imgproc -lopencv_videoio -lopencv_imgcodecs
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    accessmanager.cpp \
-    adddevice.cpp \
-    authorization.cpp \
-    buksanspyapp.cpp \
-    buksanviewfinder.cpp \
-    cameravideocapture.cpp \
-    checkconnection.cpp \
-    checkstring.cpp \
-    createuser.cpp \
-    databaseconnection.cpp \
-    datacryptor.cpp \
-    devices.cpp \
-    editmandatorygroup.cpp \
-    eventlog.cpp \
+    CAccessManager.cpp \
+    CAddDevice.cpp \
+    CAuthorization.cpp \
+    CBuksanSpyApp.cpp \
+    CBuksanViewFinder.cpp \
+    CCameraVideoCapture.cpp \
+    CCheckConnection.cpp \
+    CCheckString.cpp \
+    CCreateUser.cpp \
+    CDatabaseConnection.cpp \
+    CDataCryptor.cpp \
+    CDevices.cpp \
+    CEditMandatoryGroup.cpp \
+    CEventLog.cpp \
     main.cpp \
-    buksanspy.cpp \
-    mandatorygroups.cpp \
-    mandatorymarkcreator.cpp \
-    mandatorymarkseditor.cpp \
-    networkinfo.cpp \
-    sendalert.cpp \
-    users.cpp
+    CBuksanSpy.cpp \
+    CMandatoryGroups.cpp \
+    CMandatoryMarkCreator.cpp \
+    CMandatoryMarksEditor.cpp \
+    CNetworkInfo.cpp \
+    CSendAlert.cpp \
+    CUsers.cpp
 
 HEADERS += \
-    accessmanager.h \
-    adddevice.h \
-    authorization.h \
-    buksanspy.h \
-    buksanspyapp.h \
-    buksanviewfinder.h \
-    cameravideocapture.h \
-    checkconnection.h \
-    checkstring.h \
-    createuser.h \
-    databaseconnection.h \
-    datacryptor.h \
-    devices.h \
-    editmandatorygroup.h \
-    eventlog.h \
-    mandatorygroups.h \
-    mandatorymarkcreator.h \
-    mandatorymarkseditor.h \
-    networkinfo.h \
-    sendalert.h \
-    users.h
+    CAccessManager.h \
+    CAddDevice.h \
+    CAuthorization.h \
+    CBuksanSpy.h \
+    CBuksanSpyApp.h \
+    CBuksanViewFinder.h \
+    CCameraVideoCapture.h \
+    CCheckConnection.h \
+    CCheckString.h \
+    CCreateUser.h \
+    CDatabaseConnection.h \
+    CDataCryptor.h \
+    CDevices.h \
+    CEditMandatoryGroup.h \
+    CEventLog.h \
+    CMandatoryGroups.h \
+    CMandatoryMarkCreator.h \
+    CMandatoryMarksEditor.h \
+    CNetworkInfo.h \
+    CSendAlert.h \
+    CUsers.h
 
 FORMS += \
-    adddevice.ui \
-    authorization.ui \
-    buksanspy.ui \
-    createuser.ui \
-    devices.ui \
-    editmandatorygroup.ui \
-    eventlog.ui \
-    mandatorygroups.ui \
-    mandatorymarkcreator.ui \
-    mandatorymarkseditor.ui \
-    users.ui
+    CAddDevice.ui \
+    CAuthorization.ui \
+    CBuksanSpy.ui \
+    CCreateUser.ui \
+    CDevices.ui \
+    CEditMandatoryGroup.ui \
+    CEventLog.ui \
+    CMandatoryGroups.ui \
+    CMandatoryMarkCreator.ui \
+    CMandatoryMarksEditor.ui \
+    CUsers.ui
+
 TRANSLATIONS += \
     BuksanSpy_ru_RU.ts
 
