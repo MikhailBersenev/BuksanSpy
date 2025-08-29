@@ -1,5 +1,4 @@
 #include "CEventLog.h"
-#include "CDatabaseConnection.h"
 #include "ui_CEventLog.h"
 #include <QDebug>
 

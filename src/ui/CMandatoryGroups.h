@@ -2,7 +2,7 @@
 #define CMANDATORYGROUPS_H
 #include <QtSql>
 #include <QDialog>
-#include "CAccessManager.h"
+#include "security/CAccessManager.h"
 #include "CEditMandatoryGroup.h"
 
 namespace Ui {

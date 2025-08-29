@@ -1,16 +1,16 @@
 #include "CBuksanSpy.h"
 #include "ui_CBuksanSpy.h"
-#include "CCreateUser.h"
+#include "security/CCreateUser.h"
 #include <QtWidgets>
 #include <QMenuBar>
-#include "CAddDevice.h"
-#include "CNetworkInfo.h"
-#include "CDevices.h"
-#include "CEventLog.h"
-#include "CUsers.h"
-#include "CCheckConnection.h"
+#include "ui/CAddDevice.h"
+#include "utils/CNetworkInfo.h"
+#include "ui/CDevices.h"
+#include "ui/CEventLog.h"
+#include "security/CUsers.h"
+#include "utils/CCheckConnection.h"
 #include <opencv2/opencv.hpp>
-#include "CBuksanViewFinder.h"
+#include "camera/CBuksanViewFinder.h"
 
 CBuksanSpy::CBuksanSpy(QWidget *parent)
     : QMainWindow(parent)

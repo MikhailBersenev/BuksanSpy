@@ -1,8 +1,8 @@
 #include "CUsers.h"
 #include "ui_CUsers.h"
 #include <QtWidgets>
-#include "CMandatoryMarksEditor.h"
-#include "CMandatoryGroups.h"
+#include "ui/CMandatoryMarksEditor.h"
+#include "ui/CMandatoryGroups.h"
 #include <QMessageBox>
 #include <QDebug>
 

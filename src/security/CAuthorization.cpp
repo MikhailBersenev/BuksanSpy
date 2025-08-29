@@ -2,9 +2,9 @@
 #include "ui_CAuthorization.h"
 #include <QtWidgets>
 #include <QSettings>
-#include "CDataCryptor.h"
+#include "database/CDataCryptor.h"
 #include "CBuksanSpyApp.h"
-#include "CDatabaseConnection.h"
+#include "database/CDatabaseConnection.h"
 #include <QMessageBox>
 #include <QDebug>
 

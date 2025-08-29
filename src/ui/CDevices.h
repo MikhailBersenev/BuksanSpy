@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QtSql>
 #include <QtWidgets>
-#include "CCameraVideoCapture.h"
+#include "camera/CCameraVideoCapture.h"
 #include <QLabel>
 #include <QBoxLayout>
 

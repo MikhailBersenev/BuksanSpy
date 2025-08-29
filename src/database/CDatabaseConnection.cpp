@@ -1,7 +1,7 @@
 #include "CDatabaseConnection.h"
-#include "CUsers.h"
-#include "CEventLog.h"
-#include "CMandatoryGroups.h"
+#include "security/CUsers.h"
+#include "ui/CEventLog.h"
+#include "ui/CMandatoryGroups.h"
 #include <QDebug>
 
 CDatabaseConnection::CDatabaseConnection(QObject *parent) : QObject(parent)

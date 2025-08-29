@@ -2,13 +2,13 @@
 #define CBUKSANSPY_H
 #include <QMainWindow>
 #include <QtSql>
-#include "CAccessManager.h"
-#include "CUsers.h"
-#include "CMandatoryGroups.h"
-#include "CCheckConnection.h"
+#include "security/CAccessManager.h"
+#include "security/CUsers.h"
+#include "ui/CMandatoryGroups.h"
+#include "utils/CCheckConnection.h"
 #include <QtWidgets>
-#include "CBuksanViewFinder.h"
-#include <CCameraVideoCapture.h>
+#include "camera/CBuksanViewFinder.h"
+#include <camera/CCameraVideoCapture.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class CBuksanSpy; }

@@ -1,7 +1,7 @@
 #ifndef CCREATEUSER_H
 #define CCREATEUSER_H
-#include "CCheckString.h"
-#include "CSendAlert.h"
+#include "utils/CCheckString.h"
+#include "utils/CSendAlert.h"
 #include <QDialog>
 #include <QtSql>
 

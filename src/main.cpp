@@ -1,7 +1,7 @@
 #include "CBuksanSpy.h"
-#include "CAuthorization.h"
+#include "security/CAuthorization.h"
 #include "CBuksanSpyApp.h"
-#include "CDatabaseConnection.h"
+#include "database/CDatabaseConnection.h"
 #include <QFile>
 #include <QSettings>
 #include <QDateTime>

@@ -3,7 +3,7 @@
 #include "CMandatoryMarkCreator.h"
 #include <QtSql>
 #include <QMessageBox>
-#include "CAccessManager.h"
+#include "security/CAccessManager.h"
 #include <QDebug>
 
 CMandatoryMarksEditor::CMandatoryMarksEditor(QWidget *parent, QString strUser) :

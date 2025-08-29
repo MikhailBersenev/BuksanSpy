@@ -1,11 +1,11 @@
 #ifndef CAUTHORIZATION_H
 #define CAUTHORIZATION_H
-#include "CSendAlert.h"
+#include "utils/CSendAlert.h"
 #include <QDialog>
 #include <QtSql>
-#include "CDatabaseConnection.h"
+#include "database/CDatabaseConnection.h"
 #include "CBuksanSpy.h"
-#include "CCheckConnection.h"
+#include "utils/CCheckConnection.h"
 #include <QSettings>
 
 namespace Ui {
