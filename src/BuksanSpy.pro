@@ -18,9 +18,9 @@ LIBS += -lopencv_core -lopencv_imgproc -lopencv_videoio -lopencv_imgcodecs
 SOURCES += \
     CBuksanSpyApp.cpp \
     CBuksanSpy.cpp \
-    main.cpp \
     camera/CBuksanViewFinder.cpp \
     camera/CCameraVideoCapture.cpp \
+    main.cpp \
     utils/CCheckConnection.cpp \
     utils/CCheckString.cpp \
     security/CCreateUser.cpp \
