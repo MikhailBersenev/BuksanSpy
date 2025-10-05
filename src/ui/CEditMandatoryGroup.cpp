@@ -199,17 +199,17 @@ void CEditMandatoryGroup::on_buttonBox_accepted()
     {
         if(m_nMode == 0)
         {
-            QMessageBox::information(this, "Создание мандатной группы", "Группа создана");
+            QMessageBox::information(this, "Mandate group creation", "Group was successfully created");
         }
         else
         {
-            QMessageBox::information(this, "Редактирование мандатной группы", "Настройки сохранены");
+            QMessageBox::information(this, "Edit mandate group", "Settings saved");
         }
         close();
     }
     if(m_pUi->GroupName_Edit->text().isEmpty())
     {
-        QMessageBox::warning(this, "Внимание!", "Укажите название мандатной группы");
+        QMessageBox::warning(this, "Warning!", "Please provide mandate group name");
     }
 }
 

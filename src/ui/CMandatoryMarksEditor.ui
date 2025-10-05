@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Редактор мандатных меток</string>
+   <string>Mandate labels editor</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -20,14 +20,14 @@
    <item>
     <widget class="QPushButton" name="addMandatoryMark_pushButton">
      <property name="text">
-      <string>Добавить мандатную метку</string>
+      <string>Add mandate label</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QPushButton" name="DeleteMandatoryMark_pushButton">
      <property name="text">
-      <string>Удалить мандатную метку</string>
+      <string>Delete mandate label</string>
      </property>
     </widget>
    </item>

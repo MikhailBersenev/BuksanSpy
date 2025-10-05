@@ -29,16 +29,16 @@ void CMandatoryMarkCreator::on_buttonBox_accepted()
             return;
         }
         else {
-            QMessageBox::information(this, "Создание мандатной метки", "Мандатная метка \""+m_pUi->MarkName_lineEdit->text()+"\" успешно создана");
+            QMessageBox::information(this, "Create mandate label", "Mandate label \""+m_pUi->MarkName_lineEdit->text()+"\" was successfully created");
         }
     }
     else
     {
-        QMessageBox::critical(this, "Ошибка", "Не удалось создать мандатную метку. Проверьте введенные данные.");
+        QMessageBox::critical(this, "Error", "Unable to create a mandate label. Please revise entered information.");
     }
 }
 
 void CMandatoryMarkCreator::on_accesslevel_Slider_sliderMoved(int position)
 {
-    m_pUi->Currentposition_label->setText("Текущий уровень: "+QString::number(position));
+    m_pUi->Currentposition_label->setText("Current access level: "+QString::number(position));
 }

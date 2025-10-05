@@ -24,8 +24,8 @@ void CMandatoryGroups::on_DeleteMandatoryGroup_Button_clicked()
     m_pAccessManager = new CAccessManager(this);
     QMessageBox::StandardButton l_reply;
     QString l_strCurrentDesc = m_mandatoryGroupsModel.data(m_mandatoryGroupsModel.index(m_pUi->MandatoryGroupslistView->currentIndex().row(),1)).toString();
-    l_reply = QMessageBox::question(this, "Удаление мандатной группы", "Вы уверены, что хотите удалить группу? \n ВНИМАНИЕ! Удаление мандатной группы приведет к удалению всех ее членов"
-                                                                     " и всей связанной с ними информации", QMessageBox::Yes|QMessageBox::No);
+    l_reply = QMessageBox::question(this, "Mandate group removal", "Are you sure you want to remove this mandate group? \n WARNING! Removal of the mandate group will cause removal its members"
+                                                                     " and ALL their information", QMessageBox::Yes|QMessageBox::No);
     if(l_reply==QMessageBox::No or l_strCurrentDesc == m_pAccessManager->fGetMandatoryGroup(m_strUsername))
     {
         return;
@@ -42,7 +42,7 @@ void CMandatoryGroups::on_DeleteMandatoryGroup_Button_clicked()
         }
         else
         {
-            QMessageBox::information(this, "Мандатные группы", "Мандатная группа удалена");
+            QMessageBox::information(this, "Mandate groups", "Mandate group  deleted successfully");
             fUpdateModels();
         }
     }
@@ -52,7 +52,7 @@ void CMandatoryGroups::on_AddMandatoryGroup_Button_clicked()
 {
     //показываем форму редактирования группы в режиме добавления
     m_pWindow = new CEditMandatoryGroup(this, 0);
-    m_pWindow->setWindowTitle("Добавление мандатной группы");
+    m_pWindow->setWindowTitle("Mandate group creation");
     m_pWindow->setModal(true);
     m_pWindow->exec();
     delete m_pWindow;
@@ -72,7 +72,7 @@ void CMandatoryGroups::on_MandatoryGroupslistView_clicked(const QModelIndex &ind
 {
     m_pUi->MandatoryMark_label->setText(m_mandatoryGroupsModel.data(m_mandatoryGroupsModel.index(index.row(),13)).toString());
     QStringList l_list;
-    l_list << "Управление пользователями и группами" << "Добавление устройств" << "Редактирование устройств" << "Удаление устройств" << "Просмотр журнала событий" << "Очистка журнала событий" << "Просмотр настроек ПС" << "Изменение настроек ПС" << "Просмотр журнала видеозаписей" << "Выгрузка видеозаписей в файл" << "Удаление видеозаписей";
+    l_list << "Users and groups setup" << "Add devices" << "Edit devices" << "Remove devices" << "View event journal " << "Clear event  journal" << "View general settings" << "Change general settings" << "View media journal" << "Export media" << "Delete media";
     if(m_nRALCounter!=0)
     {
         m_pUi->RoleAtributes_listWidget->clear();
@@ -93,7 +93,7 @@ void CMandatoryGroups::on_EditMandatoryGroup_pushButton_clicked()
     const int l_nMandatoryGroupId  = m_mandatoryGroupsModel.data(m_mandatoryGroupsModel.index(m_pUi->MandatoryGroupslistView->currentIndex().row(),0)).toInt();
     const QString l_strMandatoryGroupDescription = m_mandatoryGroupsModel.data(m_mandatoryGroupsModel.index(m_pUi->MandatoryGroupslistView->currentIndex().row(),1)).toString();
     m_pWindow = new CEditMandatoryGroup(this, 1, l_nMandatoryGroupId, l_strMandatoryGroupDescription);
-    m_pWindow->setWindowTitle("Редактирование мандатной группы "+l_strMandatoryGroupDescription);
+    m_pWindow->setWindowTitle("Edit mandate group "+l_strMandatoryGroupDescription);
     m_pWindow->setModal(true);
     m_pWindow->exec();
     delete m_pWindow;

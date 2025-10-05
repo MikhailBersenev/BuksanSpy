@@ -49,7 +49,7 @@ void CMandatoryMarksEditor::on_DeleteMandatoryMark_pushButton_clicked()
     l_deleteMandatoryMark.first();
     if(l_deleteMandatoryMark.size()>0)
     {
-        QMessageBox::critical(this, "Ошибка", "Мандатная метка просвоена " +QString::number(l_deleteMandatoryMark.size())+" мандатным группам. \n Смените метку этих групп перед удалением.");
+        QMessageBox::critical(this, "Error", "Mandate label is currently assigned to " +QString::number(l_deleteMandatoryMark.size())+" groups. \n Change their labels before deletion.");
         return;
     }
     else
@@ -61,7 +61,7 @@ void CMandatoryMarksEditor::on_DeleteMandatoryMark_pushButton_clicked()
         }
         else
         {
-            QMessageBox::information(this, "Удаление мандатной метки", "Мандатная метка \""+l_strCurrentDescription+"\" удалена");
+            QMessageBox::information(this, "Mandate label removal", "Mandate label \""+l_strCurrentDescription+"\" was successfully removed");
             fUpdateModels();
         }
     }

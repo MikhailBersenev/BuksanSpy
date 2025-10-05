@@ -31,7 +31,7 @@ void CBuksanSpy::fSetTitle()
     CNetworkInfo l_ip;
     m_pAccessManager = new CAccessManager(this);
     //Назначение заголовка окна
-    setWindowTitle(l_ip.fGetIPAddress()+" "+"Пользователь: "+m_strUsername+"("+m_pAccessManager->fGetMandatoryGroup(m_strUsername)+") - BuksanSpy");
+    setWindowTitle(l_ip.fGetIPAddress()+" "+"User: "+m_strUsername+"("+m_pAccessManager->fGetMandatoryGroup(m_strUsername)+") - BuksanSpy");
     delete m_pAccessManager;
 }
 
@@ -56,7 +56,7 @@ bool CBuksanSpy::fCheckRights(int nRight)
 {
     m_pAccessManager = new CAccessManager(this);
     if(!m_pAccessManager->fCheckRight(m_strUsername, nRight)) {
-        QMessageBox::warning(this, "Внимание!", "У вас недостаточно прав для доступа к этому разделу");
+        QMessageBox::warning(this, "Warning!", "You do not have sufficient rights to access this section.");
         return false;
     }
     else
@@ -205,5 +205,5 @@ void CBuksanSpy::fSubscribe()
 void CBuksanSpy::on_action_Qt_triggered()
 {
     //Показать оконо About Qt
-    QMessageBox::aboutQt(this, "О Qt");
+    QMessageBox::aboutQt(this, "BuksanSpy uses Qt");
 }

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>335</width>
-    <height>453</height>
+    <height>459</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="GroupName_Label">
        <property name="text">
-        <string>Название группы:</string>
+        <string>Group name:</string>
        </property>
       </widget>
      </item>
@@ -29,7 +29,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="MandatoryMark_Label">
        <property name="text">
-        <string>Мандатная метка:</string>
+        <string>Mandate label:</string>
        </property>
       </widget>
      </item>
@@ -41,13 +41,13 @@
    <item row="1" column="0">
     <widget class="QGroupBox" name="Rights_groupBox">
      <property name="title">
-      <string>Права доступа</string>
+      <string>Rights</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="4" column="0">
        <widget class="QCheckBox" name="alertsView_checkBox">
         <property name="text">
-         <string>Просмотр журнала событий</string>
+         <string>View access journal </string>
         </property>
         <property name="checked">
          <bool>false</bool>
@@ -57,7 +57,7 @@
       <item row="5" column="0">
        <widget class="QCheckBox" name="alertsDelete_checkBox">
         <property name="text">
-         <string>Очистка журнала событий</string>
+         <string>Clear access journal</string>
         </property>
         <property name="checked">
          <bool>false</bool>
@@ -67,7 +67,7 @@
       <item row="6" column="0">
        <widget class="QCheckBox" name="generalSettingsView_checkBox">
         <property name="text">
-         <string>Просмотр общих настроек системы</string>
+         <string>View general settings</string>
         </property>
         <property name="checked">
          <bool>false</bool>
@@ -77,7 +77,7 @@
       <item row="0" column="0">
        <widget class="QCheckBox" name="UserControl_checkBox">
         <property name="text">
-         <string>Управление пользователями и группами</string>
+         <string>Users and groups setup</string>
         </property>
         <property name="checked">
          <bool>false</bool>
@@ -87,7 +87,7 @@
       <item row="3" column="0">
        <widget class="QCheckBox" name="DeleteDevice_checkBox">
         <property name="text">
-         <string>Удаление камер</string>
+         <string>Remove devices</string>
         </property>
         <property name="checked">
          <bool>false</bool>
@@ -97,7 +97,7 @@
       <item row="7" column="0">
        <widget class="QCheckBox" name="generalSettingsChange_checkBox">
         <property name="text">
-         <string>Редактирование общих настроек системы</string>
+         <string>Edit general settings</string>
         </property>
         <property name="checked">
          <bool>false</bool>
@@ -107,7 +107,7 @@
       <item row="2" column="0">
        <widget class="QCheckBox" name="editDevice_checkBox">
         <property name="text">
-         <string>Редактирование камер</string>
+         <string>Edit devices</string>
         </property>
         <property name="checked">
          <bool>false</bool>
@@ -117,7 +117,7 @@
       <item row="9" column="0">
        <widget class="QCheckBox" name="VideosDecrypt_checkBox">
         <property name="text">
-         <string>Выгрузка видеозаписей</string>
+         <string>Export media</string>
         </property>
         <property name="checked">
          <bool>false</bool>
@@ -127,7 +127,7 @@
       <item row="8" column="0">
        <widget class="QCheckBox" name="VideosView_checkBox">
         <property name="text">
-         <string>Просмотр журнала видеозаписей</string>
+         <string>View media journal</string>
         </property>
         <property name="checked">
          <bool>false</bool>
@@ -137,7 +137,7 @@
       <item row="1" column="0">
        <widget class="QCheckBox" name="AddDevice_checkBox">
         <property name="text">
-         <string>Добавление камер</string>
+         <string>Add devices</string>
         </property>
         <property name="checked">
          <bool>false</bool>
@@ -147,7 +147,7 @@
       <item row="10" column="0">
        <widget class="QCheckBox" name="videosDelete_checkBox">
         <property name="text">
-         <string>Удаление видеозаписей</string>
+         <string>Delete media</string>
         </property>
         <property name="checked">
          <bool>false</bool>
@@ -160,7 +160,7 @@
    <item row="2" column="0">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
      </property>
     </widget>
    </item>

@@ -11,13 +11,13 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Пользователи и группы</string>
+   <string>Users and groups</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="0" rowspan="2">
     <widget class="QGroupBox" name="users_groupBox">
      <property name="title">
-      <string>Пользователи</string>
+      <string>Users</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
@@ -26,12 +26,11 @@
          <font>
           <family>Arimo</family>
           <pointsize>16</pointsize>
-          <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
         <property name="contextMenuPolicy">
-         <enum>Qt::ActionsContextMenu</enum>
+         <enum>Qt::ContextMenuPolicy::ActionsContextMenu</enum>
         </property>
        </widget>
       </item>
@@ -40,14 +39,14 @@
         <item>
          <widget class="QPushButton" name="AddUser_Button">
           <property name="text">
-           <string>Добавить </string>
+           <string>Add</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="DeleteUser_Button">
           <property name="text">
-           <string>Удалить</string>
+           <string>Delete</string>
           </property>
          </widget>
         </item>
@@ -59,20 +58,20 @@
    <item row="0" column="1" colspan="2">
     <widget class="QGroupBox" name="userinfo_groupBox">
      <property name="title">
-      <string>Информация о пользователе</string>
+      <string>User information</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
        <widget class="QLabel" name="mandatorygroup_label">
         <property name="text">
-         <string>Мандатная группа:</string>
+         <string>Mandate group:</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
        <spacer name="horizontalSpacer">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -85,14 +84,14 @@
       <item row="0" column="2">
        <widget class="QLabel" name="macm_label">
         <property name="text">
-         <string>Уровень допуска:</string>
+         <string>Access level:</string>
         </property>
        </widget>
       </item>
       <item row="0" column="3">
        <spacer name="horizontalSpacer_2">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -105,7 +104,7 @@
       <item row="0" column="4">
        <widget class="QLabel" name="RegistrationDate_label">
         <property name="text">
-         <string>Дата регистрации:</string>
+         <string>Registration date:</string>
         </property>
        </widget>
       </item>
@@ -126,7 +125,7 @@
       <item row="1" column="1">
        <spacer name="horizontalSpacer_3">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -139,7 +138,7 @@
       <item row="1" column="3">
        <spacer name="horizontalSpacer_4">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -162,7 +161,7 @@
    <item row="1" column="2">
     <widget class="QGroupBox" name="additional_groupBox">
      <property name="title">
-      <string>Дополнительно</string>
+      <string>Additional</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -171,10 +170,10 @@
          <bool>false</bool>
         </property>
         <property name="inputMethodHints">
-         <set>Qt::ImhNone</set>
+         <set>Qt::InputMethodHint::ImhNone</set>
         </property>
         <property name="text">
-         <string>Мандатные метки</string>
+         <string>Mandate labels</string>
         </property>
         <property name="icon">
          <iconset>
@@ -190,17 +189,17 @@
          <bool>false</bool>
         </property>
         <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextBesideIcon</enum>
+         <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QToolButton" name="MandatoryGroupsEditor_toolButton">
         <property name="text">
-         <string>Мандатные группы</string>
+         <string>Mandate groups</string>
         </property>
         <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextBesideIcon</enum>
+         <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
         </property>
        </widget>
       </item>
@@ -210,7 +209,7 @@
    <item row="1" column="1">
     <widget class="QGroupBox" name="RoleAtributes_groupBox">
      <property name="title">
-      <string>Ролевые атрибуты</string>
+      <string>Role attributes</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>

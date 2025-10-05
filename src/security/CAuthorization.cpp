@@ -32,7 +32,7 @@ void CAuthorization::fAuth(QString strUsername)
     m_pMainQuery->first();
     if(m_pMainQuery->value(5).toInt()==-1)
     {
-        QMessageBox::critical(this, "Ошибка авторизации", "Аккаунт "+m_pMainQuery->value(1).toString()+" заблокирован.");
+        QMessageBox::critical(this, "Authorization error", "Account "+m_pMainQuery->value(1).toString()+" is banned.");
     }
     else
     {
@@ -60,7 +60,7 @@ void CAuthorization::on_TryLogin_Button_clicked()
     {
         if(!m_dbConnection.fCreateConnection(m_pUi->Host_Edit->text(), m_pUi->DataBase_Edit->text(), m_pUi->Login_Edit->text(), m_pUi->Password_Edit->text(), m_pUi->Port_Edit->text().toInt()))
         {
-            QMessageBox::critical(this, "Ошибка авторизации", m_dbConnection.m_db.lastError().databaseText());
+            QMessageBox::critical(this, "Authorization error", m_dbConnection.m_db.lastError().databaseText());
         }
         else
         {
@@ -73,7 +73,7 @@ void CAuthorization::on_TryLogin_Button_clicked()
     }
     else
     {
-        QMessageBox::warning(this, "Внимание!", "Обнаружены пустые поля");
+        QMessageBox::warning(this, "Warning!", "Empty fields");
     }
 }
 

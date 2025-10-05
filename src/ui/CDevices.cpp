@@ -53,7 +53,7 @@ void CDevices::on_AddDevice_Button_clicked()
 void CDevices::on_DeleteDevice_Button_clicked()
 { //Удаление камеры
     QMessageBox::StandardButton l_reply;
-    l_reply = QMessageBox::question(this, "Удаление устройства", "Вы уверены, что хотите удалить устройство?", QMessageBox::Yes|QMessageBox::No);
+    l_reply = QMessageBox::question(this, "Device removal", "Are you sure you want to remove this device?", QMessageBox::Yes|QMessageBox::No);
     if(l_reply == QMessageBox::Yes)
     {
         QSqlQuery l_deleteDevQuery;
@@ -65,7 +65,7 @@ void CDevices::on_DeleteDevice_Button_clicked()
         }
         else
         {
-            QMessageBox::information(this, "Удаление устройства", "Устройство успешно удалено");
+            QMessageBox::information(this, "Device removal", "Device was removed successfully");
         }
     }
 }

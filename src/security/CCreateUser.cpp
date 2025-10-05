@@ -40,7 +40,7 @@ void CCreateUser::on_Confirm_Button_clicked()
     m_pCheckPassword = new CCheckString(this);
     if(!(m_pCheckPassword->CheckPassword(m_pUi->Password_Edit->text(), m_pUi->RepeatPassword_Edit->text())) or m_pCheckPassword->CheckUserExist(m_pUi->Login_Edit->text()))
     {
-        QMessageBox::warning(this, "Внимание!", m_pCheckPassword->ErrorDesc);
+        QMessageBox::warning(this, "Warning!", m_pCheckPassword->ErrorDesc);
     }
     else
     {
@@ -60,7 +60,7 @@ void CCreateUser::on_Confirm_Button_clicked()
         }
         else
         {
-            QMessageBox::information(this, "Создание нового пользователя", "Аккаунт создан");
+            QMessageBox::information(this, "User creation", "Account created successfully");
             m_pSendAlert = new CSendAlert(this);
             m_pSendAlert->fPrepare();
             m_pSendAlert->fSetUser(m_pUi->Login_Edit->text());

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Журнал событий</string>
+   <string>Events</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0" rowspan="3">
@@ -51,10 +51,10 @@
       </size>
      </property>
      <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
+      <enum>Qt::LayoutDirection::LeftToRight</enum>
      </property>
      <property name="title">
-      <string>Поиск</string>
+      <string>Search</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -63,7 +63,7 @@
       <item>
        <widget class="QPushButton" name="TryFind_Button">
         <property name="text">
-         <string>Найти</string>
+         <string>Search</string>
         </property>
        </widget>
       </item>
@@ -73,19 +73,19 @@
    <item row="1" column="1">
     <widget class="QGroupBox" name="sort_groupBox">
      <property name="title">
-      <string>Сортировка</string>
+      <string>Sort</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
        <widget class="QComboBox" name="sort_comboBox">
         <item>
          <property name="text">
-          <string>Сначала новые</string>
+          <string>Latest</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Сначала старые</string>
+          <string>Oldest</string>
          </property>
         </item>
        </widget>
@@ -96,7 +96,7 @@
    <item row="2" column="1">
     <spacer name="verticalSpacer">
      <property name="orientation">
-      <enum>Qt::Vertical</enum>
+      <enum>Qt::Orientation::Vertical</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>

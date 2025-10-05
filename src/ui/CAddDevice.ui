@@ -7,17 +7,17 @@
     <x>0</x>
     <y>0</y>
     <width>350</width>
-    <height>180</height>
+    <height>190</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Добавление устройства</string>
+   <string>Add device</string>
   </property>
   <layout class="QFormLayout" name="formLayout">
    <item row="0" column="0">
     <widget class="QLabel" name="DeviceType_Label">
      <property name="text">
-      <string>Тип устройства:</string>
+      <string>Device type:</string>
      </property>
     </widget>
    </item>
@@ -34,17 +34,17 @@
    <item row="2" column="0">
     <widget class="QLabel" name="Resolution_Label">
      <property name="text">
-      <string>Разрешение:</string>
+      <string>Resolution:</string>
      </property>
     </widget>
    </item>
    <item row="5" column="1">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
      </property>
     </widget>
    </item>
@@ -69,12 +69,12 @@
     <widget class="QComboBox" name="Transform_ComboBox">
      <item>
       <property name="text">
-       <string>Не раворачивать 360</string>
+       <string>Transform 360</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>Развернуть на 180</string>
+       <string>Transform 180</string>
       </property>
      </item>
     </widget>
@@ -82,7 +82,7 @@
    <item row="4" column="0">
     <widget class="QLabel" name="Transform_Label">
      <property name="text">
-      <string>Трансформировать:</string>
+      <string>Transform:</string>
      </property>
     </widget>
    </item>
@@ -92,45 +92,12 @@
    <item row="3" column="0">
     <widget class="QLabel" name="Caption_Label">
      <property name="text">
-      <string>Название:</string>
+      <string>Name:</string>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>AddDevice</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>174</x>
-     <y>189</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>208</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>AddDevice</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>174</x>
-     <y>195</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>208</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

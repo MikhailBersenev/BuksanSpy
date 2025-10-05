@@ -50,7 +50,7 @@ void CEventLog::on_StrToSearch_Edit_textChanged(const QString &strArg1)
 void CEventLog::fSetHeaders()
 {//Задаем заголовки столбцов
     QVariantList l_headersList;
-    l_headersList << "IP Адрес" << "Пользователь" << "Время" << "Дата" << "Событие" << "Тип события" << "Подробно";
+    l_headersList << "IP Address" << "Username" << "Time" << "Date" << "Event" << "Event type" << "Additional Information";
     int l_nI = 0;
     foreach(QVariant l_header, l_headersList)
     {

@@ -32,14 +32,14 @@ void CAddDevice::fSetMode(int nMode)
         delete m_pWebcameraComboBox;
         m_pRtspEdit = new QLineEdit;
         m_pUi->SelectDevice_Layout->addWidget(m_pRtspEdit);
-        m_pUi->SelectDevice_Label->setText("RTSP поток:");
+        m_pUi->SelectDevice_Label->setText("RTSP stream:");
         break;
     case 1:
         QString l_strDevName;
         delete m_pRtspEdit;
         m_pWebcameraComboBox = new QComboBox;
         m_pUi->SelectDevice_Layout->addWidget(m_pWebcameraComboBox);
-        m_pUi->SelectDevice_Label->setText("Устройство:");
+        m_pUi->SelectDevice_Label->setText("Device:");
         // Временно убираем использование QMediaCDevices для совместимости
         m_pWebcameraComboBox->addItem("Камера 1");
         m_pWebcameraComboBox->addItem("Камера 2");
@@ -77,7 +77,7 @@ void CAddDevice::on_buttonBox_accepted()
     l_checkExistQuery.first();
     if(!l_checkExistQuery.isNull(0))
     {
-        QMessageBox::warning(this, "Добавление камеры", "Это устройство уже добавлено");
+        QMessageBox::warning(this, "Add device", "This device is already added");
     }
     else
     {
@@ -90,12 +90,12 @@ void CAddDevice::on_buttonBox_accepted()
             }
             else
             {
-                QMessageBox::information(this, "Информация", "Устройство успешно добавлено");
+                QMessageBox::information(this, "Information", "Device was added successfully");
             }
         }
         else
         {
-            QMessageBox::warning(this, "Внимание", "Введите имя устройства");
+            QMessageBox::warning(this, "Warning", "Provide device name please");
         }
     }
 }

@@ -11,27 +11,27 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Устройства</string>
+   <string>Devices</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
     <widget class="QPushButton" name="AddDevice_Button">
      <property name="text">
-      <string>Добавить устройство</string>
+      <string>Add device</string>
      </property>
     </widget>
    </item>
    <item row="0" column="1">
     <widget class="QPushButton" name="DeleteDevice_Button">
      <property name="text">
-      <string>Удалить устройство</string>
+      <string>Remove device</string>
      </property>
     </widget>
    </item>
    <item row="1" column="0" colspan="2">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Список устройств</string>
+      <string>Devices</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">

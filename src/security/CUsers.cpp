@@ -32,8 +32,8 @@ void CUsers::on_DeleteUser_Button_clicked()
 {
     m_pAccessManager = new CAccessManager(this);
     QMessageBox::StandardButton l_reply;
-    l_reply = QMessageBox::question(this, "Удаление пользователя", "Вы уверены, что хотите удалить пользователя? \n ВНИМАНИЕ! Удаление пользователя приведет к "
-                                                                 "удалению всех связанных с ним данных", QMessageBox::Yes|QMessageBox::No);
+    l_reply = QMessageBox::question(this, "User deletion", "Are you sure you want to delete user? \n WARNING! User deletion will cause "
+                                                                 "deletion of ALL his information including system info", QMessageBox::Yes|QMessageBox::No);
     if(l_reply==QMessageBox::No)
     {
         return;
@@ -46,7 +46,7 @@ void CUsers::on_DeleteUser_Button_clicked()
         if(!m_pMainQuery->exec() || m_usersModel.query().value(1).toString()==m_strUsername)
         {
             qDebug() << "Unable to delete user" << m_pMainQuery->lastError() << m_pMainQuery->lastQuery();
-            QMessageBox::critical(this, "Ошибка", "Не удалось удалить пользователя");
+            QMessageBox::critical(this, "Error", "Unable to delete user");
             return;
         }
         if(!m_pMainQuery->exec("DROP ROLE "+m_usersModel.data(m_usersModel.index(m_pUi->users_listView->currentIndex().row(),1)).toString()+";"))
@@ -55,7 +55,7 @@ void CUsers::on_DeleteUser_Button_clicked()
         }
         else
         {
-            QMessageBox::information(this, "Пользователи и группы", "Пользователь удален");
+            QMessageBox::information(this, "Users and groups", "");
             fUpdateModels();
         }
     }
@@ -121,7 +121,7 @@ void CUsers::on_MandatoryGroupsEditor_toolButton_clicked()
 void CUsers::on_ChangePassword_action_triggered()
 {
     // Реализация изменения пароля
-    QMessageBox::information(this, "Изменение пароля", "Функция изменения пароля будет реализована позже");
+    QMessageBox::information(this, "Password change", "Password change in not currently available");
 }
 
 bool CUsers::fCheckForRoot()
