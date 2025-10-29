@@ -1,10 +1,11 @@
-#include "CCheckString.h"
+#include "CUserCheck.h"
+#include <QDebug>
 
-CCheckString::CCheckString(QObject *parent) : QObject(parent)
+CUserCheck::CUserCheck(QObject *parent) : QObject(parent)
 {
 }
 
-bool CCheckString::CheckUserExist(QString username)
+bool CUserCheck::CheckUserExist(QString username)
 {
     MainQuery = new QSqlQuery;
     MainQuery->prepare("SELECT username FROM users WHERE username = :username;");

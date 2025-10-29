@@ -22,10 +22,13 @@ SOURCES += \
     camera/CCameraVideoCapture.cpp \
     main.cpp \
     utils/CCheckConnection.cpp \
-    utils/CCheckString.cpp \
+    utils/CUserCheck.cpp \
+    utils/CStringUtils.cpp \
+    utils/CEventHelper.cpp \
     security/CCreateUser.cpp \
-    database/CDatabaseConnection.cpp \
-    database/CDataCryptor.cpp \
+    db/CDatabaseConnection.cpp \
+    db/CDatabaseConnectionPSQL.cpp \
+    db/CDataCryptor.cpp \
     ui/CDevices.cpp \
     ui/CEditMandatoryGroup.cpp \
     ui/CEventLog.cpp \
@@ -37,7 +40,36 @@ SOURCES += \
     security/CUsers.cpp \
     security/CAccessManager.cpp \
     ui/CAddDevice.cpp \
-    security/CAuthorization.cpp
+    security/CAuthorization.cpp \
+    core/CCamera.cpp \
+    core/CMediaFile.cpp \
+    MRBAC/auth/CUser.cpp \
+    MRBAC/objects/CSecLabeledObject.cpp \
+    MRBAC/objects/CSecurityGroup.cpp \
+    EventEngine/CEventEngine.cpp \
+    EventEngine/CEventSender.cpp \
+    EventEngine/CSQLEventEngine.cpp \
+    EventEngine/events/CEvent.cpp \
+    EventEngine/events/systemEvents/CSystemEvent.cpp \
+    EventEngine/events/serverEvents/CServerEvent.cpp \
+    EventEngine/events/serverEvents/CServerConnectEvent.cpp \
+    EventEngine/events/serverEvents/CInternetLostConnectionEvent.cpp \
+    EventEngine/events/serverEvents/CInternetConnectionRecoveredEvent.cpp \
+    EventEngine/events/securityEvents/CSecurityEvent.cpp \
+    EventEngine/events/securityEvents/CUserAuthEvent.cpp \
+    EventEngine/events/securityEvents/CUserRegisterEvent.cpp \
+    EventEngine/events/securityEvents/CUserChangePasswordEvent.cpp \
+    EventEngine/events/securityEvents/CUserBanAccountEvent.cpp \
+    EventEngine/events/securityEvents/CUserDeleteAccountEvent.cpp \
+    EventEngine/events/securityEvents/CUserChangeUserNameEvent.cpp \
+    EventEngine/events/securityEvents/CUserLogoutAccountEvent.cpp \
+    EventEngine/events/securityEvents/CUserUnlockAccountEvent.cpp \
+    EventEngine/events/securityEvents/CMandatoryMarkChangedEvent.cpp \
+    EventEngine/events/salesEvents/CSalesEvent.cpp \
+    EventEngine/events/salesEvents/CNewItemInReceiptEvent.cpp \
+    EventEngine/events/salesEvents/CExportReceiptToFileEvent.cpp \
+    EventEngine/events/salesEvents/CShiftOpeningEvent.cpp \
+    EventEngine/events/salesEvents/CShiftClosingEvent.cpp
 
 HEADERS += \
     CBuksanSpy.h \
@@ -45,10 +77,13 @@ HEADERS += \
     camera/CBuksanViewFinder.h \
     camera/CCameraVideoCapture.h \
     utils/CCheckConnection.h \
-    utils/CCheckString.h \
+    utils/CUserCheck.h \
+    utils/CStringUtils.h \
+    utils/CEventHelper.h \
     security/CCreateUser.h \
-    database/CDatabaseConnection.h \
-    database/CDataCryptor.h \
+    db/CDatabaseConnection.h \
+    db/CDatabaseConnectionPSQL.h \
+    db/CDataCryptor.h \
     ui/CDevices.h \
     ui/CEditMandatoryGroup.h \
     ui/CEventLog.h \
@@ -60,7 +95,36 @@ HEADERS += \
     security/CUsers.h \
     security/CAccessManager.h \
     ui/CAddDevice.h \
-    security/CAuthorization.h
+    security/CAuthorization.h \
+    core/CCamera.h \
+    core/CMediaFile.h \
+    MRBAC/auth/CUser.h \
+    MRBAC/objects/CSecLabeledObject.h \
+    MRBAC/objects/CSecurityGroup.h \
+    EventEngine/CEventEngine.h \
+    EventEngine/CEventSender.h \
+    EventEngine/CSQLEventEngine.h \
+    EventEngine/events/CEvent.h \
+    EventEngine/events/systemEvents/CSystemEvent.h \
+    EventEngine/events/serverEvents/CServerEvent.h \
+    EventEngine/events/serverEvents/CServerConnectEvent.h \
+    EventEngine/events/serverEvents/CInternetLostConnectionEvent.h \
+    EventEngine/events/serverEvents/CInternetConnectionRecoveredEvent.h \
+    EventEngine/events/securityEvents/CSecurityEvent.h \
+    EventEngine/events/securityEvents/CUserAuthEvent.h \
+    EventEngine/events/securityEvents/CUserRegisterEvent.h \
+    EventEngine/events/securityEvents/CUserChangePasswordEvent.h \
+    EventEngine/events/securityEvents/CUserBanAccountEvent.h \
+    EventEngine/events/securityEvents/CUserDeleteAccountEvent.h \
+    EventEngine/events/securityEvents/CUserChangeUserNameEvent.h \
+    EventEngine/events/securityEvents/CUserLogoutAccountEvent.h \
+    EventEngine/events/securityEvents/CUserUnlockAccountEvent.h \
+    EventEngine/events/securityEvents/CMandatoryMarkChangedEvent.h \
+    EventEngine/events/salesEvents/CSalesEvent.h \
+    EventEngine/events/salesEvents/CNewItemInReceiptEvent.h \
+    EventEngine/events/salesEvents/CExportReceiptToFileEvent.h \
+    EventEngine/events/salesEvents/CShiftOpeningEvent.h \
+    EventEngine/events/salesEvents/CShiftClosingEvent.h
 
 FORMS += \
     CBuksanSpy.ui \

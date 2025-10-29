@@ -1,7 +1,7 @@
 #include "CBuksanSpy.h"
 #include "security/CAuthorization.h"
 #include "CBuksanSpyApp.h"
-#include "database/CDatabaseConnection.h"
+#include "db/CDatabaseConnectionPSQL.h"
 #include <QFile>
 #include <QSettings>
 #include <QDateTime>
@@ -74,8 +74,17 @@ bool fLoadLastSession()
     else
     {
         const QStringList l_lastSessionData = fGetLastSessionData();
-        CDatabaseConnection l_dbConnection;
-        if(l_dbConnection.fCreateConnection(l_lastSessionData.value(0),l_lastSessionData.value(1),l_lastSessionData.value(3), l_lastSessionData.value(4), l_lastSessionData.value(2).toInt()))
+        CDatabaseConnectionPSQL l_dbConnection;
+        
+        // Подготовка структуры параметров подключения
+        CDatabaseConnection::SDBConnection l_connection;
+        l_connection.strHostName = l_lastSessionData.value(0);
+        l_connection.strDBName = l_lastSessionData.value(1);
+        l_connection.strUserName = l_lastSessionData.value(3);
+        l_connection.strPassword = l_lastSessionData.value(4);
+        l_connection.nPort = l_lastSessionData.value(2).toInt();
+        
+        if(l_dbConnection.fCreateConnection(l_connection))
         {
             g_strUsername = l_lastSessionData.value(3);
             qDebug() << "username " << g_strUsername << " " << l_lastSessionData.value(3);

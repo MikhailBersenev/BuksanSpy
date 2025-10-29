@@ -2,15 +2,16 @@
 #include "ui_CAuthorization.h"
 #include <QtWidgets>
 #include <QSettings>
-#include "database/CDataCryptor.h"
+#include "db/CDataCryptor.h"
 #include "CBuksanSpyApp.h"
-#include "database/CDatabaseConnection.h"
+#include "db/CDatabaseConnectionPSQL.h"
 #include <QMessageBox>
 #include <QDebug>
 
 CAuthorization::CAuthorization(QWidget *parent) :
     QDialog(parent),
-    m_pUi(new Ui::CAuthorization)
+    m_pUi(new Ui::CAuthorization),
+    m_pEventHelper(nullptr)
 {
     m_pUi->setupUi(this);
 }
@@ -37,17 +38,19 @@ void CAuthorization::fAuth(QString strUsername)
     else
     {
         close(); //Закрытие формы авторизации
-        m_pSendAlert = new CSendAlert; //Создание динамического объекта посылателя событий
-        m_pSendAlert->fPrepare(); //Подготовка события
-        m_pSendAlert->fSetUser(m_pUi->Login_Edit->text()); //Присвоение имени пользователя
-        m_pSendAlert->fSetSignature(2);                 //Присвоение сигнатуры события
-        m_pSendAlert->fSend();                          //Отправка события
-        delete m_pSendAlert; //Удаление динамического объекта посылателя сообщений
+        
+        // Инициализация CEventHelper один раз
+        if (!m_pEventHelper) {
+            m_pEventHelper = new CEventHelper(this);
+        }
+        
+        // Отправка события аутентификации пользователя
+        m_pEventHelper->fSendUserAuthEvent(strUsername);
 
         m_dashBoard.m_strUsername = strUsername;
         m_dashBoard.fSetTitle();
         m_pCheck = new CCheckConnection(this);
-        m_pCheck->m_strUsername = m_pUi->Login_Edit->text();
+        m_pCheck->m_strUsername = strUsername;
         // m_pCheck->start();
         m_dashBoard.show(); //Отображение главной формы
     }
@@ -58,12 +61,28 @@ void CAuthorization::on_TryLogin_Button_clicked()
     CDataCryptor l_passwordCrypt;
     if(!(m_pUi->Login_Edit->text().isEmpty() or m_pUi->Password_Edit->text().isEmpty() or m_pUi->Host_Edit->text().isEmpty() or m_pUi->Port_Edit->text().isEmpty() or m_pUi->DataBase_Edit->text().isEmpty()))
     {
-        if(!m_dbConnection.fCreateConnection(m_pUi->Host_Edit->text(), m_pUi->DataBase_Edit->text(), m_pUi->Login_Edit->text(), m_pUi->Password_Edit->text(), m_pUi->Port_Edit->text().toInt()))
+        // Подготовка структуры параметров подключения
+        CDatabaseConnection::SDBConnection l_connection;
+        l_connection.strHostName = m_pUi->Host_Edit->text();
+        l_connection.strDBName = m_pUi->DataBase_Edit->text();
+        l_connection.strUserName = m_pUi->Login_Edit->text();
+        l_connection.strPassword = m_pUi->Password_Edit->text();
+        l_connection.nPort = m_pUi->Port_Edit->text().toInt();
+        
+        if(!m_dbConnection.fCreateConnection(l_connection))
         {
             QMessageBox::critical(this, "Authorization error", m_dbConnection.m_db.lastError().databaseText());
         }
         else
         {
+            // Инициализация CEventHelper один раз
+            if (!m_pEventHelper) {
+                m_pEventHelper = new CEventHelper(this);
+            }
+            
+            // Отправка события подключения к серверу БД
+            m_pEventHelper->fSendServerConnectEvent(m_pUi->Login_Edit->text());
+            
             fAuth(m_pUi->Login_Edit->text());
             if(m_pUi->SaveLoginStrings_checkBox->isChecked())
             {

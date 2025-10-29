@@ -47,7 +47,7 @@
       <item row="4" column="0">
        <widget class="QCheckBox" name="alertsView_checkBox">
         <property name="text">
-         <string>View access journal </string>
+         <string>View event journal </string>
         </property>
         <property name="checked">
          <bool>false</bool>
@@ -57,7 +57,7 @@
       <item row="5" column="0">
        <widget class="QCheckBox" name="alertsDelete_checkBox">
         <property name="text">
-         <string>Clear access journal</string>
+         <string>Clear event  journal</string>
         </property>
         <property name="checked">
          <bool>false</bool>
@@ -97,7 +97,7 @@
       <item row="7" column="0">
        <widget class="QCheckBox" name="generalSettingsChange_checkBox">
         <property name="text">
-         <string>Edit general settings</string>
+         <string>Change general settings</string>
         </property>
         <property name="checked">
          <bool>false</bool>

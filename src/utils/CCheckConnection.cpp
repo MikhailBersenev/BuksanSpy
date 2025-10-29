@@ -1,10 +1,14 @@
 #include "CCheckConnection.h"
+#include "CEventHelper.h"
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QEventLoop>
 #include <QTimer>
 #include <QDebug>
-#include "CSendAlert.h"
-CCheckConnection::CCheckConnection(QObject *parent) : QTimer(parent)
+
+CCheckConnection::CCheckConnection(QObject *parent) : QTimer(parent),
+    m_pEventHelper(nullptr),
+    m_nPreviousState(0)
 {
 
     connect(this, SIGNAL(timeout()), this, SLOT(CheckInternet()));
@@ -22,28 +26,23 @@ void CCheckConnection::fCheckInternet()
     QEventLoop loop;
     connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
     loop.exec();
+    // Инициализация EventHelper при первой проверке
+    if (!m_pEventHelper) {
+        m_pEventHelper = new CEventHelper(this);
+    }
+    
     if(reply->bytesAvailable()==0 && reply->bytesAvailable() != m_nPreviousState)
-    {//Проверка соединения с Интернетом
-
-        CSendAlert *SendAlert_var = new CSendAlert(this);
-        SendAlert_var->fPrepare();
-        SendAlert_var->fSetUser(m_strUsername);
-        SendAlert_var->fSetSignature(13);
-        SendAlert_var->fSend();
+    {//Проверка соединения с Интернетом - потеря соединения
+        m_pEventHelper->fSendInternetLostConnectionEvent(m_strUsername);
         m_nPreviousState = reply->bytesAvailable();
-        delete SendAlert_var;
     }
     else
     {
         if(reply->bytesAvailable()>0 && reply->bytesAvailable() != m_nPreviousState)
         {
-        m_pSendAlert = new CSendAlert(this);
-        m_pSendAlert->fPrepare();
-        m_pSendAlert->fSetUser(m_strUsername);
-        m_pSendAlert->fSetSignature(14);
-        m_pSendAlert->fSend();
-        m_nPreviousState = reply->bytesAvailable();
-        delete m_pSendAlert;
+            // Восстановление соединения
+            m_pEventHelper->fSendInternetConnectionRecoveredEvent(m_strUsername);
+            m_nPreviousState = reply->bytesAvailable();
         }
     }
 }

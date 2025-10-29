@@ -4,7 +4,8 @@
 #include <QObject>
 #include <QTimer>
 
-class CSendAlert;
+class CEventHelper;
+
 class CCheckConnection : public QTimer
 {
     Q_OBJECT
@@ -15,7 +16,7 @@ public:
 signals:
 
 private:
-    CSendAlert *m_pSendAlert;
+    CEventHelper *m_pEventHelper;
     int m_nPreviousState;
 
 private slots:

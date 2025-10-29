@@ -7,7 +7,9 @@
 
 CCreateUser::CCreateUser(QWidget *parent) :
     QDialog(parent),
-    m_pUi(new Ui::CCreateUser)
+    m_pUi(new Ui::CCreateUser),
+    m_pCreateUserQuery(nullptr),
+    m_pEventHelper(nullptr)
 {
     m_pUi->setupUi(this);
     m_rightsModel.setQuery("SELECT description, \"rightId\" FROM rights;"); //Заполняем комбобокс
@@ -37,14 +39,28 @@ void CCreateUser::on_ShowPassword_CheckBox_stateChanged(int nArg1)
 
 void CCreateUser::on_Confirm_Button_clicked()
 {
-    m_pCheckPassword = new CCheckString(this);
-    if(!(m_pCheckPassword->CheckPassword(m_pUi->Password_Edit->text(), m_pUi->RepeatPassword_Edit->text())) or m_pCheckPassword->CheckUserExist(m_pUi->Login_Edit->text()))
+    // Проверка пароля через CStringUtils (статический метод)
+    QString l_strError;
+    if(!CStringUtils::CheckPassword(m_pUi->Password_Edit->text(), m_pUi->RepeatPassword_Edit->text(), l_strError))
     {
-        QMessageBox::warning(this, "Warning!", m_pCheckPassword->ErrorDesc);
+        QMessageBox::warning(this, "Warning!", l_strError);
+        return;
     }
-    else
+    
+    // Проверка существования пользователя через CUserCheck (нужен доступ к БД)
+    m_pUserCheck = new CUserCheck(this);
+    if(m_pUserCheck->CheckUserExist(m_pUi->Login_Edit->text()))
     {
+        QMessageBox::warning(this, "Warning!", m_pUserCheck->ErrorDesc);
+        delete m_pUserCheck;
+        return;
+    }
+    delete m_pUserCheck;
+    
+    // Если все проверки прошли, создаем пользователя
+    if (!m_pCreateUserQuery) {
         m_pCreateUserQuery = new QSqlQuery;
+    }
         m_pCreateUserQuery->prepare("INSERT INTO users (username, \"addDate\", rights) VALUES (:username, :date, :rights);");
         m_pCreateUserQuery->bindValue(":username", m_pUi->Login_Edit->text());
         m_pCreateUserQuery->bindValue(":date", QDate::currentDate());
@@ -61,13 +77,13 @@ void CCreateUser::on_Confirm_Button_clicked()
         else
         {
             QMessageBox::information(this, "User creation", "Account created successfully");
-            m_pSendAlert = new CSendAlert(this);
-            m_pSendAlert->fPrepare();
-            m_pSendAlert->fSetUser(m_pUi->Login_Edit->text());
-            m_pSendAlert->fSetSignature(3);
-            m_pSendAlert->fSend();
-            delete m_pSendAlert;
+            
+            // Инициализация и отправка события регистрации пользователя
+            if (!m_pEventHelper) {
+                m_pEventHelper = new CEventHelper(this);
+            }
+            m_pEventHelper->fSendUserRegisterEvent(m_pUi->Login_Edit->text());
+            
             close();
         }
-    }
 }

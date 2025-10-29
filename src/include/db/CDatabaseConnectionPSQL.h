@@ -1,9 +1,9 @@
-#ifndef CDATABASECONNECTION_H
-#define CDATABASECONNECTION_H
-#include <QtSql>
-#include <QObject>
+#ifndef CDATABASECONNECTIONPSQL_H
+#define CDATABASECONNECTIONPSQL_H
 
-class CSendAlert;
+#include "CDatabaseConnection.h"
+
+// class CSendAlert; // Временно закомментировано
 /**
  * @brief Database connection and management class
  * 
@@ -14,7 +14,7 @@ class CSendAlert;
  * The class supports PostgreSQL database connections and includes automatic
  * alert logging for connection events and database operations.
  */
-class CDatabaseConnection : public QObject
+class CDatabaseConnectionPSQL : public CDatabaseConnection
 {
     Q_OBJECT
 public:
@@ -25,28 +25,21 @@ public:
      * Initializes the database connection system and prepares
      * the alert system for connection event logging.
      */
-    explicit CDatabaseConnection(QObject *parent = nullptr);
+    explicit CDatabaseConnectionPSQL(QObject *parent = nullptr);
     
     /**
      * @brief Establishes a database connection with the specified parameters
-     * @param strHostName Database server hostname or IP address
-     * @param strDBName Name of the database to connect to
-     * @param strUserName Database username for authentication
-     * @param strPassword Database password for authentication
-     * @param nPort Database server port number
+     * @param lConnection Database connection parameters structure
      * @return true if connection was successful, false otherwise
      * 
      * Creates and establishes a database connection using the provided
      * credentials and connection parameters. Automatically logs connection
      * events through the alert system.
      */
-    bool fCreateConnection(QString strHostName, QString strDBName, QString strUserName, QString strPassword, int nPort);
+    bool fCreateConnection(SDBConnection& lConnection) override;
     
-    /** @brief Qt SQL database object for database operations */
-    QSqlDatabase m_db;
-    
-    /** @brief Alert system for logging database connection events */
-    CSendAlert *m_pSendAlert;
+    // /** @brief Alert system for logging database connection events */
+    // CSendAlert *m_pSendAlert; // Временно закомментировано
 
 private slots:
 
@@ -54,4 +47,4 @@ signals:
 
 };
 
-#endif // CDATABASECONNECTION_H
+#endif // CDATABASECONNECTIONPSQL_H

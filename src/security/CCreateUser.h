@@ -1,7 +1,8 @@
 #ifndef CCREATEUSER_H
 #define CCREATEUSER_H
-#include "utils/CCheckString.h"
-#include "utils/CSendAlert.h"
+#include "utils/CStringUtils.h"
+#include "utils/CUserCheck.h"
+#include "utils/CEventHelper.h"
 #include <QDialog>
 #include <QtSql>
 
@@ -24,9 +25,9 @@ private slots:
 private:
     Ui::CCreateUser *m_pUi;
     QSqlQueryModel m_rightsModel;
-    CCheckString *m_pCheckPassword;
+    CUserCheck *m_pUserCheck;
     QSqlQuery *m_pCreateUserQuery;
-    CSendAlert *m_pSendAlert;
+    CEventHelper *m_pEventHelper;
 };
 
 #endif // CCREATEUSER_H

@@ -1,9 +1,9 @@
 #ifndef CAUTHORIZATION_H
 #define CAUTHORIZATION_H
-#include "utils/CSendAlert.h"
+#include "utils/CEventHelper.h"
 #include <QDialog>
 #include <QtSql>
-#include "database/CDatabaseConnection.h"
+#include "db/CDatabaseConnectionPSQL.h"
 #include "CBuksanSpy.h"
 #include "utils/CCheckConnection.h"
 #include <QSettings>
@@ -47,7 +47,7 @@ public:
     CCheckConnection *m_pCheck;
     
     /** @brief Database connection object for authentication queries */
-    CDatabaseConnection m_dbConnection;
+    CDatabaseConnectionPSQL m_dbConnection;
     
     /**
      * @brief Authenticates a user with the specified username
@@ -85,8 +85,8 @@ private:
     /** @brief Main application dashboard instance */
     CBuksanSpy m_dashBoard;
     
-    /** @brief Alert system for logging authentication events */
-    CSendAlert *m_pSendAlert;
+    /** @brief Event helper for logging authentication events */
+    CEventHelper *m_pEventHelper;
     
     /**
      * @brief Saves the current user session to persistent storage
