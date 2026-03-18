@@ -156,6 +156,7 @@ private slots:
      */
     void on_action_Qt_triggered();
 
+
 private:
     /** @brief User interface object for the main window */
     Ui::CBuksanSpy *m_pUi;

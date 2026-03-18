@@ -2,6 +2,7 @@
 #include "ui_CBuksanSpy.h"
 #include "security/CCreateUser.h"
 #include <QtWidgets>
+#include <QSettings>
 #include <QMenuBar>
 #include "ui/CAddDevice.h"
 #include "utils/CNetworkInfo.h"
@@ -11,6 +12,7 @@
 #include "utils/CCheckConnection.h"
 #include <opencv2/opencv.hpp>
 #include "camera/CBuksanViewFinder.h"
+#include "CBuksanSpyApp.h"
 #include "Loggerd.h"
 
 CBuksanSpy::CBuksanSpy(QWidget *parent)
@@ -41,6 +43,12 @@ void CBuksanSpy::fSetTitle()
 
 void CBuksanSpy::on_Quit_Action_triggered()
 {
+    QSettings* pSettings = CBuksanSpyApp::theApp()->settings();
+    pSettings->beginGroup(QStringLiteral("/SessionData"));
+    pSettings->remove(QString());
+    pSettings->endGroup();
+    pSettings->sync();
+    LOG_INFO_MSG("Session removed from QSettings (File->Exit)");
     QApplication::quit();
 }
 
@@ -211,3 +219,5 @@ void CBuksanSpy::on_action_Qt_triggered()
     //Показать оконо About Qt
     QMessageBox::aboutQt(this, "BuksanSpy uses Qt");
 }
+
+
