@@ -1,9 +1,9 @@
 #include "CCameraVideoCapture.h"
-#include <QDebug>
+#include "Loggerd.h"
+#include <QString>
 CCameraVideoCapture::CCameraVideoCapture(QObject *parent) : QThread(parent)
-
 {
-
+    LOG_TRACE_MSG("CCameraVideoCapture constructed");
 }
 
 void CCameraVideoCapture::run()
@@ -14,11 +14,12 @@ void CCameraVideoCapture::run()
 
     if(!mVideoCap.isOpened())
     {
-        qDebug() << "error openning camera";
+        LOG_CRITICAL_MSG("Error opening camera (VideoCapture not opened)");
         return;
     }
     else
     {
+        LOG_INFO_MSG("CCameraVideoCapture: capture thread running");
         while(true) {
             mVideoCap >> mFrame;
             if(!mFrame.empty())
@@ -76,7 +77,7 @@ QImage  CCameraVideoCapture::cvMatToQImage( const cv::Mat &inMat )
     }
 
     default:
-        qWarning() << "ASM::cvMatToQImage() - cv::Mat image type not handled in switch:" << inMat.type();
+        LOG_INFO_MSG((QStringLiteral("cvMatToQImage: unhandled cv::Mat type ") + QString::number(inMat.type())).toStdString());
         break;
     }
 

@@ -1,6 +1,7 @@
 #include "CEventLog.h"
 #include "ui_CEventLog.h"
-#include <QDebug>
+#include "Loggerd.h"
+#include <QString>
 
 CEventLog::CEventLog(QWidget *parent) :
     QDialog(parent),
@@ -9,16 +10,19 @@ CEventLog::CEventLog(QWidget *parent) :
     m_pUi->setupUi(this);
     fUpdateModels("DESC"); //Обновление таблицы при запуске формы
     fSetHeaders();
+    LOG_INFO_MSG("CEventLog dialog opened");
 }
 
 CEventLog::~CEventLog()
 {
+    LOG_INFO_MSG("CEventLog dialog closed");
     delete m_pAlertsModel;
     delete m_pUi;
 }
 
 void CEventLog::fUpdateModels(QString strSort)
 { //Задаем модель
+    LOG_DEBUG_MSG((QStringLiteral("CEventLog::fUpdateModels sort=") + strSort).toStdString());
     m_pAlertsModel = new QSqlQueryModel;
     m_pAlertsModel->setQuery("SELECT * FROM \"vAlerts\" ORDER BY timestamp " + strSort + ";");
     m_pAlertsModel->removeColumn(0);
@@ -30,8 +34,8 @@ void CEventLog::fUpdateModels(QString strSort)
 
 void CEventLog::on_TryFind_Button_clicked()
 {
-    //Поиск по записям
     const QString l_strSearchQuery = m_pUi->StrToSearch_Edit->text();
+    LOG_INFO_MSG((QStringLiteral("CEventLog search: ") + l_strSearchQuery).toStdString());
     m_pAlertsModel->setQuery("SELECT * FROM \"vAlerts\" WHERE \"fullLog\" LIKE '%" + l_strSearchQuery + "%';");
     m_pAlertsModel->removeColumn(0);
     m_pAlertsModel->removeColumn(4);

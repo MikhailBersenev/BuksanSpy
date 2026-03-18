@@ -1,9 +1,9 @@
 #include "CMediaFile.h"
-#include <QDebug>
+#include "Loggerd.h"
 
 QString CMediaFile::fGetPath()
 {
-    qDebug() << "fGetPath m_strPath = " << m_strPath;
+    LOG_TRACE_MSG((QStringLiteral("CMediaFile::fGetPath path=") + m_strPath).toStdString());
     if(!m_strPath.isEmpty())
         return m_strPath;
     return QString();

@@ -1,8 +1,11 @@
 #include "CSecLabeledObject.h"
+#include "Loggerd.h"
 
 CSecLabeledObject::CSecLabeledObject(QObject *parent)
     : QObject{parent}, m_nId{0}
-{}
+{
+    LOG_TRACE_MSG("CSecLabeledObject constructed");
+}
 
 void CSecLabeledObject::fSetSecurityLabel(SecurityLabel &lSecLabel)
 {

@@ -1,5 +1,6 @@
 #include "CUserCheck.h"
-#include <QDebug>
+#include "Loggerd.h"
+#include <QString>
 
 CUserCheck::CUserCheck(QObject *parent) : QObject(parent)
 {
@@ -12,7 +13,7 @@ bool CUserCheck::CheckUserExist(QString username)
     MainQuery->bindValue(":username", username);
     if(!MainQuery->exec())
     {
-        qDebug() << "Unable to create query" << MainQuery->lastError() << MainQuery->lastQuery();
+        LOG_CRITICAL_MSG((QStringLiteral("Unable to execute query (CUserCheck) ") + MainQuery->lastError().text() + QLatin1Char(' ') + MainQuery->lastQuery()).toStdString());
     }
     MainQuery->first();
     if(MainQuery->isNull(0))

@@ -1,11 +1,13 @@
 #include "CEventHelper.h"
 #include "../EventEngine/events/serverEvents/CInternetLostConnectionEvent.h"
 #include "../EventEngine/events/serverEvents/CInternetConnectionRecoveredEvent.h"
-#include <QDebug>
+#include "Loggerd.h"
+#include <QString>
 
 CEventHelper::CEventHelper(QObject *parent)
     : QObject(parent)
 {
+    LOG_TRACE_MSG("CEventHelper constructed");
     m_pEventSender = new CEventSender(this);
     m_pSQLEventEngine = new CSQLEventEngine(this);
     fInitializeEventSystem();
@@ -13,23 +15,23 @@ CEventHelper::CEventHelper(QObject *parent)
 
 CEventHelper::~CEventHelper()
 {
-    // Удаление происходит автоматически через parent
+    LOG_TRACE_MSG("CEventHelper destroyed");
 }
 
 void CEventHelper::fInitializeEventSystem()
 {
     if (m_pEventSender && m_pSQLEventEngine) {
         m_pEventSender->fAddEngine(m_pSQLEventEngine);
-        qDebug() << "Event system initialized successfully";
+        LOG_INFO_MSG("Event system initialized successfully");
     } else {
-        qDebug() << "Error: Event system not initialized properly";
+        LOG_CRITICAL_MSG("Event system not initialized properly");
     }
 }
 
 void CEventHelper::fPrepareEvent(CEvent *pEvent, const QString &strUsername)
 {
     if (!pEvent) {
-        qDebug() << "Error: Null event pointer";
+        LOG_CRITICAL_MSG("Null event pointer in fPrepareEvent");
         return;
     }
     
@@ -50,9 +52,9 @@ bool CEventHelper::fSendUserAuthEvent(const QString &strUsername)
     bool bResult = m_pEventSender->fSendEvent(pEvent);
     
     if (bResult) {
-        qDebug() << "User authentication event sent for:" << strUsername;
+        LOG_INFO_MSG((QStringLiteral("User authentication event sent for: ") + strUsername).toStdString());
     } else {
-        qDebug() << "Error sending user authentication event";
+        LOG_CRITICAL_MSG((QStringLiteral("Error sending user authentication event for: ") + strUsername).toStdString());
     }
     
     return bResult;
@@ -66,9 +68,9 @@ bool CEventHelper::fSendUserRegisterEvent(const QString &strUsername)
     bool bResult = m_pEventSender->fSendEvent(pEvent);
     
     if (bResult) {
-        qDebug() << "User registration event sent for:" << strUsername;
+        LOG_INFO_MSG((QStringLiteral("User registration event sent for: ") + strUsername).toStdString());
     } else {
-        qDebug() << "Error sending user registration event";
+        LOG_CRITICAL_MSG((QStringLiteral("Error sending user registration event for: ") + strUsername).toStdString());
     }
     
     return bResult;
@@ -82,9 +84,9 @@ bool CEventHelper::fSendServerConnectEvent(const QString &strUsername)
     bool bResult = m_pEventSender->fSendEvent(pEvent);
     
     if (bResult) {
-        qDebug() << "Server connection event sent for:" << strUsername;
+        LOG_INFO_MSG((QStringLiteral("Server connection event sent for: ") + strUsername).toStdString());
     } else {
-        qDebug() << "Error sending server connection event";
+        LOG_CRITICAL_MSG((QStringLiteral("Error sending server connection event for: ") + strUsername).toStdString());
     }
     
     return bResult;
@@ -98,9 +100,9 @@ bool CEventHelper::fSendInternetLostConnectionEvent(const QString &strUsername)
     bool bResult = m_pEventSender->fSendEvent(pEvent);
     
     if (bResult) {
-        qDebug() << "Internet lost connection event sent for:" << strUsername;
+        LOG_INFO_MSG((QStringLiteral("Internet lost connection event sent for: ") + strUsername).toStdString());
     } else {
-        qDebug() << "Error sending internet lost connection event";
+        LOG_CRITICAL_MSG((QStringLiteral("Error sending internet lost connection event for: ") + strUsername).toStdString());
     }
     
     return bResult;
@@ -114,9 +116,9 @@ bool CEventHelper::fSendInternetConnectionRecoveredEvent(const QString &strUsern
     bool bResult = m_pEventSender->fSendEvent(pEvent);
     
     if (bResult) {
-        qDebug() << "Internet connection recovered event sent for:" << strUsername;
+        LOG_INFO_MSG((QStringLiteral("Internet connection recovered event sent for: ") + strUsername).toStdString());
     } else {
-        qDebug() << "Error sending internet connection recovered event";
+        LOG_CRITICAL_MSG((QStringLiteral("Error sending internet connection recovered event for: ") + strUsername).toStdString());
     }
     
     return bResult;

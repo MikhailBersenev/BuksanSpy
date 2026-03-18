@@ -1,8 +1,10 @@
 #include "CEvent.h"
+#include "Loggerd.h"
 
 CEvent::CEvent(QObject *parent)
     : QObject{parent}
 {
+    LOG_TRACE_MSG("CEvent constructed");
     m_time = QTime::currentTime();
     m_date = QDate::currentDate();
     m_nTimeStamp = QDateTime::currentSecsSinceEpoch();
@@ -12,6 +14,7 @@ CEvent::CEvent(QObject *parent)
 
 CEvent::CEvent(CEvent *pEvent)
 {
+    LOG_TRACE_MSG("CEvent copy constructed");
     if(pEvent) {
         m_strUserName = pEvent->fGetUserName();
         m_time = pEvent->fGetTime();

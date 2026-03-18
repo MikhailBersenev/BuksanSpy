@@ -3,7 +3,8 @@
 #include "ui_CMandatoryGroups.h"
 #include <QtWidgets>
 #include <QMessageBox>
-#include <QDebug>
+#include "Loggerd.h"
+#include <QString>
 
 CMandatoryGroups::CMandatoryGroups(QWidget *parent, QString strUser) :
     QDialog(parent),
@@ -12,6 +13,7 @@ CMandatoryGroups::CMandatoryGroups(QWidget *parent, QString strUser) :
     m_pUi->setupUi(this);
     m_strUsername = strUser;
     fUpdateModels();
+    LOG_INFO_MSG((QStringLiteral("CMandatoryGroups dialog user=") + strUser).toStdString());
 }
 
 CMandatoryGroups::~CMandatoryGroups()
@@ -37,7 +39,7 @@ void CMandatoryGroups::on_DeleteMandatoryGroup_Button_clicked()
         m_pMainQuery->bindValue(":current", l_strCurrentDesc);
         if(!m_pMainQuery->exec())
         {
-            qDebug() << "Unable to delete group" << m_pMainQuery->lastError() << m_pMainQuery->lastQuery();
+            LOG_CRITICAL_MSG((QStringLiteral("Unable to delete group ") + m_pMainQuery->lastError().text() + QLatin1Char(' ') + m_pMainQuery->lastQuery()).toStdString());
             return;
         }
         else

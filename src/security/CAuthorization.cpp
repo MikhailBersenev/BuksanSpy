@@ -6,7 +6,7 @@
 #include "CBuksanSpyApp.h"
 #include "db/CDatabaseConnectionPSQL.h"
 #include <QMessageBox>
-#include <QDebug>
+#include "Loggerd.h"
 
 CAuthorization::CAuthorization(QWidget *parent) :
     QDialog(parent),
@@ -14,6 +14,7 @@ CAuthorization::CAuthorization(QWidget *parent) :
     m_pEventHelper(nullptr)
 {
     m_pUi->setupUi(this);
+    LOG_INFO_MSG("CAuthorization dialog constructed");
 }
 
 CAuthorization::~CAuthorization()
@@ -28,7 +29,7 @@ void CAuthorization::fAuth(QString strUsername)
     m_pMainQuery->bindValue(":username", strUsername); //Берем логин из поля
     if(!m_pMainQuery->exec()) //Выполнение запроса
     {
-        qDebug() << "Unable to execute query" << m_pMainQuery->lastQuery() << m_pMainQuery->lastError();
+        LOG_CRITICAL_MSG((QStringLiteral("Unable to execute auth query ") + m_pMainQuery->lastQuery() + QLatin1Char(' ') + m_pMainQuery->lastError().text()).toStdString());
     }
     m_pMainQuery->first();
     if(m_pMainQuery->value(5).toInt()==-1)

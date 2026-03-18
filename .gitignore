@@ -1,0 +1,53 @@
+# --- Сборка qmake / Make ---
+**/build/
+**/debug/
+**/release/
+Makefile
+Makefile.*
+object_script.*
+*.pro.user
+*.pro.user.*
+*.qmake.stash
+.qmake.stash
+
+# --- Qt MOC / UIC / RCC (часто в каталоге сборки; на всякий случай) ---
+moc_*.cpp
+moc_*.h
+ui_*.h
+qrc_*.cpp
+
+# --- C++ / линковка ---
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.so.*
+*.dll
+*.dylib
+*.exe
+*.app
+
+# --- CMake (если появится) ---
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+
+# --- IDE ---
+.idea/
+.vscode/
+*.creator.user
+*.autosave
+*.swp
+*~
+
+# --- ОС ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Логи / временное ---
+*.log
+*.tmp
+*.bak

@@ -1,19 +1,18 @@
 #include "CCheckConnection.h"
 #include "CEventHelper.h"
+#include "Loggerd.h"
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QEventLoop>
 #include <QTimer>
-#include <QDebug>
 
 CCheckConnection::CCheckConnection(QObject *parent) : QTimer(parent),
     m_pEventHelper(nullptr),
     m_nPreviousState(0)
 {
-
-    connect(this, SIGNAL(timeout()), this, SLOT(CheckInternet()));
+    connect(this, &QTimer::timeout, this, &CCheckConnection::fCheckInternet);
     setInterval(30000);
-
+    LOG_DEBUG_MSG("CCheckConnection: timer 30s for internet check");
 }
 
 
@@ -33,6 +32,7 @@ void CCheckConnection::fCheckInternet()
     
     if(reply->bytesAvailable()==0 && reply->bytesAvailable() != m_nPreviousState)
     {//Проверка соединения с Интернетом - потеря соединения
+        LOG_INFO_MSG("CCheckConnection: internet appears down");
         m_pEventHelper->fSendInternetLostConnectionEvent(m_strUsername);
         m_nPreviousState = reply->bytesAvailable();
     }
@@ -40,10 +40,11 @@ void CCheckConnection::fCheckInternet()
     {
         if(reply->bytesAvailable()>0 && reply->bytesAvailable() != m_nPreviousState)
         {
-            // Восстановление соединения
+            LOG_INFO_MSG("CCheckConnection: internet connection recovered");
             m_pEventHelper->fSendInternetConnectionRecoveredEvent(m_strUsername);
             m_nPreviousState = reply->bytesAvailable();
         }
     }
+    reply->deleteLater();
 }
 

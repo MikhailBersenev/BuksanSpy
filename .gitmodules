@@ -1,0 +1,3 @@
+[submodule "libs/loggerd"]
+	path = libs/loggerd
+	url = https://github.com/MikhailBersenev/loggerd.git

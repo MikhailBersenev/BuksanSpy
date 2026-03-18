@@ -1,6 +1,8 @@
 #include "CBuksanViewFinder.h"
+#include "Loggerd.h"
 #include <QLabel>
 #include "CCameraVideoCapture.h"
+#include <QString>
 #include <QThread>
 #include <opencv2/opencv.hpp>
 
@@ -18,4 +20,5 @@ CBuksanViewFinder::CBuksanViewFinder(QWidget *parent, QString strConnectionStrin
     });
     
     this->setMinimumSize(nWidth, nHeight);
+    LOG_INFO_MSG((QStringLiteral("CBuksanViewFinder: stream opened w=") + QString::number(nWidth) + QLatin1String(" h=") + QString::number(nHeight)).toStdString());
 }

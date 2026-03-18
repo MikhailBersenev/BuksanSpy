@@ -11,6 +11,7 @@
 #include "utils/CCheckConnection.h"
 #include <opencv2/opencv.hpp>
 #include "camera/CBuksanViewFinder.h"
+#include "Loggerd.h"
 
 CBuksanSpy::CBuksanSpy(QWidget *parent)
     : QMainWindow(parent)
@@ -19,10 +20,12 @@ CBuksanSpy::CBuksanSpy(QWidget *parent)
     m_pUi->setupUi(this);
     m_pUi->pushButton_2->addAction(m_pUi->Quit_Action);
     m_pUi->pushButton_2->addAction(m_pUi->action_Qt);
+    LOG_INFO_MSG("CBuksanSpy main window constructed");
 }
 
 CBuksanSpy::~CBuksanSpy()
 {
+    LOG_INFO_MSG("CBuksanSpy main window destroyed");
     delete m_pUi;
 }
 
@@ -71,7 +74,7 @@ void CBuksanSpy::on_pushButton_4_clicked()
     l_devices.prepare("SELECT devices.\"connectionString\", devices.resolution, devices.transform, resolutions.width, resolutions.height FROM devices INNER JOIN resolutions ON devices.resolution = resolutions.\"resolutionId\";");
     if(!l_devices.exec())
     {
-        qDebug() << "Unable to initialize devices" << l_devices.lastError() << l_devices.lastQuery();
+        LOG_CRITICAL_MSG((QStringLiteral("Unable to initialize devices ") + l_devices.lastError().text() + QLatin1Char(' ') + l_devices.lastQuery()).toStdString());
         return;
     }
     // l_devices.first();
@@ -137,7 +140,7 @@ void CBuksanSpy::on_InitCams_action_triggered()
     l_devices.prepare("SELECT devices.\"connectionString\", devices.resolution, devices.transform, resolutions.width, resolutions.height FROM devices INNER JOIN resolutions ON devices.resolution = resolutions.\"resolutionId\";");
     if(!l_devices.exec())
     {
-        qDebug() << "Unable to initialize devices" << l_devices.lastError() << l_devices.lastQuery();
+        LOG_CRITICAL_MSG((QStringLiteral("Unable to initialize devices ") + l_devices.lastError().text() + QLatin1Char(' ') + l_devices.lastQuery()).toStdString());
         return;
     }
     l_devices.first();
@@ -191,7 +194,7 @@ void CBuksanSpy::on_eventlog_Action_triggered()
 
 void CBuksanSpy::fUpdateModels()
 {
-    qDebug() << "new event";
+    LOG_DEBUG_MSG("Event notification: models update");
 }
 
 void CBuksanSpy::fSubscribe()

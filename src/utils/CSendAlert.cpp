@@ -1,11 +1,11 @@
 #include "CSendAlert.h"
 #include "CNetworkInfo.h"
 #include <QDateTime>
-#include <QDebug>
+#include "Loggerd.h"
 
 CSendAlert::CSendAlert(QObject *parent) : QObject(parent)
 {
-
+    LOG_TRACE_MSG("CSendAlert constructed");
 }
 
 void CSendAlert::fPrepare()
@@ -24,7 +24,7 @@ void CSendAlert::fSetUser(QString strUser)
     m_pFindItemQuery->bindValue(":username", strUser);
     if(!m_pFindItemQuery->exec())
     {
-        qDebug() << "Unable to find user" << m_pFindItemQuery->lastError() << m_pFindItemQuery->lastQuery();
+        LOG_CRITICAL_MSG((QStringLiteral("CSendAlert unable to find user: ") + m_pFindItemQuery->lastError().text() + QLatin1Char(' ') + m_pFindItemQuery->lastQuery()).toStdString());
         return;
     }
     m_pFindItemQuery->first();
@@ -53,7 +53,7 @@ bool CSendAlert::fSend()
     m_pMainQuery->bindValue(":fulllog", fCreateFullLog(m_strFullData));
     if(!m_pMainQuery->exec())
     {
-        qDebug() << "Unable to send alert" << m_pMainQuery->lastError() << m_pMainQuery->lastQuery();
+        LOG_CRITICAL_MSG((QStringLiteral("CSendAlert unable to send alert: ") + m_pMainQuery->lastError().text() + QLatin1Char(' ') + m_pMainQuery->lastQuery()).toStdString());
         delete m_pMainQuery;
         return false;
     }

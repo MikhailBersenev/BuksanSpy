@@ -1,14 +1,14 @@
 #include "CSQLEventEngine.h"
 
 #include <QSqlError>
-#include <QDebug>
 #include <QVariant>
+#include "Loggerd.h"
 #include <QDateTime>
 
 CSQLEventEngine::CSQLEventEngine(QObject *parent)
     : CEventEngine{parent}
 {
-
+    LOG_TRACE_MSG("CSQLEventEngine constructed");
 }
 
 bool CSQLEventEngine::fSend(CEvent *pEvent)
@@ -24,7 +24,7 @@ bool CSQLEventEngine::fSend(CEvent *pEvent)
     this->fSetUser(strUserName);
     this->fSetSignature(nSignature);
     if(!this->fPost(strHostName, strFullLog)) {
-        qDebug() << "Unable to send event";
+        LOG_CRITICAL_MSG("Unable to send event (fPost failed)");
         return false;
     }
     return true;
@@ -50,7 +50,7 @@ void CSQLEventEngine::fSetUser(QString& strUser)
     m_FindItemQuery.bindValue(":username", strUser);
     if(!m_FindItemQuery.exec())
     {
-        qDebug() << "Unable to find user" << m_FindItemQuery.lastError() << m_FindItemQuery.lastQuery();
+        LOG_CRITICAL_MSG((QStringLiteral("Unable to find user ") + m_FindItemQuery.lastError().text() + QLatin1Char(' ') + m_FindItemQuery.lastQuery()).toStdString());
         return;
     }
     m_FindItemQuery.first();
@@ -72,7 +72,7 @@ bool CSQLEventEngine::fPost(QString& lStrHostName, QString& lStrFullLog)
     m_MainQuery.bindValue(":fulllog", lStrFullLog);
     if(!m_MainQuery.exec())
     {
-        qDebug() << "Unable to send alert" <<  m_MainQuery.lastError() <<  m_MainQuery.lastQuery();
+        LOG_CRITICAL_MSG((QStringLiteral("Unable to send alert ") + m_MainQuery.lastError().text() + QLatin1Char(' ') + m_MainQuery.lastQuery()).toStdString());
         return false;
     }
     else

@@ -1,14 +1,17 @@
 #include "CDataCryptor.h"
-#include <QDebug>
+#include "Loggerd.h"
 #include <math.h>
+#include <QString>
 
 CDataCryptor::CDataCryptor(QObject *parent) : QObject(parent)
 {
+    LOG_TRACE_MSG("CDataCryptor constructed");
 }
 
 //Функция шифрования данных
 QString CDataCryptor::Encrypt(QString str)
 {
+    LOG_TRACE_MSG((QStringLiteral("CDataCryptor::Encrypt len=") + QString::number(str.length())).toStdString());
     QString l_strFirst;
     QString l_strSecond;
     QString l_strThird;

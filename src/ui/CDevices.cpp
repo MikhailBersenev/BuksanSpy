@@ -2,7 +2,7 @@
 #include "ui_CDevices.h"
 #include "CAddDevice.h"
 #include <QMessageBox>
-#include <QDebug>
+#include "Loggerd.h"
 
 CDevices::CDevices(QWidget *parent) :
     QDialog(parent),
@@ -14,9 +14,10 @@ CDevices::CDevices(QWidget *parent) :
     m_pDevQuery->prepare("SELECT  devices.\"deviceId\", devicetypes.description \"type\", devices.\"addDate\", devices.\"connectionString\", "
                        "resolutions.width, resolutions.height, devices.transform, devices.caption FROM devices INNER JOIN devicetypes ON devices.type=devicetypes.\"deviceTypeId\""
                        " INNER JOIN resolutions ON devices.resolution=resolutions.\"resolutionId\";");
+    LOG_INFO_MSG("CDevices dialog constructed");
     if(!m_pDevQuery->exec())
     {
-        qDebug() << "Unable to get devicelist" << m_pDevQuery->lastError() << m_pDevQuery->lastQuery();
+        LOG_CRITICAL_MSG((QStringLiteral("Unable to get devicelist ") + m_pDevQuery->lastError().text() + QLatin1Char(' ') + m_pDevQuery->lastQuery()).toStdString());
     }
     
     while (m_pDevQuery->next()) {
@@ -61,7 +62,7 @@ void CDevices::on_DeleteDevice_Button_clicked()
         //l_deleteDevQuery.bindValue(":devid", )
         if(!l_deleteDevQuery.exec())
         {
-            qDebug() << "Unable to delete device" << l_deleteDevQuery.lastError() << l_deleteDevQuery.lastQuery();
+            LOG_CRITICAL_MSG((QStringLiteral("Unable to delete device ") + l_deleteDevQuery.lastError().text() + QLatin1Char(' ') + l_deleteDevQuery.lastQuery()).toStdString());
         }
         else
         {

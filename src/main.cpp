@@ -2,10 +2,11 @@
 #include "security/CAuthorization.h"
 #include "CBuksanSpyApp.h"
 #include "db/CDatabaseConnectionPSQL.h"
+#include "utils/AppLogging.h"
+#include "Loggerd.h"
 #include <QFile>
 #include <QSettings>
 #include <QDateTime>
-#include <QDebug>
 
 /**
  * @brief Global username variable for the current session
@@ -87,7 +88,7 @@ bool fLoadLastSession()
         if(l_dbConnection.fCreateConnection(l_connection))
         {
             g_strUsername = l_lastSessionData.value(3);
-            qDebug() << "username " << g_strUsername << " " << l_lastSessionData.value(3);
+            LOG_DEBUG_MSG((QStringLiteral("Session restored, username: ") + g_strUsername).toStdString());
             return true;
         }
 
@@ -109,17 +110,20 @@ bool fLoadLastSession()
 int main(int argc, char *argv[])
 {
     CBuksanSpyApp l_a(argc, argv, "MikhailBersenev", "BuksanSpyClient");
+    fInitAppLogging();
     CAuthorization l_auth;
     CBuksanSpy l_w;
     QFile l_file("./Takezo.qss");
     if (l_file.open(QFile::ReadOnly)) {
         const QString l_strSkin = QLatin1String(l_file.readAll());
         l_a.setStyleSheet(l_strSkin);
+        LOG_INFO_MSG("Stylesheet Takezo.qss loaded");
     } else {
-        qWarning() << "Stylesheet not found, running without theme";
+        LOG_INFO_MSG("Stylesheet not found, running without theme");
     }
     if(!fLoadLastSession())
     {
+        LOG_INFO_MSG("No valid last session, showing authorization");
         l_auth.show();
     }
     else

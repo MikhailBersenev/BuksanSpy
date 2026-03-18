@@ -1,6 +1,7 @@
 #include "CEditMandatoryGroup.h"
 #include "ui_CEditMandatoryGroup.h"
-#include <QDebug>
+#include "Loggerd.h"
+#include <QString>
 #include <QtWidgets>
 #include <QMessageBox>
 
@@ -30,6 +31,7 @@ CEditMandatoryGroup::CEditMandatoryGroup(QWidget *parent, int nMode, int nMandat
         m_pUi->GroupName_Edit->setText(strMandatoryGroupDescription);
         break;
     }
+    LOG_INFO_MSG((QStringLiteral("CEditMandatoryGroup mode=") + QString::number(nMode)).toStdString());
 }
 
 CEditMandatoryGroup::~CEditMandatoryGroup()
@@ -192,7 +194,7 @@ void CEditMandatoryGroup::on_buttonBox_accepted()
     m_pMainQuery->bindValue(":description", m_pUi->GroupName_Edit->text());
     if(!m_pMainQuery->exec())
     {
-        qDebug() << "Unable to save rights" << m_pMainQuery->lastError() << m_pMainQuery->lastQuery();
+        LOG_CRITICAL_MSG((QStringLiteral("Unable to save rights ") + m_pMainQuery->lastError().text() + QLatin1Char(' ') + m_pMainQuery->lastQuery()).toStdString());
         return;
     }
     else
@@ -236,7 +238,7 @@ void CEditMandatoryGroup::fRightsParser(int nMandatoryGroupId)
     l_rightsQuery.bindValue(":rightid", nMandatoryGroupId);
     if(!l_rightsQuery.exec())
     {
-        qDebug() << "Unable to get rights" << l_rightsQuery.lastError() << l_rightsQuery.lastQuery();
+        LOG_CRITICAL_MSG((QStringLiteral("Unable to get rights ") + l_rightsQuery.lastError().text() + QLatin1Char(' ') + l_rightsQuery.lastQuery()).toStdString());
         return;
     }
     l_rightsQuery.first();

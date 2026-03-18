@@ -73,10 +73,11 @@ QObject
 CUser user(1, "john_doe", QDate::currentDate(), 100);
 
 // Получение информации
-qDebug() << "ID:" << user.getUserId();
-qDebug() << "Username:" << user.getUsername();
-qDebug() << "Add Date:" << user.getAddDate().toString("yyyy-MM-dd");
-qDebug() << "Rights:" << user.getRights();
+// Пример: LOG_DEBUG_MSG(...) из Loggerd.h
+LOG_DEBUG_MSG(std::string("ID: ") + std::to_string(user.getUserId()));
+LOG_DEBUG_MSG("Username: " + user.getUsername().toStdString());
+LOG_DEBUG_MSG("Add Date: " + user.getAddDate().toString("yyyy-MM-dd").toStdString());
+LOG_DEBUG_MSG("Rights: " + user.getRights().toStdString());
 
 // Изменение атрибутов
 user.setUsername("jane_doe");
@@ -84,7 +85,7 @@ user.setRights(200);
 
 // Подключение к сигналу
 QObject::connect(&user, &CUser::userDataChanged, []() {
-    qDebug() << "Данные пользователя изменились!";
+    LOG_INFO_MSG("Данные пользователя изменились!");
 });
 ```
 

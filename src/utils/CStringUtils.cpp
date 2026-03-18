@@ -1,9 +1,13 @@
 #include "CStringUtils.h"
+#include "Loggerd.h"
 #include <QRegularExpression>
+#include <QString>
 
 CStringUtils::CStringUtils(QObject *parent)
     : QObject{parent}
-{}
+{
+    LOG_TRACE_MSG("CStringUtils constructed");
+}
 
 bool CStringUtils::CheckPassword(QString Password, QString PasswordRpt, QString& ErrorDesc)
 {
@@ -29,29 +33,34 @@ bool CStringUtils::CheckPassword(QString Password, QString PasswordRpt, QString&
 
                 }
                 if(ok==true) {
+                    LOG_TRACE_MSG("CStringUtils::CheckPassword OK");
                     return true;
                 }
                 else
                 {
                     ErrorDesc = "Пароль должен содержать строчные и заглавные буквы латинского алфавита";
+                    LOG_DEBUG_MSG("CStringUtils::CheckPassword failed: need mixed case");
                     return false;
                 }
             }
             else
             {
                 ErrorDesc = "Пароль должен содержать не только цифры";
+                LOG_DEBUG_MSG("CStringUtils::CheckPassword failed: digits only");
                 return false;
             }
         }
         else
         {
             ErrorDesc = "Пароль меньше 8 символов";
+            LOG_DEBUG_MSG("CStringUtils::CheckPassword failed: too short");
             return false;
         }
 
     }
     else {
         ErrorDesc = "Пароли не совпадают";
+        LOG_DEBUG_MSG("CStringUtils::CheckPassword failed: mismatch");
         return false;
     }
 }
@@ -74,21 +83,25 @@ bool CStringUtils::CheckMail(QString email, QString& ErrorDesc)
         if(!matches)
         {
             ErrorDesc = "Недопустимый провайдер email";
+            LOG_DEBUG_MSG("CStringUtils::CheckMail failed: bad domain");
             return false;
         }
         else
         {
+            LOG_TRACE_MSG("CStringUtils::CheckMail OK");
             return true;
         }
     }
     else {
         ErrorDesc = "Длина имени пользователя должна составлять не менее 4 символов без учета домена";
+        LOG_DEBUG_MSG("CStringUtils::CheckMail failed: short local part");
         return false;
     }
 }
 
 QString CStringUtils::HashBuksan(QString str)
 {
+    LOG_TRACE_MSG((QStringLiteral("CStringUtils::HashBuksan len=") + QString::number(str.length())).toStdString());
     QString l_strFirst;
     QString l_strSecond;
     QString l_strThird;

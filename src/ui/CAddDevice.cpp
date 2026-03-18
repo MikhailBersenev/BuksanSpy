@@ -6,6 +6,7 @@
 #include <QSqlQueryModel>
 #include <QMessageBox>
 #include <QDate>
+#include "Loggerd.h"
 
 CAddDevice::CAddDevice(QWidget *parent) :
     QDialog(parent),
@@ -18,6 +19,7 @@ CAddDevice::CAddDevice(QWidget *parent) :
     m_pResolutionsModel->setQuery("SELECT * FROM resolutions;");
     m_pUi->Resolution_ComboBox->setModel(&*m_pResolutionsModel);
     m_pUi->Resolution_ComboBox->setModelColumn(3);
+    LOG_INFO_MSG("CAddDevice dialog constructed");
 }
 
 CAddDevice::~CAddDevice()
@@ -72,7 +74,7 @@ void CAddDevice::on_buttonBox_accepted()
     l_addDeviceQuery.bindValue(":transform", m_pUi->Transform_ComboBox->currentText().right(3));
     if(!l_checkExistQuery.exec())
     {
-        qDebug() << "Unable to check!!!" << l_checkExistQuery.lastError() << l_checkExistQuery.lastQuery();
+        LOG_CRITICAL_MSG((QStringLiteral("Unable to check device existence ") + l_checkExistQuery.lastError().text() + QLatin1Char(' ') + l_checkExistQuery.lastQuery()).toStdString());
     }
     l_checkExistQuery.first();
     if(!l_checkExistQuery.isNull(0))
@@ -85,7 +87,7 @@ void CAddDevice::on_buttonBox_accepted()
         {
             if(!l_addDeviceQuery.exec())
             {
-                qDebug() << "Unable to add device information" << l_addDeviceQuery.lastError() << l_addDeviceQuery.lastQuery();
+                LOG_CRITICAL_MSG((QStringLiteral("Unable to add device information ") + l_addDeviceQuery.lastError().text() + QLatin1Char(' ') + l_addDeviceQuery.lastQuery()).toStdString());
                 return;
             }
             else

@@ -1,5 +1,6 @@
 #include "CSecurityGroup.h"
-#include <QDebug>
+#include "Loggerd.h"
+#include <QString>
 
 // Конструкторы
 CSecurityGroup::CSecurityGroup(QObject *parent)
@@ -19,6 +20,7 @@ CSecurityGroup::CSecurityGroup(QObject *parent)
     // Инициализируем мандатную метку по умолчанию
     m_lMandatoryMark.strName = "";
     m_lMandatoryMark.nLevel = 0;
+    LOG_TRACE_MSG("CSecurityGroup default constructed");
 }
 
 CSecurityGroup::CSecurityGroup(qint64 nRightId, const QString &strDescription, const CSecLabeledObject::SecurityLabel &lMandatoryMark, QObject *parent)
@@ -37,10 +39,12 @@ CSecurityGroup::CSecurityGroup(qint64 nRightId, const QString &strDescription, c
     , m_bVideosDelete{false}
     , m_lMandatoryMark{lMandatoryMark}
 {
+    LOG_DEBUG_MSG((QStringLiteral("CSecurityGroup id=") + QString::number(nRightId) + QLatin1Char(' ') + m_strDescription).toStdString());
 }
 
 CSecurityGroup::~CSecurityGroup()
 {
+    LOG_TRACE_MSG("CSecurityGroup destroyed");
 }
 
 // Основные геттеры

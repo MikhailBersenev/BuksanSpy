@@ -4,7 +4,8 @@
 #include "ui/CMandatoryMarksEditor.h"
 #include "ui/CMandatoryGroups.h"
 #include <QMessageBox>
-#include <QDebug>
+#include "Loggerd.h"
+#include <QString>
 
 CUsers::CUsers(QWidget *parent, QString strUser) :
     QDialog(parent),
@@ -13,6 +14,7 @@ CUsers::CUsers(QWidget *parent, QString strUser) :
     m_pUi->setupUi(this);
     m_strUsername = strUser;
     fUpdateModels();
+    LOG_INFO_MSG((QStringLiteral("CUsers dialog constructed for admin: ") + strUser).toStdString());
 }
 
 CUsers::~CUsers()
@@ -45,13 +47,13 @@ void CUsers::on_DeleteUser_Button_clicked()
         m_pMainQuery->bindValue(":current", m_usersModel.data(m_usersModel.index(m_pUi->users_listView->currentIndex().row(),0)).toString());
         if(!m_pMainQuery->exec() || m_usersModel.query().value(1).toString()==m_strUsername)
         {
-            qDebug() << "Unable to delete user" << m_pMainQuery->lastError() << m_pMainQuery->lastQuery();
+            LOG_CRITICAL_MSG((QStringLiteral("Unable to delete user ") + m_pMainQuery->lastError().text() + QLatin1Char(' ') + m_pMainQuery->lastQuery()).toStdString());
             QMessageBox::critical(this, "Error", "Unable to delete user");
             return;
         }
         if(!m_pMainQuery->exec("DROP ROLE "+m_usersModel.data(m_usersModel.index(m_pUi->users_listView->currentIndex().row(),1)).toString()+";"))
         {
-            qDebug() << "Unable to delete user" << m_pMainQuery->lastError() << m_pMainQuery->lastQuery();
+            LOG_CRITICAL_MSG((QStringLiteral("Unable to DROP ROLE for user ") + m_pMainQuery->lastError().text() + QLatin1Char(' ') + m_pMainQuery->lastQuery()).toStdString());
         }
         else
         {
@@ -64,10 +66,11 @@ void CUsers::on_DeleteUser_Button_clicked()
 void CUsers::fUpdateModels()
 {
     m_pAccessManager = new CAccessManager(this);
-    m_usersModel.setQuery("SELECT  * FROM \"vUsers\" WHERE \"accessLevel\" >="+QString::number(m_pAccessManager->fGetAccessLevel(m_strUsername))+";");
+    const qint64 l_nAccess = m_pAccessManager->fGetAccessLevel(m_strUsername);
+    m_usersModel.setQuery("SELECT  * FROM \"vUsers\" WHERE \"accessLevel\" >="+QString::number(l_nAccess)+";");
     m_pUi->users_listView->setModel(&m_usersModel);
     m_pUi->users_listView->setModelColumn(1);
-    qDebug() << m_pAccessManager->fGetAccessLevel(m_strUsername) << m_strUsername;
+    LOG_DEBUG_MSG((QStringLiteral("CUsers fUpdateModels accessLevel>=") + QString::number(l_nAccess) + QLatin1Char(' ') + m_strUsername).toStdString());
     delete m_pAccessManager;
 }
 

@@ -1,8 +1,11 @@
 #include "CDatabaseConnection.h"
+#include "Loggerd.h"
 
 CDatabaseConnection::CDatabaseConnection(QObject *parent)
     : QObject{parent}
-{}
+{
+    LOG_TRACE_MSG("CDatabaseConnection constructed");
+}
 
 const QSqlDatabase CDatabaseConnection::fGetDatabase()
 {
@@ -12,16 +15,16 @@ const QSqlDatabase CDatabaseConnection::fGetDatabase()
 bool CDatabaseConnection::fCloseConnection()
 {
     if(!m_db.isValid()) {
-        qDebug() << "database is not valid";
+        LOG_INFO_MSG("fCloseConnection: database is not valid");
         return false;
     }
     if(m_db.isOpen()) {
         m_db.close();
-        qDebug() << "connection closed";
+        LOG_INFO_MSG("Database connection closed");
         return true;
     }
     else
-        qDebug() << "connection was not open";
+        LOG_DEBUG_MSG("fCloseConnection: connection was not open");
     return false;
 
 }

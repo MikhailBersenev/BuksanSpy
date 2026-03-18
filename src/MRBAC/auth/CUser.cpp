@@ -1,14 +1,15 @@
 #include "CUser.h"
-#include <QDebug>
+#include "Loggerd.h"
+#include <QString>
 
 // Конструкторы
 CUser::CUser(QObject *parent)
     : CSecLabeledObject{parent}
     , m_nUserId{0}
 {
-    // Инициализируем мандатную метку по умолчанию
     m_lRights.strName = "";
     m_lRights.nLevel = 0;
+    LOG_TRACE_MSG("CUser default constructed");
 }
 
 CUser::CUser(qint64 nUserId, const QString &strUsername, const QDate &dateAddDate, const CSecLabeledObject::SecurityLabel &lRights, QObject *parent)
@@ -18,10 +19,12 @@ CUser::CUser(qint64 nUserId, const QString &strUsername, const QDate &dateAddDat
     , m_dateAddDate{dateAddDate}
     , m_lRights{lRights}
 {
+    LOG_DEBUG_MSG((QStringLiteral("CUser constructed id=") + QString::number(nUserId) + QLatin1Char(' ') + m_strUsername).toStdString());
 }
 
 CUser::~CUser()
 {
+    LOG_TRACE_MSG("CUser destroyed");
 }
 
 // Основные геттеры

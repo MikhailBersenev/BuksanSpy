@@ -4,7 +4,8 @@
 #include <QtSql>
 #include <QMessageBox>
 #include "security/CAccessManager.h"
-#include <QDebug>
+#include "Loggerd.h"
+#include <QString>
 
 CMandatoryMarksEditor::CMandatoryMarksEditor(QWidget *parent, QString strUser) :
     QDialog(parent),
@@ -13,6 +14,7 @@ CMandatoryMarksEditor::CMandatoryMarksEditor(QWidget *parent, QString strUser) :
     m_pUi->setupUi(this);
     m_strUsername = strUser;
     fUpdateModels();
+    LOG_INFO_MSG((QStringLiteral("CMandatoryMarksEditor dialog user=") + strUser).toStdString());
 }
 
 CMandatoryMarksEditor::~CMandatoryMarksEditor()
@@ -43,7 +45,7 @@ void CMandatoryMarksEditor::on_DeleteMandatoryMark_pushButton_clicked()
     const QString l_strCurrentDescription = m_mandatoryMarksModel.data(m_mandatoryMarksModel.index(m_pUi->MandatoryMarks_listView->currentIndex().row(),1)).toString();
     if(!l_deleteMandatoryMark.exec("SELECT * FROM rights WHERE \"mandatoryMark\" = "+QString::number(l_nCurrentId)+";"))
     {
-        qDebug() << "Unable to check mandatory groups. SQL Error: " << l_deleteMandatoryMark.lastError() << l_deleteMandatoryMark.lastQuery();
+        LOG_CRITICAL_MSG((QStringLiteral("Unable to check mandatory groups: ") + l_deleteMandatoryMark.lastError().text() + QLatin1Char(' ') + l_deleteMandatoryMark.lastQuery()).toStdString());
         return;
     }
     l_deleteMandatoryMark.first();
@@ -56,7 +58,7 @@ void CMandatoryMarksEditor::on_DeleteMandatoryMark_pushButton_clicked()
     {
         if(!l_deleteMandatoryMark.exec("DELETE FROM \"mandatoryMarks\" WHERE \"mandatoryMarkId\" = "+QString::number(l_nCurrentId)+";"))
         {
-            qDebug() << "Unable to delete Mandatory mark. SQL Error: " << l_deleteMandatoryMark.lastError() << l_deleteMandatoryMark.lastQuery();
+            LOG_CRITICAL_MSG((QStringLiteral("Unable to delete mandatory mark: ") + l_deleteMandatoryMark.lastError().text() + QLatin1Char(' ') + l_deleteMandatoryMark.lastQuery()).toStdString());
             return;
         }
         else

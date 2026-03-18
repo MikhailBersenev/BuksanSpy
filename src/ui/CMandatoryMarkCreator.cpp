@@ -1,7 +1,7 @@
 #include "CMandatoryMarkCreator.h"
 #include "ui_CMandatoryMarkCreator.h"
 #include <QtSql>
-#include <QDebug>
+#include "Loggerd.h"
 #include <QMessageBox>
 
 CMandatoryMarkCreator::CMandatoryMarkCreator(QWidget *parent) :
@@ -9,6 +9,7 @@ CMandatoryMarkCreator::CMandatoryMarkCreator(QWidget *parent) :
     m_pUi(new Ui::CMandatoryMarkCreator)
 {
     m_pUi->setupUi(this);
+    LOG_INFO_MSG("CMandatoryMarkCreator dialog constructed");
 }
 
 CMandatoryMarkCreator::~CMandatoryMarkCreator()
@@ -25,7 +26,7 @@ void CMandatoryMarkCreator::on_buttonBox_accepted()
     {
         if(!l_createMandatoryMark.exec("INSERT INTO \"mandatoryMarks\" (description, \"accessLevel\") VALUES ('"+m_pUi->MarkName_lineEdit->text()+"', "+QString::number(m_pUi->accesslevel_Slider->sliderPosition())+");"))
         {
-            qDebug() << "Unable to create a mac mark! SQL Error: " << l_createMandatoryMark.lastError() << l_createMandatoryMark.lastQuery();
+            LOG_CRITICAL_MSG((QStringLiteral("Unable to create mandatory mark: ") + l_createMandatoryMark.lastError().text() + QLatin1Char(' ') + l_createMandatoryMark.lastQuery()).toStdString());
             return;
         }
         else {

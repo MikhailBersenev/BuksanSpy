@@ -2,7 +2,7 @@
 #include "ui_CCreateUser.h"
 #include <QtWidgets>
 #include <QMessageBox>
-#include <QDebug>
+#include "Loggerd.h"
 #include <QDate>
 
 CCreateUser::CCreateUser(QWidget *parent) :
@@ -14,6 +14,7 @@ CCreateUser::CCreateUser(QWidget *parent) :
     m_pUi->setupUi(this);
     m_rightsModel.setQuery("SELECT description, \"rightId\" FROM rights;"); //Заполняем комбобокс
     m_pUi->Rights_ComboBox->setModel(&m_rightsModel);
+    LOG_INFO_MSG("CCreateUser dialog constructed");
 }
 
 CCreateUser::~CCreateUser()
@@ -67,12 +68,12 @@ void CCreateUser::on_Confirm_Button_clicked()
         m_pCreateUserQuery->bindValue(":rights", m_pUi->Rights_ComboBox->model()->index(m_pUi->Rights_ComboBox->currentIndex(),1).data().toInt());
         if(!m_pCreateUserQuery->exec())
         {
-            qDebug() << "Unable to create a user" << m_pCreateUserQuery->lastError() << m_pCreateUserQuery->lastQuery();
+            LOG_CRITICAL_MSG((QStringLiteral("Unable to create a user ") + m_pCreateUserQuery->lastError().text() + QLatin1Char(' ') + m_pCreateUserQuery->lastQuery()).toStdString());
             return;
         }
         if(!m_pCreateUserQuery->exec("CREATE ROLE "+m_pUi->Login_Edit->text()+" LOGIN  PASSWORD '"+m_pUi->Password_Edit->text()+"' SUPERUSER INHERIT CREATEDB CREATEROLE REPLICATION;"))
         {
-         qDebug() << "Unable to create a SQL role" << m_pCreateUserQuery->lastError() << m_pCreateUserQuery->lastQuery();
+         LOG_CRITICAL_MSG((QStringLiteral("Unable to create a SQL role ") + m_pCreateUserQuery->lastError().text() + QLatin1Char(' ') + m_pCreateUserQuery->lastQuery()).toStdString());
         }
         else
         {

@@ -1,9 +1,10 @@
 #include "CAccessManager.h"
-#include <QDebug>
+#include "Loggerd.h"
+#include <QString>
 
 CAccessManager::CAccessManager(QObject *parent) : QObject(parent)
 {
-
+    LOG_TRACE_MSG("CAccessManager constructed");
 }
 
 bool CAccessManager::fCheckRight(QString strUsername, int nRight)
@@ -16,12 +17,12 @@ bool CAccessManager::fCheckRight(QString strUsername, int nRight)
     m_pMainQuery->bindValue(":username", strUsername);
     if(!m_pMainQuery->exec())
     {
-        qDebug() << "Unable to create query!" << m_pMainQuery->lastError() << m_pMainQuery->lastQuery();
+        LOG_CRITICAL_MSG((QStringLiteral("CAccessManager fCheckRight query failed: ") + m_pMainQuery->lastError().text() + QLatin1Char(' ') + m_pMainQuery->lastQuery()).toStdString());
     }
     m_pMainQuery->first();
     if(m_pMainQuery->isNull(0))
     {
-        qDebug() << "user doesn't exist";
+        LOG_INFO_MSG((QStringLiteral("CAccessManager: user not found: ") + strUsername).toStdString());
         return false;
     }
     else
@@ -45,7 +46,7 @@ QString CAccessManager::fGetMandatoryGroup(QString strUsername) //Метод п�
     m_pMainQuery->bindValue(":username", strUsername);
     if(!m_pMainQuery->exec())
     {
-        qDebug() << "Unable to get group Id" << m_pMainQuery->lastError() << m_pMainQuery->lastQuery();
+        LOG_CRITICAL_MSG((QStringLiteral("Unable to get mandatory group: ") + m_pMainQuery->lastError().text() + QLatin1Char(' ') + m_pMainQuery->lastQuery()).toStdString());
     }
     m_pMainQuery->first();
     QString l_strResult = m_pMainQuery->value(2).toString();
@@ -60,7 +61,7 @@ qint64 CAccessManager::fGetAccessLevel(QString strUsername)
     m_pMainQuery->prepare("SELECT \"userId\", username, \"accessLevel\" FROM \"vUsers\" WHERE username = '"+strUsername+"';");
     if(!m_pMainQuery->exec())
     {
-        qDebug() << "Unable to check access level" << m_pMainQuery->lastError() << m_pMainQuery->lastQuery();
+        LOG_CRITICAL_MSG((QStringLiteral("Unable to check access level: ") + m_pMainQuery->lastError().text() + QLatin1Char(' ') + m_pMainQuery->lastQuery()).toStdString());
     }
     m_pMainQuery->first();
     l_nResult = m_pMainQuery->value(2).toInt();
