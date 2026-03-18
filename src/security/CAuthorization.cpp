@@ -15,6 +15,8 @@ CAuthorization::CAuthorization(QWidget *parent) :
 {
     m_pUi->setupUi(this);
     LOG_INFO_MSG("CAuthorization dialog constructed");
+    setWindowTitle(QString("%1 %2 - Login").arg(CStringUtils::GetAppName(), CStringUtils::GetAppVersion()));
+    m_pUi->Copyright_Label->setText(CStringUtils::GetAppCopyright());
 }
 
 CAuthorization::~CAuthorization()

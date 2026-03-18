@@ -114,6 +114,13 @@
      </item>
     </layout>
    </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="Copyright_Label">
+     <property name="text">
+      <string>Copyright</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>

@@ -21,6 +21,7 @@ CBuksanSpy::CBuksanSpy(QWidget *parent)
     m_pUi->pushButton_2->addAction(m_pUi->Quit_Action);
     m_pUi->pushButton_2->addAction(m_pUi->action_Qt);
     LOG_INFO_MSG("CBuksanSpy main window constructed");
+    m_pUi->statusbar->showMessage(QString("%1 %2 %3").arg(CStringUtils::GetAppName(), CStringUtils::GetAppVersion(), CStringUtils::GetAppCopyright()));
 }
 
 CBuksanSpy::~CBuksanSpy()
@@ -34,7 +35,7 @@ void CBuksanSpy::fSetTitle()
     CNetworkInfo l_ip;
     m_pAccessManager = new CAccessManager(this);
     //Назначение заголовка окна
-    setWindowTitle(l_ip.fGetIPAddress()+" "+"User: "+m_strUsername+"("+m_pAccessManager->fGetMandatoryGroup(m_strUsername)+") - BuksanSpy");
+    setWindowTitle(l_ip.fGetIPAddress()+" "+"User: "+m_strUsername+"("+m_pAccessManager->fGetMandatoryGroup(m_strUsername)+") - " + CStringUtils::GetAppName() +  " " + CStringUtils::GetAppVersion());
     delete m_pAccessManager;
 }
 

@@ -11,6 +11,9 @@ public:
     static  bool CheckPassword(QString Password, QString PasswordRpt, QString& ErrorDesc);
     static bool CheckMail(QString email, QString& ErrorDesc);
     static QString HashBuksan(QString str);
+    static QString GetAppName();
+    static QString GetAppCopyright();
+    static QString GetAppVersion();
 private:
     static int ASCIIValidate(int nS);
 

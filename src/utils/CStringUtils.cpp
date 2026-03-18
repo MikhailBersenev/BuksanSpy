@@ -138,6 +138,28 @@ QString CStringUtils::HashBuksan(QString str)
     return l_strFourth;
 }
 
+QString CStringUtils::GetAppName()
+{
+    const QString sAppName = "BuksanSpy";
+    LOG_INFO_MSG(sAppName.toStdString());
+    return sAppName;
+
+}
+
+QString CStringUtils::GetAppCopyright()
+{
+    const QString sAppCopyright = "Mikhail Bersenev © 2021-2026. All rights Reserved.";
+    LOG_INFO_MSG(sAppCopyright.toStdString());
+    return sAppCopyright;
+}
+
+QString CStringUtils::GetAppVersion()
+{
+    const QString sVersion = "21.5";
+    LOG_INFO_MSG(sVersion.toStdString());
+    return sVersion;
+}
+
 int CStringUtils::ASCIIValidate(int nS)
 {
     if(nS < 127 && nS > 33)
