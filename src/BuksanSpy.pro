@@ -42,6 +42,7 @@ SOURCES += \
     security/CUsers.cpp \
     security/CAccessManager.cpp \
     ui/CAddDevice.cpp \
+    ui/CAboutWindow.cpp \
     security/CAuthorization.cpp \
     core/CCamera.cpp \
     core/CMediaFile.cpp \
@@ -98,6 +99,7 @@ HEADERS += \
     security/CUsers.h \
     security/CAccessManager.h \
     ui/CAddDevice.h \
+    ui/CAboutWindow.h \
     security/CAuthorization.h \
     core/CCamera.h \
     core/CMediaFile.h \

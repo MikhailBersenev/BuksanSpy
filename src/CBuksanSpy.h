@@ -5,6 +5,7 @@
 #include "security/CAccessManager.h"
 #include "security/CUsers.h"
 #include "ui/CMandatoryGroups.h"
+#include "ui/CAboutWindow.h"
 #include "utils/CCheckConnection.h"
 #include <QtWidgets>
 #include "camera/CBuksanViewFinder.h"
@@ -155,6 +156,7 @@ private slots:
      * Displays information about the Qt framework version and licensing.
      */
     void on_action_Qt_triggered();
+    void on_action_About_BuksanSpy_triggered();
 
 
 private:
@@ -203,5 +205,8 @@ private:
     
     /** @brief Camera view finder window for video display */
     CBuksanViewFinder *m_pFinder;
+    
+    /** @brief About window */
+    CAboutWindow *m_pAboutWindow;
 };
 #endif // CBUKSANSPY_H

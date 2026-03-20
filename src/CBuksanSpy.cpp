@@ -18,10 +18,14 @@
 CBuksanSpy::CBuksanSpy(QWidget *parent)
     : QMainWindow(parent)
     , m_pUi(new Ui::CBuksanSpy)
+    , m_pAboutWindow(nullptr)
 {
     m_pUi->setupUi(this);
     m_pUi->pushButton_2->addAction(m_pUi->Quit_Action);
     m_pUi->pushButton_2->addAction(m_pUi->action_Qt);
+    QAction *pAboutAction = new QAction(tr("About %1").arg(CStringUtils::GetAppName()), this);
+    connect(pAboutAction, &QAction::triggered, this, &CBuksanSpy::on_action_About_BuksanSpy_triggered);
+    m_pUi->menu_6->addAction(pAboutAction);
     LOG_INFO_MSG("CBuksanSpy main window constructed");
     m_pUi->statusbar->showMessage(QString("%1 %2 %3").arg(CStringUtils::GetAppName(), CStringUtils::GetAppVersion(), CStringUtils::GetAppCopyright()));
 }
@@ -217,7 +221,18 @@ void CBuksanSpy::fSubscribe()
 void CBuksanSpy::on_action_Qt_triggered()
 {
     //Показать оконо About Qt
-    QMessageBox::aboutQt(this, "BuksanSpy uses Qt");
+    QMessageBox::aboutQt(this, QString("%1 is using Qt").arg(CStringUtils::GetAppName()));
+}
+
+void CBuksanSpy::on_action_About_BuksanSpy_triggered()
+{
+    if (!m_pAboutWindow) {
+        m_pAboutWindow = new CAboutWindow(this);
+    }
+
+    m_pAboutWindow->show();
+    m_pAboutWindow->raise();
+    m_pAboutWindow->activateWindow();
 }
 
 
