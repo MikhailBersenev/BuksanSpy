@@ -2,6 +2,7 @@ QT       += core gui widgets
 QT       += sql
 QT       += multimedia
 QT       += network
+QT       += concurrent
 
 CONFIG += c++17
 
@@ -20,6 +21,8 @@ SOURCES += \
     CBuksanSpyApp.cpp \
     CBuksanSpy.cpp \
     camera/CBuksanViewFinder.cpp \
+    camera/AbstractViewFinder.cpp \
+    camera/OnvifClient.cpp \
     camera/CCameraVideoCapture.cpp \
     main.cpp \
     utils/AppLogging.cpp \
@@ -42,6 +45,8 @@ SOURCES += \
     security/CUsers.cpp \
     security/CAccessManager.cpp \
     ui/CAddDevice.cpp \
+    ui/COnvifSetupDialog.cpp \
+    ui/COnvifManualAdd.cpp \
     ui/CAboutWindow.cpp \
     security/CAuthorization.cpp \
     core/CCamera.cpp \
@@ -79,6 +84,9 @@ HEADERS += \
     CBuksanSpyApp.h \
     utils/AppLogging.h \
     camera/CBuksanViewFinder.h \
+    camera/AbstractViewFinder.h \
+    camera/CAddDevicePreviewViewFinder.h \
+    camera/OnvifClient.h \
     camera/CCameraVideoCapture.h \
     utils/CCheckConnection.h \
     utils/CUserCheck.h \
@@ -99,6 +107,8 @@ HEADERS += \
     security/CUsers.h \
     security/CAccessManager.h \
     ui/CAddDevice.h \
+    ui/COnvifSetupDialog.h \
+    ui/COnvifManualAdd.h \
     ui/CAboutWindow.h \
     security/CAuthorization.h \
     core/CCamera.h \
@@ -132,17 +142,19 @@ HEADERS += \
     EventEngine/events/salesEvents/CShiftClosingEvent.h
 
 FORMS += \
-    CBuksanSpy.ui \
+    ui/CBuksanSpy.ui \
     ui/CAddDevice.ui \
-    security/CAuthorization.ui \
-    security/CCreateUser.ui \
+    ui/COnvifSetupDialog.ui \
+    ui/COnvifManualAdd.ui \
+    ui/CAuthorization.ui \
+    ui/CCreateUser.ui \
     ui/CDevices.ui \
     ui/CEditMandatoryGroup.ui \
     ui/CEventLog.ui \
     ui/CMandatoryGroups.ui \
     ui/CMandatoryMarkCreator.ui \
     ui/CMandatoryMarksEditor.ui \
-    security/CUsers.ui
+    ui/CUsers.ui
 
 TRANSLATIONS += \
     BuksanSpy_ru_RU.ts

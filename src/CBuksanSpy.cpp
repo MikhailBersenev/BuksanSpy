@@ -100,7 +100,7 @@ void CBuksanSpy::on_pushButton_4_clicked()
             m_pCameraVideoCapture->mVideoCap = cv::VideoCapture(l_devices.value(0).toInt(), cv::CAP_V4L2);
             break;
         case 2:
-            m_pCameraVideoCapture->mVideoCap = cv::VideoCapture(l_devices.value(0).toString().toStdString(), cv::CAP_V4L2);
+            m_pCameraVideoCapture->mVideoCap = cv::VideoCapture(l_devices.value(0).toString().toStdString(), cv::CAP_FFMPEG);
             break;
         }
         m_pCameraVideoCapture->mVideoCap.set(cv::CAP_PROP_FRAME_WIDTH, l_devices.value(2).toInt());

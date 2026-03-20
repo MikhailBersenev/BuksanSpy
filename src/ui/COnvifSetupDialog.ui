@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>COnvifSetupDialog</class>
+ <widget class="QDialog" name="COnvifSetupDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>480</width>
+    <height>520</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ONVIF — camera search and RTSP</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="Credentials_GroupBox">
+     <property name="title">
+      <string>ONVIF account</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout_Credentials">
+      <item row="0" column="0">
+       <widget class="QLabel" name="OnvifUsername_Label">
+        <property name="text">
+         <string>Username:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="OnvifUsername_Edit"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="OnvifPassword_Label">
+        <property name="text">
+         <string>Password:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="OnvifPassword_Edit">
+        <property name="echoMode">
+         <enum>QLineEdit::EchoMode::Password</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="Search_GroupBox">
+     <property name="title">
+      <string>Search</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_Search">
+      <item row="0" column="0">
+       <widget class="QLabel" name="OnvifHost_Label">
+        <property name="text">
+         <string>IP / host:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="OnvifHost_Edit">
+        <property name="placeholderText">
+         <string>192.168.1.10 or IP:8000 or http://IP/onvif/device_service (HiWatch/Hikvision)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QPushButton" name="OnvifSearchByIp_Button">
+        <property name="text">
+         <string>Find device by IP</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="2">
+       <widget class="QPushButton" name="DiscoverOnvif_Button">
+        <property name="text">
+         <string>Discover cameras on the network (WS-Discovery)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QComboBox" name="OnvifDevices_ComboBox"/>
+      </item>
+      <item row="4" column="0" colspan="2">
+       <widget class="QPushButton" name="OpenOnvifManualDialog_Button">
+        <property name="text">
+         <string>Manual entry (URL + profile token)...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0" colspan="2">
+       <widget class="QLabel" name="OnvifStatus_Label">
+        <property name="text">
+         <string>Enter credentials and run a search</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

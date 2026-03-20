@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>350</width>
-    <height>190</height>
+    <width>480</width>
+    <height>520</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,7 +38,7 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="1">
+   <item row="7" column="1">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Orientation::Horizontal</enum>
@@ -93,6 +93,29 @@
     <widget class="QLabel" name="Caption_Label">
      <property name="text">
       <string>Name:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="2">
+    <widget class="QWidget" name="Preview_Container">
+     <layout class="QVBoxLayout" name="Preview_VLayout">
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <item>
+       <widget class="QPushButton" name="Preview_Button">
+        <property name="text">
+         <string>Start preview</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="6" column="0" colspan="2">
+    <widget class="QPushButton" name="OnvifSetup_Button">
+     <property name="text">
+      <string>Pick RTSP (ONVIF)...</string>
      </property>
     </widget>
    </item>

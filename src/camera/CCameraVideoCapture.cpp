@@ -20,7 +20,7 @@ void CCameraVideoCapture::run()
     else
     {
         LOG_INFO_MSG("CCameraVideoCapture: capture thread running");
-        while(true) {
+        while (!isInterruptionRequested()) {
             mVideoCap >> mFrame;
             if(!mFrame.empty())
             {
@@ -33,7 +33,7 @@ void CCameraVideoCapture::run()
             }
 
         }
-
+        mVideoCap.release();
     }
 
 }

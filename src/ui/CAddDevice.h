@@ -10,6 +10,9 @@ namespace Ui {
 class CAddDevice;
 }
 
+class CCameraVideoCapture;
+class CAddDevicePreviewViewFinder;
+
 class CAddDevice : public QDialog
 {
     Q_OBJECT
@@ -21,15 +24,19 @@ public:
 private slots:
     void on_buttonBox_accepted();
     void on_DevType_ComboBox_currentIndexChanged(int index);
+    void onOnvifSetupClicked();
+    void onPreviewButtonClicked();
+    void onPreviewFrameReady();
 
 private:
     Ui::CAddDevice *m_pUi;
-    QSqlQueryModel *m_pDevTypesModel;
     void fSetMode(int nMode);
+    void stopPreview();
     QLineEdit  *m_pRtspEdit;
     QComboBox *m_pWebcameraComboBox;
-    QString m_strDevId;
     QSqlQueryModel *m_pResolutionsModel;
+    CCameraVideoCapture *m_pPreviewCapture = nullptr;
+    CAddDevicePreviewViewFinder *m_pPreviewViewFinder = nullptr;
 };
 
 #endif // CADDDEVICE_H

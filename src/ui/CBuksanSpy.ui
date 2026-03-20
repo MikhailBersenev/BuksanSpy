@@ -55,7 +55,7 @@
       </property>
       <property name="text">
        <string>Start recording 
- via selected device</string>
+via selected device</string>
       </property>
       <property name="flat">
        <bool>false</bool>
